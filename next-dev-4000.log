@@ -1,0 +1,52 @@
+
+> agrilink-web@0.1.0 dev
+> next dev -p 4000
+
+   ▲ Next.js 15.3.3
+   - Local:        http://localhost:4000
+   - Network:      http://169.254.203.171:4000
+
+ ✓ Starting...
+ ✓ Ready in 9.5s
+ ○ Compiling /buyer/dashboard ...
+ ✓ Compiled /buyer/dashboard in 13.6s (761 modules)
+ GET /buyer/dashboard 200 in 17329ms
+ ○ Compiling /buyer/matches ...
+ ✓ Compiled /buyer/matches in 18.6s (811 modules)
+ ○ Compiling /buyer/demand ...
+ ✓ Compiled /buyer/settings in 14.6s (845 modules)
+ GET /buyer/matches 200 in 35101ms
+ GET /buyer/demand 200 in 17705ms
+ GET /buyer/history 200 in 13775ms
+ GET /buyer/settings 200 in 11933ms
+ GET /buyer/matches 200 in 1117ms
+ GET /buyer/demand 200 in 643ms
+ GET /buyer/settings 200 in 594ms
+ GET /buyer/settings 200 in 565ms
+ GET /buyer/dashboard 200 in 1174ms
+ GET /buyer/dashboard 200 in 401ms
+ GET /buyer/settings 200 in 201ms
+ ○ Compiling /buyer/invoices ...
+ ✓ Compiled /buyer/invoices in 5.2s (859 modules)
+ GET /buyer/dashboard 200 in 5838ms
+ GET /buyer/invoices 200 in 190ms
+ GET /buyer/history 200 in 192ms
+ GET /buyer/dashboard 200 in 3908ms
+ GET /buyer/matches 200 in 202ms
+ GET /buyer/demand 200 in 197ms
+ GET /buyer/history 200 in 126ms
+ GET /buyer/invoices 200 in 178ms
+ GET /buyer/settings 200 in 203ms
+ ○ Compiling /aggregator/home ...
+ ✓ Compiled / in 28.8s (882 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 6.9s (886 modules)
+ GET /buyer/settings 404 in 10057ms
+ GET /aggregator/home 404 in 39352ms
+ GET /buyer/settings 200 in 523ms
+ GET /aggregator/home 200 in 1156ms
+ ○ Compiling /aggregator/onboarding ...
+ ✓ Compiled /_not-found in 24.4s (905 modules)
+ GET /_next/static/webpack/5740103c6b0a063b.webpack.hot-update.json 404 in 8324ms
+ GET /aggregator/onboarding 200 in 27544ms
+ GET /aggregator/onboarding 200 in 4359ms

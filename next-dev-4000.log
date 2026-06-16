@@ -50,3 +50,37 @@
  GET /_next/static/webpack/5740103c6b0a063b.webpack.hot-update.json 404 in 8324ms
  GET /aggregator/onboarding 200 in 27544ms
  GET /aggregator/onboarding 200 in 4359ms
+ ✓ Compiled in 60.6s (894 modules)
+ ○ Compiling /admin ...
+ ✓ Compiled /admin in 11.9s (927 modules)
+ GET /admin 200 in 14822ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 7.4s (917 modules)
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 89.4s (1223 modules)
+ GET /_next/static/css/app/layout.css?v=1781642183495 500 in 194056ms
+ GET /_next/static/chunks/main-app.js?v=1781642183495 500 in 193073ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 21.8s (1184 modules)
+ GET /_next/static/chunks/app-pages-internals.js 404 in 32665ms
+ ○ Compiling /admin ...
+ ✓ Compiled /admin in 2s (571 modules)
+ GET /admin 200 in 4562ms
+ ○ Compiling / ...
+ ✓ Compiled /admin in 4.6s (558 modules)
+ ✓ Compiled (574 modules)
+ GET /admin 200 in 4994ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 4.2s (1212 modules)
+ GET /_next/static/css/app/layout.css?v=1781642600553 404 in 6016ms
+ GET /_next/static/chunks/main-app.js?v=1781642600553 404 in 5902ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 203ms
+ GET /admin 200 in 469ms
+ GET /_next/static/css/app/layout.css?v=1781642760077 404 in 241ms
+ GET /_next/static/chunks/main-app.js?v=1781642760077 404 in 317ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 221ms
+ GET /admin 200 in 1249ms
+ GET / 307 in 623ms
+ GET /_next/static/css/app/layout.css?v=1781642765608 404 in 618ms
+ GET /_next/static/chunks/main-app.js?v=1781642765608 404 in 780ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 778ms

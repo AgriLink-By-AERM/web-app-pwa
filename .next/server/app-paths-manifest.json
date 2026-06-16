@@ -1,8 +1,4 @@
 {
-  "/buyer/matches/page": "app/buyer/matches/page.js",
-  "/buyer/demand/page": "app/buyer/demand/page.js",
-  "/aggregator/home/page": "app/aggregator/home/page.js",
-  "/buyer/invoices/page": "app/buyer/invoices/page.js",
-  "/buyer/settings/page": "app/buyer/settings/page.js",
-  "/buyer/scan/page": "app/buyer/scan/page.js"
+  "/page": "app/page.js",
+  "/buyer/dashboard/page": "app/buyer/dashboard/page.js"
 }

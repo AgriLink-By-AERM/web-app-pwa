@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title">
+  <title id="title">AgriLink Apple touch icon</title>
+  <rect width="180" height="180" rx="40" fill="#14532D"/>
+  <path d="M54 112c32 7 61-2 85-31 1 35-16 64-47 77-24 10-42-3-38-46Z" fill="#22C55E"/>
+  <path d="M70 116c19-11 36-25 50-42" fill="none" stroke="#DCFCE7" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="56" cy="116" r="13" fill="#DCFCE7"/>
+  <circle cx="127" cy="60" r="13" fill="#DCFCE7"/>
+</svg>

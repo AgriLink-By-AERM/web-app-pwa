@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">AgriLink maskable icon</title>
+  <desc id="desc">Maskable AgriLink app icon with safe padding for platform icon shapes.</desc>
+  <rect width="512" height="512" fill="#14532D"/>
+  <circle cx="256" cy="256" r="186" fill="#DCFCE7"/>
+  <path d="M157 315c81 14 149-9 202-71 3 78-34 139-102 167-52 21-96-5-100-96Z" fill="#16A34A"/>
+  <path d="M194 326c41-25 78-55 110-91" fill="none" stroke="#052E16" stroke-width="18" stroke-linecap="round" opacity=".42"/>
+  <circle cx="166" cy="330" r="34" fill="#14532D"/>
+  <circle cx="353" cy="181" r="34" fill="#14532D"/>
+  <path d="M189 303c55-78 108-118 162-122" fill="none" stroke="#14532D" stroke-width="24" stroke-linecap="round"/>
+</svg>

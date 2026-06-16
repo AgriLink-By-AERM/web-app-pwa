@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">AgriLink icon</title>
+  <desc id="desc">Green AgriLink app icon with a connected leaf and route mark.</desc>
+  <rect width="512" height="512" rx="112" fill="#14532D"/>
+  <circle cx="158" cy="340" r="46" fill="#DCFCE7"/>
+  <circle cx="354" cy="172" r="46" fill="#DCFCE7"/>
+  <path d="M190 312c58-84 112-126 164-140" fill="none" stroke="#86EFAC" stroke-width="34" stroke-linecap="round"/>
+  <path d="M170 336c86 16 158-8 213-73 4 83-36 149-109 179-55 23-101-5-104-106Z" fill="#22C55E"/>
+  <path d="M209 348c43-26 82-57 116-95" fill="none" stroke="#052E16" stroke-width="20" stroke-linecap="round" opacity=".45"/>
+  <path d="M118 156h112v54H118z" fill="#F8FAFC"/>
+  <path d="M118 236h82v34h-82z" fill="#BBF7D0"/>
+</svg>

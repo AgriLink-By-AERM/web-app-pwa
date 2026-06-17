@@ -225,7 +225,7 @@ export async function submitAgriWasteLog(payload: AgriWasteLogPayload): Promise<
       status: "Pending Match",
       qrCodeValue: `AGRILINK:TICKET:${referenceNumber}`,
       createdAt: new Date().toISOString(),
-      shareUrl: `/aggregator/tickets/${ticketId}`
+      shareUrl: "/aggregator/tickets/ticket_demo_cassava"
     }
   };
 }

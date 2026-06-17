@@ -22,6 +22,7 @@ import {
   buildLogMilestones,
   formatLogDate,
   getAggregatorLogById,
+  getAggregatorLogStaticParams,
   type AggregatorHistoricalLog,
   type AggregatorLogMilestone
 } from "@/lib/aggregator/logs";
@@ -33,6 +34,10 @@ type AggregatorLogDetailPageProps = {
     id: string;
   }>;
 };
+
+export function generateStaticParams() {
+  return getAggregatorLogStaticParams();
+}
 
 export default async function AggregatorLogDetailPage({ params }: AggregatorLogDetailPageProps) {
   const { id } = await params;

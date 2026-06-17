@@ -252,6 +252,10 @@ const historicalLogs: AggregatorHistoricalLog[] = [
   }
 ];
 
+export function getAggregatorLogStaticParams(): Array<{ id: string }> {
+  return historicalLogs.map((log) => ({ id: log.id }));
+}
+
 const nigerianPhonePattern = /^(?:\+234|234|0)[789][01]\d{8}$/;
 
 export async function getAggregatorLogs(filter: AggregatorLogFilter = "all"): Promise<AggregatorHistoricalLog[]> {

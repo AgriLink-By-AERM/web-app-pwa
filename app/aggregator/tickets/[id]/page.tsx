@@ -3,7 +3,7 @@ import type { LucideIcon } from "lucide-react";
 import { ArrowLeft, Copy, MapPin, MessageCircle, Printer, QrCode, Scale, Share2, UserRound } from "lucide-react";
 import { StatusBadge } from "@/components/ui/badge";
 import { AggregatorBottomNav } from "@/features/aggregator/components/aggregator-bottom-nav";
-import { getCollectionTicket } from "@/lib/aggregator/tickets";
+import { getCollectionTicket, getCollectionTicketStaticParams } from "@/lib/aggregator/tickets";
 import { formatKg, maskPhone } from "@/lib/format";
 
 type CollectionTicketPageProps = {
@@ -11,6 +11,10 @@ type CollectionTicketPageProps = {
     id: string;
   }>;
 };
+
+export function generateStaticParams() {
+  return getCollectionTicketStaticParams();
+}
 
 export default async function CollectionTicketPage({ params }: CollectionTicketPageProps) {
   const { id } = await params;

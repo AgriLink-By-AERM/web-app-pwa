@@ -2,8 +2,20 @@
 
 import { useEffect } from "react";
 
+declare global {
+  interface Window {
+    Capacitor?: {
+      isNativePlatform?: () => boolean;
+    };
+  }
+}
+
 export function ServiceWorkerRegistration() {
   useEffect(() => {
+    if (window.Capacitor?.isNativePlatform?.()) {
+      return;
+    }
+
     if (!("serviceWorker" in navigator)) {
       return;
     }

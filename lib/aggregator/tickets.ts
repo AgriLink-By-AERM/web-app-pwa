@@ -23,6 +23,10 @@ const demoTickets: Record<string, CollectionTicket> = {
   }
 };
 
+export function getCollectionTicketStaticParams(): Array<{ id: string }> {
+  return Object.keys(demoTickets).map((id) => ({ id }));
+}
+
 export async function getCollectionTicket(id: string): Promise<CollectionTicket> {
   await simulateNetworkDelay(140);
 

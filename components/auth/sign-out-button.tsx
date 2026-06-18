@@ -18,7 +18,7 @@ export function SignOutButton({ className, iconClassName, label = "Sign out" }: 
     localStorage.removeItem("agrilink_user");
     document.cookie = "agrilink_token=; path=/; max-age=0; SameSite=Lax";
     document.cookie = "agrilink_user=; path=/; max-age=0; SameSite=Lax";
-    router.replace("/");
+    router.replace("/login");
     router.refresh();
   }
 

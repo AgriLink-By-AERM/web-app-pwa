@@ -14,8 +14,9 @@ export function DealerRedeemConfirm() {
   const searchParams = useSearchParams();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const voucher = useMemo<Voucher>(() => {
+  const voucher = useMemo<Voucher & { farmerPhone?: string }>(() => {
     const code = searchParams.get("code") ?? "849201";
+    const farmerPhone = searchParams.get("farmerPhone") ?? "";
     const item = searchParams.get("item") ?? "NPK Fertilizer 50kg";
     const farmerId = searchParams.get("farmerId") ?? "FRM-29041";
     const farmerName = searchParams.get("farmerName") ?? "Musa Ibrahim";
@@ -23,9 +24,10 @@ export function DealerRedeemConfirm() {
 
     return {
       code,
+      farmerPhone,
       farmerId,
       farmerName,
-      farmerMaskedPhone: "080****2341",
+      farmerMaskedPhone: farmerPhone.replace(/(\+\d{3})\d{4}(\d{4})/, '$1****$2') || "080****2341",
       itemAllocation: item,
       quantity: item.includes("NPK") ? 2 : 1,
       unit: item.includes("NPK") ? "bags" : "pack",
@@ -56,8 +58,8 @@ export function DealerRedeemConfirm() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-100 text-slate-950">
-      <section className="mx-auto min-h-screen max-w-md border-x border-slate-200 bg-slate-50 px-4 py-6 pb-24 shadow-sm">
+    <main className="min-h-screen bg-surface text-ink lg:pl-72">
+      <section className="mx-auto min-h-screen max-w-7xl bg-slate-50 px-4 py-6 pb-24 shadow-sm sm:px-6 lg:bg-transparent lg:px-8 lg:shadow-none">
         <Link className="inline-flex min-h-10 items-center gap-2 text-sm font-bold text-indigo-700" href="/dealer/redeem">
           <ArrowLeft className="h-4 w-4" />
           Enter OTP

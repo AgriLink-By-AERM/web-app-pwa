@@ -33,8 +33,8 @@ export function DealerRedeemSuccessClient() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-100 text-slate-950">
-      <section className="mx-auto min-h-screen max-w-md border-x border-slate-200 bg-slate-50 px-4 py-6 pb-24 shadow-sm">
+    <main className="min-h-screen bg-surface text-ink lg:pl-72">
+      <section className="mx-auto min-h-screen max-w-7xl bg-slate-50 px-4 py-6 pb-24 shadow-sm sm:px-6 lg:bg-transparent lg:px-8 lg:shadow-none">
         <section className="rounded-xl border border-emerald-200 bg-white p-6 text-center shadow-sm">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
             <CheckCircle2 className="h-9 w-9" />

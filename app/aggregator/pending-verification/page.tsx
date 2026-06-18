@@ -7,8 +7,8 @@ export default async function AggregatorPendingVerificationPage() {
   const summary = await getAggregatorVerificationSummary();
 
   return (
-    <main className="min-h-screen bg-[#FAF7F2] px-4 py-6 text-[#2C1A0E] sm:px-6">
-      <section className="mx-auto flex min-h-[calc(100vh-3rem)] w-full max-w-md flex-col">
+    <main className="min-h-screen bg-surface px-4 py-6 text-ink sm:px-6 lg:px-8">
+      <section className="mx-auto flex min-h-[calc(100vh-3rem)] w-full max-w-7xl flex-col">
         <header className="pt-2">
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#A0522D]">AgriLink</p>
           <h1 className="mt-3 text-2xl font-extrabold tracking-tight">Verification in progress</h1>

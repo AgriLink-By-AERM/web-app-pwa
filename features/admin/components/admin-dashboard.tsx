@@ -163,7 +163,7 @@ export function AdminDashboard({ initialData, session }: AdminDashboardProps) {
               </span>
               <div>
                 <p className="text-sm font-bold text-white">{session.name}</p>
-                <p className="text-xs text-slate-500">isAdmin: true</p>
+                <p className="text-xs text-slate-500">Platform Operator</p>
               </div>
             </div>
             <SignOutButton className="mt-4 min-h-10 w-full rounded-xl border border-red-300/30 bg-red-500/10 text-sm font-bold text-red-100 hover:bg-red-500/20" />

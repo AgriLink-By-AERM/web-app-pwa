@@ -7,8 +7,8 @@ export default async function DealerHomePage() {
   const [profile, recentRedemptions] = await Promise.all([getDealerProfile(), getRecentRedemptions(3)]);
 
   return (
-    <main className="min-h-screen bg-slate-100 text-slate-950">
-      <section className="mx-auto min-h-screen max-w-md border-x border-slate-200 bg-slate-50 pb-24 shadow-sm">
+    <main className="min-h-screen bg-surface text-ink lg:pl-72">
+      <section className="mx-auto min-h-screen max-w-7xl bg-slate-50 pb-24 shadow-sm lg:bg-transparent lg:px-8 lg:py-6 lg:shadow-none">
         <header className="bg-indigo-900 px-5 pb-6 pt-10 text-white">
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-white/45">Dealer command center</p>
           <div className="mt-4 flex items-start justify-between gap-4">

@@ -37,8 +37,8 @@ export function DealerHistoryList({ records }: DealerHistoryListProps) {
   }, [activeFilter, records, searchTerm]);
 
   return (
-    <main className="min-h-screen bg-slate-100 text-slate-950">
-      <section className="mx-auto min-h-screen max-w-md border-x border-slate-200 bg-slate-50 px-4 py-6 pb-24 shadow-sm">
+    <main className="min-h-screen bg-surface text-ink lg:pl-72">
+      <section className="mx-auto min-h-screen max-w-7xl bg-slate-50 px-4 py-6 pb-24 shadow-sm sm:px-6 lg:bg-transparent lg:px-8 lg:shadow-none">
         <header>
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-700">Dealer records</p>
           <h1 className="mt-2 text-2xl font-extrabold tracking-tight">Redemptions History</h1>

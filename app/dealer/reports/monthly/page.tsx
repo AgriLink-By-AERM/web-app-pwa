@@ -18,8 +18,8 @@ export default async function DealerMonthlyReportPage() {
   const stockStatuses = stocks.map(buildStockStatus);
 
   return (
-    <main className="min-h-screen bg-slate-100 text-slate-950">
-      <section className="mx-auto min-h-screen max-w-md border-x border-slate-200 bg-slate-50 px-4 py-6 pb-24 shadow-sm">
+    <main className="min-h-screen bg-surface text-ink lg:pl-72">
+      <section className="mx-auto min-h-screen max-w-7xl bg-slate-50 px-4 py-6 pb-24 shadow-sm sm:px-6 lg:bg-transparent lg:px-8 lg:shadow-none">
         <Link className="inline-flex min-h-10 items-center gap-2 text-sm font-bold text-indigo-700" href="/dealer/reports">
           <ArrowLeft className="h-4 w-4" />
           Reports

@@ -18,6 +18,7 @@ const navItems = [
 export function AggregatorBottomNav({ active }: AggregatorBottomNavProps) {
   return (
     <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-[#E5E7EB] bg-white shadow-[0_-8px_24px_rgba(15,42,26,0.08)] lg:inset-y-0 lg:left-0 lg:right-auto lg:flex lg:w-72 lg:flex-col lg:border-r lg:border-t-0 lg:bg-[#0F2A1A] lg:px-4 lg:py-5 lg:text-white lg:shadow-none">
+      <AppLogo className="fixed right-4 top-4 lg:hidden" iconClassName="h-10 w-10 bg-[#1E4D2B] shadow-lg" textClassName="sr-only" />
       <div className="hidden lg:block">
         <AppLogo subtitle="Aggregator Portal" iconClassName="bg-[#1E4D2B]" />
       </div>

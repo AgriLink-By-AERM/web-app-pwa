@@ -9,6 +9,8 @@ import {
   Settings,
   Zap
 } from "lucide-react";
+import { AppLogo } from "@/components/app-logo";
+import { SignOutButton } from "@/components/auth/sign-out-button";
 import { BuyerTypeSwitch } from "@/features/buyer/components/buyer-type-switch";
 import type { BuyerType, CorporateBuyerProfile } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -40,7 +42,7 @@ export function BuyerSidebar({ buyerType, profile }: BuyerSidebarProps) {
   return (
     <aside className="sticky top-0 flex h-screen w-64 shrink-0 flex-col bg-ink text-white">
       <div className="border-b border-white/10 px-5 py-6">
-        <p className="text-xs font-bold uppercase tracking-[0.24em] text-white/40">AgriLink</p>
+        <AppLogo iconClassName="h-10 w-10 bg-[#1E4D2B]" subtitle="Buyer Portal" />
         <div className="mt-3 flex items-center gap-2">
           <BarChart3 className="h-5 w-5 text-factoryAccent" />
           <p className="text-sm font-bold">
@@ -87,6 +89,7 @@ export function BuyerSidebar({ buyerType, profile }: BuyerSidebarProps) {
       <div className="border-t border-white/10 p-5">
         <p className="text-sm font-bold">{profile.organizationName}</p>
         <p className="mt-1 text-xs text-white/45">{profile.roleTitle}</p>
+        <SignOutButton className="mt-4 min-h-10 w-full rounded-xl border border-red-300/30 bg-red-500/10 text-sm font-bold text-red-100 hover:bg-red-500/20" />
       </div>
     </aside>
   );

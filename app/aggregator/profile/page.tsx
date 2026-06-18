@@ -1,9 +1,7 @@
-import Link from "next/link";
 import {
   BadgeCheck,
   ChevronRight,
   CircleDollarSign,
-  LogOut,
   MapPin,
   PackageCheck,
   Phone,
@@ -11,6 +9,8 @@ import {
   ShieldCheck,
   UsersRound
 } from "lucide-react";
+import { AppLogo } from "@/components/app-logo";
+import { SignOutButton } from "@/components/auth/sign-out-button";
 import { AggregatorBottomNav } from "@/features/aggregator/components/aggregator-bottom-nav";
 import { getAggregatorDashboardData } from "@/lib/aggregator/dashboard";
 import { formatNaira, maskPhone } from "@/lib/format";
@@ -19,9 +19,10 @@ export default async function AggregatorProfilePage() {
   const data = await getAggregatorDashboardData();
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="mx-auto min-h-screen max-w-md border-x border-slate-200 bg-slate-50 pb-24 shadow-sm">
-        <header className="bg-emerald-800 px-5 pb-7 pt-10 text-white">
+    <main className="min-h-screen bg-surface text-ink lg:pl-72">
+      <section className="mx-auto min-h-screen max-w-7xl bg-slate-50 pb-24 shadow-sm lg:bg-transparent lg:px-8 lg:py-6 lg:shadow-none">
+        <header className="rounded-none bg-[#0F2A1A] px-5 pb-7 pt-10 text-white lg:rounded-2xl lg:p-6">
+          <AppLogo className="mb-6 lg:hidden" iconClassName="bg-[#1E4D2B]" subtitle="Aggregator Profile" />
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-white/50">Aggregator Profile</p>
           <div className="mt-5 flex items-start gap-4">
             <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-2xl font-extrabold">
@@ -68,13 +69,7 @@ export default async function AggregatorProfilePage() {
             </div>
           </section>
 
-          <Link
-            className="mt-5 flex min-h-12 items-center justify-center rounded-lg border border-red-200 bg-white px-4 py-2 text-sm font-bold text-red-600 shadow-sm transition hover:bg-red-50"
-            href="/aggregator/onboarding"
-          >
-            <LogOut className="mr-2 h-4 w-4" />
-            Sign out
-          </Link>
+          <SignOutButton className="mt-5 flex min-h-12 w-full rounded-lg border border-red-200 bg-white px-4 py-2 text-sm font-bold text-red-600 shadow-sm transition hover:bg-red-50" />
         </section>
       </section>
       <AggregatorBottomNav active="profile" />

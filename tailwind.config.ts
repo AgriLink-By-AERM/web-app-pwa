@@ -10,21 +10,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#0D1B2A",
-        body: "#1E3448",
-        muted: "#64748B",
-        subtle: "#94A3B8",
-        surface: "#F1F5F9",
-        border: "#E2EBF0",
-        factory: "#14532D",
-        factoryAccent: "#16A34A",
-        factoryTint: "#F0FDF4",
-        restaurant: "#78350F",
-        restaurantAccent: "#D97706",
-        restaurantTint: "#FFFBEB"
+        ink: "#111827",
+        body: "#374151",
+        muted: "#6B7280",
+        subtle: "#9CA3AF",
+        surface: "#F2F8F3",
+        border: "#E5E7EB",
+        factory: "#0F2A1A",
+        factoryAccent: "#1E4D2B",
+        factoryTint: "#E8F3EC",
+        restaurant: "#8A5A05",
+        restaurantAccent: "#F9A825",
+        restaurantTint: "#FDF3E0"
       },
       boxShadow: {
-        panel: "0 1px 2px rgba(13, 27, 42, 0.06)"
+        panel: "0 1px 4px rgba(15, 42, 26, 0.06)"
       }
     }
   },

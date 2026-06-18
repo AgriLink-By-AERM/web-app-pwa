@@ -18,6 +18,8 @@ import {
   UserCheck,
   Users
 } from "lucide-react";
+import { SignOutButton } from "@/components/auth/sign-out-button";
+import { AppLogo } from "@/components/app-logo";
 import {
   approveAdminUser,
   formatAdminCurrency,
@@ -30,9 +32,9 @@ import {
   type AdminSystemSeverity,
   type AdminUser,
   type AdminUserStatus
-} from "@/lib/admin/service";
-import type { UserSession } from "@/lib/auth/session";
-import { cn } from "@/lib/utils";
+} from "../../../lib/admin/service";
+import type { UserSession } from "../../../lib/auth/session";
+import { cn } from "../../../lib/utils";
 
 type AdminScreen = "users" | "logs" | "matches" | "system";
 type UserTab = "pending" | "active" | "suspended";
@@ -127,18 +129,10 @@ export function AdminDashboard({ initialData, session }: AdminDashboardProps) {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
+    <main className="min-h-screen bg-[#0F2A1A] text-slate-100">
       <div className="flex min-h-screen">
-        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-white/10 bg-slate-950 px-4 py-5 lg:flex lg:flex-col">
-          <div className="flex items-center gap-3 px-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500 text-slate-950">
-              <ShieldCheck className="h-6 w-6" />
-            </span>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.24em] text-slate-500">AgriLink</p>
-              <p className="text-sm font-extrabold text-white">Admin Console</p>
-            </div>
-          </div>
+        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-white/10 bg-[#0F2A1A] px-4 py-5 lg:flex lg:flex-col">
+          <AppLogo className="px-3" iconClassName="bg-[#1E4D2B]" subtitle="Admin Console" />
 
           <nav className="mt-8 flex-1 space-y-1">
             {navItems.map((item) => {
@@ -149,7 +143,7 @@ export function AdminDashboard({ initialData, session }: AdminDashboardProps) {
                 <button
                   className={cn(
                     "flex min-h-11 w-full items-center gap-3 rounded-xl px-3 text-left text-sm font-semibold transition",
-                    isActive ? "bg-emerald-500 text-slate-950" : "text-slate-400 hover:bg-white/5 hover:text-white"
+                    isActive ? "bg-[#1E4D2B] text-white" : "text-slate-300 hover:bg-white/5 hover:text-white"
                   )}
                   key={item.id}
                   onClick={() => setScreen(item.id)}
@@ -164,7 +158,7 @@ export function AdminDashboard({ initialData, session }: AdminDashboardProps) {
 
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-400 text-sm font-black text-slate-950">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E8F3EC] text-sm font-black text-[#1E4D2B]">
                 {session.name.slice(0, 2).toUpperCase()}
               </span>
               <div>
@@ -172,6 +166,7 @@ export function AdminDashboard({ initialData, session }: AdminDashboardProps) {
                 <p className="text-xs text-slate-500">isAdmin: true</p>
               </div>
             </div>
+            <SignOutButton className="mt-4 min-h-10 w-full rounded-xl border border-red-300/30 bg-red-500/10 text-sm font-bold text-red-100 hover:bg-red-500/20" />
           </div>
         </aside>
 
@@ -187,6 +182,13 @@ export function AdminDashboard({ initialData, session }: AdminDashboardProps) {
                 <p className="mt-1 text-sm text-slate-500">Verify users, inspect supply logs, resolve disputes, and audit platform events.</p>
               </div>
               <div className="flex items-center gap-2">
+                <AppLogo
+                  className="lg:hidden"
+                  iconClassName="h-10 w-10 bg-[#1E4D2B]"
+                  textClassName="text-[#111827]"
+                  subtitle="Admin"
+                  subtitleClassName="text-slate-500"
+                />
                 <button className="hidden min-h-11 items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-bold text-slate-700 shadow-sm md:flex" type="button">
                   <RefreshCw className="h-4 w-4" />
                   Refresh

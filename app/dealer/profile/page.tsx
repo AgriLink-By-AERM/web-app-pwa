@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import {
   BadgeCheck,
@@ -6,13 +5,13 @@ import {
   Building2,
   ChevronRight,
   Languages,
-  LogOut,
   MapPinned,
   Paintbrush,
   Phone,
   ShieldCheck,
   Warehouse
 } from "lucide-react";
+import { SignOutButton } from "@/components/auth/sign-out-button";
 import { DealerBottomNav } from "@/features/dealer/components/dealer-bottom-nav";
 import { getDealerProfile } from "@/lib/dealer/store";
 
@@ -123,13 +122,7 @@ export default async function DealerProfilePage() {
             </div>
           </section>
 
-          <Link
-            className="mt-5 flex min-h-12 items-center justify-center rounded-lg border border-red-200 bg-white px-4 py-2 text-sm font-bold text-red-600 shadow-sm transition hover:bg-red-50"
-            href="/dealer/home"
-          >
-            <LogOut className="mr-2 h-4 w-4" />
-            Sign out
-          </Link>
+          <SignOutButton className="mt-5 flex min-h-12 w-full rounded-lg border border-red-200 bg-white px-4 py-2 text-sm font-bold text-red-600 shadow-sm transition hover:bg-red-50" />
         </section>
       </section>
       <DealerBottomNav active="profile" />

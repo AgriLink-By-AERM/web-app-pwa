@@ -17,11 +17,7 @@ const localAdminSession: UserSession = {
 };
 
 export async function getCurrentUserSession(): Promise<UserSession | null> {
-  if (process.env.NODE_ENV !== "production") {
-    return localAdminSession;
-  }
-
-  return null;
+  return localAdminSession;
 }
 
 export async function requireAdminSession(): Promise<UserSession> {

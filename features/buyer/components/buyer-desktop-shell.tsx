@@ -4,7 +4,6 @@ import Link from "next/link";
 import {
   Bell,
   ClipboardList,
-  Factory,
   FileText,
   Gauge,
   History,
@@ -12,6 +11,8 @@ import {
   Settings,
   Zap
 } from "lucide-react";
+import { SignOutButton } from "@/components/auth/sign-out-button";
+import { AppLogo } from "@/components/app-logo";
 import { cn } from "@/lib/utils";
 
 type BuyerDesktopShellProps = {
@@ -32,18 +33,10 @@ const navItems = [
 
 export function BuyerDesktopShell({ active, children, title, subtitle }: BuyerDesktopShellProps) {
   return (
-    <main className="min-h-screen bg-zinc-950 text-slate-100">
+    <main className="min-h-screen bg-[#0F2A1A] text-slate-100">
       <div className="flex min-h-screen">
-        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-white/10 bg-zinc-950 px-4 py-5 lg:flex lg:flex-col">
-          <div className="flex items-center gap-3 px-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-white">
-              <Factory className="h-6 w-6" />
-            </span>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.24em] text-slate-500">AgriLink</p>
-              <p className="text-sm font-extrabold text-white">Enterprise Buyer</p>
-            </div>
-          </div>
+        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-white/10 bg-[#0F2A1A] px-4 py-5 lg:flex lg:flex-col">
+          <AppLogo className="px-3" iconClassName="bg-[#1E4D2B]" subtitle="Enterprise Buyer" />
 
           <nav className="mt-8 flex-1 space-y-1">
             {navItems.map((item) => {
@@ -54,7 +47,7 @@ export function BuyerDesktopShell({ active, children, title, subtitle }: BuyerDe
                 <Link
                   className={cn(
                     "flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm font-semibold transition",
-                    isActive ? "bg-blue-600 text-white" : "text-slate-400 hover:bg-white/5 hover:text-white"
+                    isActive ? "bg-[#1E4D2B] text-white" : "text-slate-300 hover:bg-white/5 hover:text-white"
                   )}
                   href={item.href}
                   key={item.id}
@@ -69,6 +62,7 @@ export function BuyerDesktopShell({ active, children, title, subtitle }: BuyerDe
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
             <p className="text-sm font-bold text-white">Dangote Feeds Ltd</p>
             <p className="mt-1 text-xs leading-5 text-slate-500">Industrial procurement workspace</p>
+            <SignOutButton className="mt-4 min-h-10 w-full rounded-xl border border-red-300/30 bg-red-500/10 text-sm font-bold text-red-100 hover:bg-red-500/20" />
           </div>
         </aside>
 
@@ -76,16 +70,25 @@ export function BuyerDesktopShell({ active, children, title, subtitle }: BuyerDe
           <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/90 px-6 py-4 backdrop-blur">
             <div className="mx-auto flex max-w-7xl items-center justify-between gap-6">
               <div>
-                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-blue-700">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[#1E4D2B]">
                   <Gauge className="h-4 w-4" />
                   Corporate Buyer Desktop
                 </div>
                 <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-slate-950">{title}</h1>
                 <p className="mt-1 text-sm text-slate-500">{subtitle}</p>
               </div>
-              <button className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm" type="button">
-                <Bell className="h-5 w-5" />
-              </button>
+              <div className="flex items-center gap-2">
+                <AppLogo
+                  className="lg:hidden"
+                  iconClassName="h-10 w-10 bg-[#1E4D2B]"
+                  textClassName="text-[#111827]"
+                  subtitle="Buyer"
+                  subtitleClassName="text-slate-500"
+                />
+                <button className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm" type="button">
+                  <Bell className="h-5 w-5" />
+                </button>
+              </div>
             </div>
           </header>
 

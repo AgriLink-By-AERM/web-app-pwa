@@ -33,8 +33,8 @@ export function AggregatorLogsList({ logs }: AggregatorLogsListProps) {
   }, [activeFilter, logs, searchTerm]);
 
   return (
-    <main className="min-h-screen bg-[#FAF7F2] pb-24 text-[#2C1A0E]">
-      <section className="mx-auto w-full max-w-md px-4 py-6">
+    <main className="min-h-screen bg-surface pb-24 text-ink lg:pl-72">
+      <section className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <header>
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#A0522D]">Aggregator logs</p>
           <h1 className="mt-2 text-2xl font-extrabold tracking-tight">My Logs</h1>

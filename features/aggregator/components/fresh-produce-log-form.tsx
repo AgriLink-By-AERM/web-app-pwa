@@ -94,8 +94,8 @@ export function FreshProduceLogForm() {
 
   if (result) {
     return (
-      <main className="min-h-screen bg-[#FAF7F2] pb-24 text-[#2C1A0E]">
-        <section className="mx-auto w-full max-w-md px-4 py-6">
+      <main className="min-h-screen bg-surface pb-24 text-ink lg:pl-72">
+        <section className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="rounded-lg border border-[#E5DDD4] bg-white p-6 text-center shadow-panel">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
               <CheckCircle2 className="h-9 w-9" />
@@ -123,8 +123,8 @@ export function FreshProduceLogForm() {
   }
 
   return (
-    <main className="min-h-screen bg-[#FAF7F2] pb-24 text-[#2C1A0E]">
-      <section className="mx-auto w-full max-w-md px-4 py-6">
+    <main className="min-h-screen bg-surface pb-24 text-ink lg:pl-72">
+      <section className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <header>
           <Link className="inline-flex min-h-10 items-center gap-2 text-sm font-bold text-[#A0522D]" href="/aggregator/log-entry">
             <ArrowLeft className="h-4 w-4" />

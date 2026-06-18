@@ -11,7 +11,7 @@ export default async function AggregatorHomePage() {
   const data = await getAggregatorDashboardData();
 
   return (
-    <main className="min-h-screen bg-surface pb-24 text-ink lg:pl-72">
+    <main className="min-h-screen bg-surface pb-24 text-ink lg:pl-[var(--role-sidebar-width,18rem)]">
       <section className="mx-auto w-full max-w-7xl">
         <header className="bg-[#2C1A0E] px-5 pb-6 pt-10 text-white">
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-white/45">Aggregator Home</p>
@@ -182,3 +182,4 @@ function RecentLogCard({ log }: { log: AggregatorLogSummary }) {
     </Link>
   );
 }
+

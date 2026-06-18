@@ -46,7 +46,7 @@ export default async function AggregatorLogDetailPage({ params }: AggregatorLogD
   const isFresh = log.pipelineType === "fresh_produce";
 
   return (
-    <main className="min-h-screen bg-surface pb-24 text-ink lg:pl-72">
+    <main className="min-h-screen bg-surface pb-24 text-ink lg:pl-[var(--role-sidebar-width,18rem)]">
       <section className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <header>
           <Link className="inline-flex min-h-10 items-center gap-2 text-sm font-bold text-[#A0522D]" href="/aggregator/logs">

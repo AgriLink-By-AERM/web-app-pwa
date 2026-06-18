@@ -5,6 +5,7 @@ import type {
   SpoilageUrgency,
   TransactionStatus
 } from "@/lib/types";
+import { fetchApi } from "@/lib/api-client";
 
 export type AggregatorLogFilter = "all" | "fresh_produce" | "agri_waste";
 
@@ -259,19 +260,31 @@ export function getAggregatorLogStaticParams(): Array<{ id: string }> {
 const nigerianPhonePattern = /^(?:\+234|234|0)[789][01]\d{8}$/;
 
 export async function getAggregatorLogs(filter: AggregatorLogFilter = "all"): Promise<AggregatorHistoricalLog[]> {
-  await simulateNetworkDelay(150);
+  const query = filter === "all" ? "" : `?pipeline=${filter}`;
+  const response = await fetchApi(`/aggregator/logs${query}`);
+  const backendLogs = unwrapArray(response);
 
+  if (backendLogs.length > 0) {
+    return backendLogs.map(toAggregatorHistoricalLog);
+  }
+
+  // fallback
   if (filter === "all") {
     return historicalLogs;
   }
-
   return historicalLogs.filter((log) => log.pipelineType === filter);
 }
 
 export async function getAggregatorLogById(id: string): Promise<AggregatorHistoricalLog> {
-  await simulateNetworkDelay(140);
+  const response = await fetchApi(`/aggregator/logs/${id}`);
+  const data = unwrapRecord(response);
 
-  return historicalLogs.find((log) => log.id === id) ?? historicalLogs[0];
+  if (data) {
+    return toAggregatorHistoricalLog(data);
+  }
+
+  const logs = await getAggregatorLogs();
+  return logs.find((log) => log.id === id) ?? historicalLogs[0];
 }
 
 export function buildLogMilestones(log: AggregatorHistoricalLog): AggregatorLogMilestone[] {
@@ -354,13 +367,146 @@ export function hasDisputeErrors(errors: DisputeFormErrors): boolean {
 }
 
 export async function submitAggregatorDispute(form: DisputeFormState): Promise<DisputeSubmissionResult> {
-  await simulateNetworkDelay(420);
+  const response = await fetchApi("/aggregator/disputes", {
+    method: "POST",
+    body: JSON.stringify({
+      logId: form.logId,
+      reason: form.reason,
+      reportedWeightKg: form.reportedWeightKg ? Number(form.reportedWeightKg) : undefined,
+      notes: form.notes,
+      contactPhone: normalizePhone(form.contactPhone)
+    })
+  });
+  const data = unwrapRecord(response);
+
+  if (data) {
+    return {
+      disputeId: String(data.disputeId ?? data.id ?? data._id ?? `DSP-${Date.now().toString().slice(-7)}`),
+      status: "submitted",
+      message: String(data.message ?? "Dispute submitted. The audit team will review the field log.")
+    };
+  }
 
   return {
     disputeId: `DSP-${Date.now().toString().slice(-7)}`,
     status: "submitted",
     message: "Dispute submitted. The audit team will review the log, proof photo, GPS record, and buyer receipt."
   };
+}
+
+function unwrapArray(response: unknown): any[] {
+  const value = (response as any)?.data ?? response;
+
+  if (Array.isArray(value)) {
+    return value;
+  }
+
+  if (Array.isArray(value?.logs)) {
+    return value.logs;
+  }
+
+  if (Array.isArray(value?.items)) {
+    return value.items;
+  }
+
+  return [];
+}
+
+function unwrapRecord(response: unknown): Record<string, any> | null {
+  const value = (response as any)?.data ?? response;
+  return value && typeof value === "object" && !Array.isArray(value) ? value : null;
+}
+
+function toAggregatorHistoricalLog(log: any): AggregatorHistoricalLog {
+  const createdAt = String(log.submittedAt ?? log.createdAt ?? log.loggedAt ?? new Date().toISOString());
+  const pipeline = log.pipelineType ?? log.pipeline;
+  const isWaste = pipeline === "agri_waste" || pipeline === "waste";
+  const coordinates = log.location?.coordinates ?? log.gps?.coordinates ?? [];
+
+  return {
+    id: String(log.id ?? log._id ?? log.logId ?? `log_${Date.now()}`),
+    pipelineType: isWaste ? "agri_waste" : "fresh_produce",
+    itemName: String(log.itemName ?? log.category ?? log.commodity ?? (isWaste ? "Agri-waste" : "Fresh produce")),
+    weightKg: Number(log.weightKg ?? log.estimatedDryWeightKg ?? log.weight ?? 0),
+    farmerMaskedPhone: String(log.farmerMaskedPhone ?? log.farmerPhoneMasked ?? maskPhone(log.farmerPhone ?? log.farmerPhoneNumber ?? "")),
+    status: normalizeStatus(log.status),
+    submittedAt: createdAt,
+    location: {
+      zone: String(log.location?.zone ?? log.gps?.zone ?? log.zone ?? "Unknown zone"),
+      address: String(log.location?.address ?? log.gps?.address ?? log.address ?? "Unknown address"),
+      latitude: Number(log.location?.latitude ?? log.gps?.latitude ?? coordinates[1] ?? 0),
+      longitude: Number(log.location?.longitude ?? log.gps?.longitude ?? coordinates[0] ?? 0)
+    },
+    proofPhotoLabel: String(log.proofPhotoLabel ?? log.photoFileName ?? log.photoUrl ?? "proof-photo"),
+    matchedBuyerName: log.matchedBuyerName ?? log.buyerName ?? log.match?.buyerName,
+    collectionWindow: log.collectionWindow ?? log.pickupWindow,
+    stage1AdvanceStatus: normalizeStage1Status(log.stage1AdvanceStatus, isWaste),
+    stage2PayoutStatus: normalizeStage2Status(log.stage2PayoutStatus, isWaste),
+    urgency: normalizeUrgency(log.urgency ?? log.urgencyTier),
+    condition: normalizeProduceCondition(log.condition),
+    moisture: normalizeMoisture(log.moisture ?? (isWaste ? log.condition : undefined)),
+    disputeAvailableUntil: String(log.disputeAvailableUntil ?? new Date(Date.now() + 48 * 36e5).toISOString()),
+    milestoneTimestamps: {
+      logged: createdAt,
+      matched: log.matchedAt,
+      collected: log.collectedAt ?? log.deliveredAt,
+      paid: log.paidAt
+    }
+  };
+}
+
+
+function normalizeStage1Status(status: unknown, isWaste: boolean): AggregatorHistoricalLog["stage1AdvanceStatus"] {
+  if (!isWaste) {
+    return "not_applicable";
+  }
+
+  return status === "released" || status === "pending" ? status : "pending";
+}
+
+function normalizeStage2Status(status: unknown, isWaste: boolean): AggregatorHistoricalLog["stage2PayoutStatus"] {
+  if (!isWaste) {
+    return "not_applicable";
+  }
+
+  if (status === "released" || status === "held" || status === "pending_qr_scan") {
+    return status;
+  }
+
+  return "pending_qr_scan";
+}
+
+function normalizeUrgency(value: unknown): SpoilageUrgency | undefined {
+  return value === "green" || value === "amber" || value === "red" ? value : undefined;
+}
+
+function normalizeProduceCondition(value: unknown): ProduceCondition | undefined {
+  return value === "Fresh" || value === "Slightly bruised" || value === "Poor" ? value : undefined;
+}
+
+function normalizeMoisture(value: unknown): MoistureCondition | undefined {
+  return value === "Dry" || value === "Damp" || value === "Wet" ? value : undefined;
+}
+function normalizeStatus(status: unknown): TransactionStatus {
+  const value = String(status ?? "Pending Match").toLowerCase().replace(/_/g, " ");
+  const map: Record<string, TransactionStatus> = {
+    "pending": "Pending Match",
+    "pending match": "Pending Match",
+    "matched": "Matched",
+    "in transit": "In Transit",
+    "stage 1 released": "Stage 1 Released",
+    "collected": "Collected",
+    "delivered": "Delivered",
+    "disputed": "Disputed",
+    "no match found": "No Match Found",
+    "expired": "Expired"
+  };
+
+  return map[value] ?? "Pending Match";
+}
+
+function maskPhone(phoneNumber: string): string {
+  return phoneNumber.length >= 8 ? `${phoneNumber.slice(0, 3)}****${phoneNumber.slice(-4)}` : "****";
 }
 
 export function formatLogDate(value: string): string {
@@ -398,3 +544,5 @@ async function simulateNetworkDelay(milliseconds: number): Promise<void> {
     setTimeout(resolve, milliseconds);
   });
 }
+
+

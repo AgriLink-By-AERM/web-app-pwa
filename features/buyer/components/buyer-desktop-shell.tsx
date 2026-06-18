@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import {
   Bell,
+  ChevronLeft,
+  ChevronRight,
   ClipboardList,
   FileText,
   Gauge,
@@ -32,13 +35,26 @@ const navItems = [
 ] as const;
 
 export function BuyerDesktopShell({ active, children, title, subtitle }: BuyerDesktopShellProps) {
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
+
   return (
     <main className="min-h-screen bg-[#0F2A1A] text-slate-100">
       <div className="flex min-h-screen">
-        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-white/10 bg-[#0F2A1A] px-4 py-5 lg:flex lg:flex-col">
-          <AppLogo className="px-3" iconClassName="bg-[#1E4D2B]" subtitle="Enterprise Buyer" />
+        <aside className={cn("sticky top-0 hidden h-screen shrink-0 border-r border-white/10 bg-[#0F2A1A] transition-all lg:flex lg:flex-col", isSidebarCollapsed ? "w-3 px-0 py-0" : "w-72 px-4 py-5")}>
+          <button
+            aria-label={isSidebarCollapsed ? "Open buyer navigation" : "Collapse buyer navigation"}
+            className={cn("absolute -right-4 top-6 z-30 hidden h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-[#1E4D2B] text-white shadow-lg lg:flex", isSidebarCollapsed && "-right-7")}
+            onClick={() => setIsSidebarCollapsed((current) => !current)}
+            type="button"
+          >
+            {isSidebarCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+          </button>
+          {isSidebarCollapsed ? <span className="h-full w-full bg-[#1E4D2B]" /> : null}
+          <div className={cn(isSidebarCollapsed && "hidden")}>
+            <AppLogo className="px-3" iconClassName="bg-[#1E4D2B]" subtitle="Enterprise Buyer" />
+          </div>
 
-          <nav className="mt-8 flex-1 space-y-1">
+          <nav className={cn("mt-8 flex-1 space-y-1", isSidebarCollapsed && "hidden")}>
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = active === item.id;
@@ -59,7 +75,7 @@ export function BuyerDesktopShell({ active, children, title, subtitle }: BuyerDe
             })}
           </nav>
 
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+          <div className={cn("rounded-2xl border border-white/10 bg-white/[0.03] p-4", isSidebarCollapsed && "hidden")}>
             <p className="text-sm font-bold text-white">Dangote Feeds Ltd</p>
             <p className="mt-1 text-xs leading-5 text-slate-500">Industrial procurement workspace</p>
             <SignOutButton className="mt-4 min-h-10 w-full rounded-xl border border-red-300/30 bg-red-500/10 text-sm font-bold text-red-100 hover:bg-red-500/20" />

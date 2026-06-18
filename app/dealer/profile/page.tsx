@@ -47,7 +47,7 @@ export default async function DealerProfilePage() {
   const profile = await getDealerProfile();
 
   return (
-    <main className="min-h-screen bg-surface text-ink lg:pl-72">
+    <main className="min-h-screen bg-surface text-ink lg:pl-[var(--role-sidebar-width,18rem)]">
       <section className="mx-auto min-h-screen max-w-7xl bg-slate-50 pb-24 shadow-sm lg:bg-transparent lg:px-8 lg:py-6 lg:shadow-none">
         <header className="bg-indigo-900 px-5 pb-7 pt-10 text-white">
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-white/45">Dealer profile</p>
@@ -158,3 +158,4 @@ function ActionRow({ icon: Icon, label, value }: { icon: LucideIcon; label: stri
     </button>
   );
 }
+

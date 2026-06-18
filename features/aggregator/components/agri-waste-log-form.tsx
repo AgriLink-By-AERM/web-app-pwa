@@ -95,7 +95,7 @@ export function AgriWasteLogForm() {
 
   if (result) {
     return (
-      <main className="min-h-screen bg-surface pb-24 text-ink lg:pl-72">
+      <main className="min-h-screen bg-surface pb-24 text-ink lg:pl-[var(--role-sidebar-width,18rem)]">
         <section className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="rounded-lg border border-[#E5DDD4] bg-white p-6 text-center shadow-panel">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#F5EFE6] text-[#7C5C2E]">
@@ -123,7 +123,7 @@ export function AgriWasteLogForm() {
   }
 
   return (
-    <main className="min-h-screen bg-surface pb-24 text-ink lg:pl-72">
+    <main className="min-h-screen bg-surface pb-24 text-ink lg:pl-[var(--role-sidebar-width,18rem)]">
       <section className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <header>
           <Link className="inline-flex min-h-10 items-center gap-2 text-sm font-bold text-[#A0522D]" href="/aggregator/log-entry">
@@ -383,3 +383,4 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 function FieldError({ children }: { children: React.ReactNode }) {
   return <p className="mt-1.5 text-xs font-semibold text-red-600">{children}</p>;
 }
+

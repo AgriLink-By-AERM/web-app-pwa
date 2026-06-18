@@ -10,6 +10,7 @@ import type {
   WasteCategory
 } from "@/lib/types";
 import { normalizePhoneInput } from "@/lib/aggregator/registration";
+import { fetchApi } from "@/lib/api-client";
 
 export const freshProduceCategories: FreshProduceCategory[] = [
   "Tomatoes",
@@ -192,40 +193,82 @@ export function mockCurrentGps(): GeoLocation {
 }
 
 export async function submitFreshProduceLog(payload: FreshProduceLogPayload): Promise<FreshProduceLogResult> {
-  await simulateNetworkDelay(520);
+  const backendPayload = {
+    farmerPhone: payload.farmerPhoneNumber,
+    pipeline: "fresh_produce",
+    category: payload.category,
+    weightKg: payload.weightKg,
+    condition: payload.condition,
+    latitude: payload.gps.latitude,
+    longitude: payload.gps.longitude,
+    photoUrl: "http://example.com/" + payload.photoFileName, // mocked S3 URL
+    harvestedAt: payload.estimatedHarvestTime
+  };
+
+  const response = await fetchApi('/aggregator/logs', {
+    method: 'POST',
+    body: JSON.stringify(backendPayload)
+  });
+
+  const logId = response?.data?._id || `fresh_${Date.now()}`;
 
   return {
-    logId: `fresh_${Date.now()}`,
-    status: "Pending Match",
-    urgency: classifyUrgency(payload.estimatedHarvestTime),
-    message: "Fresh produce log submitted. Matching engine is checking nearby restaurant demand."
+    logId,
+    status: response?.data?.status || "Pending Match",
+    urgency: response?.data?.urgencyTier || classifyUrgency(payload.estimatedHarvestTime),
+    message: response?.message || "Fresh produce log submitted. Matching engine is checking nearby restaurant demand."
   };
 }
 
 export async function submitAgriWasteLog(payload: AgriWasteLogPayload): Promise<AgriWasteLogResult> {
-  await simulateNetworkDelay(520);
+  const backendPayload = {
+    farmerPhone: payload.farmerPhoneNumber,
+    pipeline: "agri_waste",
+    category: payload.category,
+    weightKg: payload.estimatedDryWeightKg,
+    condition: payload.moisture,
+    latitude: payload.gps.latitude,
+    longitude: payload.gps.longitude,
+    photoUrl: "http://example.com/" + payload.photoFileName,
+    harvestedAt: new Date().toISOString() // Or some default
+  };
+
+  const response = await fetchApi('/aggregator/logs', {
+    method: 'POST',
+    body: JSON.stringify(backendPayload)
+  });
+
+  const logId = response?.data?._id || `waste_${Date.now()}`;
+  let ticketPayload: any = null;
+  if (response?.data?.qrPayload) {
+    try {
+      ticketPayload = JSON.parse(response.data.qrPayload);
+    } catch {
+      // ignore
+    }
+  }
 
   const ticketId = `ticket_${Date.now()}`;
-  const referenceNumber = `AGL-WST-${String(Date.now()).slice(-6)}`;
+  const referenceNumber = ticketPayload?.ref || `AGL-WST-${String(Date.now()).slice(-6)}`;
 
   return {
-    logId: `waste_${Date.now()}`,
-    status: "Pending Match",
-    message: "Agri-waste log submitted. A QR collection ticket has been generated for factory pickup.",
+    logId,
+    status: response?.data?.status || "Pending Match",
+    message: response?.message || "Agri-waste log submitted. A QR collection ticket has been generated for factory pickup.",
     ticket: {
       id: ticketId,
       referenceNumber,
       wasteCategory: payload.category,
       estimatedDryWeightKg: payload.estimatedDryWeightKg,
       moisture: payload.moisture,
-      farmerMaskedPhone: maskPhoneForTicket(payload.farmerPhoneNumber),
+      farmerMaskedPhone: ticketPayload?.farmerMasked || maskPhoneForTicket(payload.farmerPhoneNumber),
       aggregatorName: "Amina Yusuf",
       aggregatorPhone: "08031234567",
       gps: payload.gps,
-      status: "Pending Match",
-      qrCodeValue: `AGRILINK:TICKET:${referenceNumber}`,
-      createdAt: new Date().toISOString(),
-      shareUrl: "/aggregator/tickets/ticket_demo_cassava"
+      status: response?.data?.status || "Pending Match",
+      qrCodeValue: response?.data?.qrPayload || `AGRILINK:TICKET:${referenceNumber}`,
+      createdAt: response?.data?.createdAt || new Date().toISOString(),
+      shareUrl: `/aggregator/tickets/${ticketId}`
     }
   };
 }

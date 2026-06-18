@@ -37,7 +37,7 @@ export function DealerHistoryList({ records }: DealerHistoryListProps) {
   }, [activeFilter, records, searchTerm]);
 
   return (
-    <main className="min-h-screen bg-surface text-ink lg:pl-72">
+    <main className="min-h-screen bg-surface text-ink lg:pl-[var(--role-sidebar-width,18rem)]">
       <section className="mx-auto min-h-screen max-w-7xl bg-slate-50 px-4 py-6 pb-24 shadow-sm sm:px-6 lg:bg-transparent lg:px-8 lg:shadow-none">
         <header>
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-700">Dealer records</p>
@@ -137,3 +137,4 @@ function StatusPill({ status }: { status: RedemptionRecord["status"] }) {
     </span>
   );
 }
+

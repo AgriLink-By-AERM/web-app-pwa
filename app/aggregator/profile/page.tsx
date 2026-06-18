@@ -19,7 +19,7 @@ export default async function AggregatorProfilePage() {
   const data = await getAggregatorDashboardData();
 
   return (
-    <main className="min-h-screen bg-surface text-ink lg:pl-72">
+    <main className="min-h-screen bg-surface text-ink lg:pl-[var(--role-sidebar-width,18rem)]">
       <section className="mx-auto min-h-screen max-w-7xl bg-slate-50 pb-24 shadow-sm lg:bg-transparent lg:px-8 lg:py-6 lg:shadow-none">
         <header className="rounded-none bg-[#0F2A1A] px-5 pb-7 pt-10 text-white lg:rounded-2xl lg:p-6">
           <AppLogo className="mb-6 lg:hidden" iconClassName="bg-[#1E4D2B]" subtitle="Aggregator Profile" />
@@ -103,3 +103,4 @@ function ConfigRow({ icon: Icon, label, value }: { icon: typeof Phone; label: st
     </div>
   );
 }
+

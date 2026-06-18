@@ -33,7 +33,7 @@ export function AggregatorLogsList({ logs }: AggregatorLogsListProps) {
   }, [activeFilter, logs, searchTerm]);
 
   return (
-    <main className="min-h-screen bg-surface pb-24 text-ink lg:pl-72">
+    <main className="min-h-screen bg-surface pb-24 text-ink lg:pl-[var(--role-sidebar-width,18rem)]">
       <section className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <header>
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#A0522D]">Aggregator logs</p>
@@ -145,3 +145,4 @@ function LogCard({ log }: { log: AggregatorHistoricalLog }) {
     </Link>
   );
 }
+

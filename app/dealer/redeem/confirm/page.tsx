@@ -11,7 +11,7 @@ export default function DealerRedeemConfirmPage() {
 
 function ConfirmLoading() {
   return (
-    <main className="min-h-screen bg-surface text-ink lg:pl-72">
+    <main className="min-h-screen bg-surface text-ink lg:pl-[var(--role-sidebar-width,18rem)]">
       <section className="mx-auto min-h-screen max-w-7xl bg-slate-50 px-4 py-6 shadow-sm sm:px-6 lg:bg-transparent lg:px-8 lg:shadow-none">
         <p className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-700">Security confirmation</p>
         <h1 className="mt-2 text-2xl font-extrabold tracking-tight">Loading voucher manifest</h1>
@@ -20,3 +20,4 @@ function ConfirmLoading() {
     </main>
   );
 }
+

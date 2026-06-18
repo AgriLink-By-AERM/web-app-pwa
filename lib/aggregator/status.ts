@@ -1,4 +1,5 @@
 import type { AggregatorProfile } from "@/lib/types";
+import { fetchApi } from "@/lib/api-client";
 
 export type AggregatorVerificationSummary = Pick<
   AggregatorProfile,
@@ -17,9 +18,26 @@ export type VerificationStep = {
 };
 
 export async function getAggregatorVerificationSummary(): Promise<AggregatorVerificationSummary> {
-  await simulateNetworkDelay(180);
+  const response = await fetchApi("/aggregator/status");
+  const data = (response as any)?.data ?? response;
 
-  return {
+  if (data && typeof data === "object") {
+    return {
+      fullName: data.fullName ?? data.name ?? fallbackVerificationSummary.fullName,
+      phoneNumber: data.phoneNumber ?? data.phone ?? fallbackVerificationSummary.phoneNumber,
+      zone: data.zone ?? fallbackVerificationSummary.zone,
+      verificationStatus: data.verificationStatus ?? data.status ?? fallbackVerificationSummary.verificationStatus,
+      submittedAt: data.submittedAt ?? data.createdAt ?? fallbackVerificationSummary.submittedAt,
+      referenceNumber: data.referenceNumber ?? data.reference ?? fallbackVerificationSummary.referenceNumber,
+      expectedReviewWindow: data.expectedReviewWindow ?? fallbackVerificationSummary.expectedReviewWindow,
+      reviewSteps: Array.isArray(data.reviewSteps) ? data.reviewSteps : fallbackVerificationSummary.reviewSteps
+    };
+  }
+
+  return fallbackVerificationSummary;
+}
+
+const fallbackVerificationSummary: AggregatorVerificationSummary = {
     fullName: "Amina Yusuf",
     phoneNumber: "08031234567",
     zone: "Kano - Tarauni LGA",
@@ -53,11 +71,4 @@ export async function getAggregatorVerificationSummary(): Promise<AggregatorVeri
         status: "pending"
       }
     ]
-  };
-}
-
-async function simulateNetworkDelay(milliseconds: number): Promise<void> {
-  await new Promise((resolve) => {
-    setTimeout(resolve, milliseconds);
-  });
-}
+};

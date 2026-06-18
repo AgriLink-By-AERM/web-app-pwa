@@ -6,6 +6,8 @@ import {
   BadgeCheck,
   Bell,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
   ClipboardList,
   Factory,
   FileWarning,
@@ -59,6 +61,7 @@ const navItems: Array<{ id: AdminScreen; label: string; icon: typeof Users }> = 
 
 export function AdminDashboard({ initialData, session }: AdminDashboardProps) {
   const [screen, setScreen] = useState<AdminScreen>("users");
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
   const [userTab, setUserTab] = useState<UserTab>("pending");
   const [users, setUsers] = useState<AdminUser[]>(initialData.users);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -131,10 +134,21 @@ export function AdminDashboard({ initialData, session }: AdminDashboardProps) {
   return (
     <main className="min-h-screen bg-[#0F2A1A] text-slate-100">
       <div className="flex min-h-screen">
-        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-white/10 bg-[#0F2A1A] px-4 py-5 lg:flex lg:flex-col">
-          <AppLogo className="px-3" iconClassName="bg-[#1E4D2B]" subtitle="Admin Console" />
+        <aside className={cn("sticky top-0 hidden h-screen shrink-0 border-r border-white/10 bg-[#0F2A1A] transition-all lg:flex lg:flex-col", isSidebarCollapsed ? "w-3 px-0 py-0" : "w-72 px-4 py-5")}>
+          <button
+            aria-label={isSidebarCollapsed ? "Open admin navigation" : "Collapse admin navigation"}
+            className={cn("absolute -right-4 top-6 z-30 hidden h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-[#1E4D2B] text-white shadow-lg lg:flex", isSidebarCollapsed && "-right-7")}
+            onClick={() => setIsSidebarCollapsed((current) => !current)}
+            type="button"
+          >
+            {isSidebarCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+          </button>
+          {isSidebarCollapsed ? <span className="h-full w-full bg-[#1E4D2B]" /> : null}
+          <div className={cn(isSidebarCollapsed && "hidden")}>
+            <AppLogo className="px-3" iconClassName="bg-[#1E4D2B]" subtitle="Admin Console" />
+          </div>
 
-          <nav className="mt-8 flex-1 space-y-1">
+          <nav className={cn("mt-8 flex-1 space-y-1", isSidebarCollapsed && "hidden")}>
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = item.id === screen;
@@ -156,7 +170,7 @@ export function AdminDashboard({ initialData, session }: AdminDashboardProps) {
             })}
           </nav>
 
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+          <div className={cn("rounded-2xl border border-white/10 bg-white/[0.03] p-4", isSidebarCollapsed && "hidden")}>
             <div className="flex items-center gap-3">
               <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E8F3EC] text-sm font-black text-[#1E4D2B]">
                 {session.name.slice(0, 2).toUpperCase()}

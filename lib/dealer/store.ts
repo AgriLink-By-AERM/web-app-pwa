@@ -212,29 +212,44 @@ const redemptionRecords: RedemptionRecord[] = [
   }
 ];
 
+import { fetchApi } from "@/lib/api-client";
+
 export async function getDealerProfile(): Promise<DealerProfile> {
-  await simulateNetworkDelay(120);
-  return dealerProfile;
+  const response = await fetchApi("/dealer/profile");
+  const data = unwrapRecord(response);
+  return data ? toDealerProfile(data) : dealerProfile;
 }
 
 export async function getRecentRedemptions(limit = 4): Promise<RedemptionRecord[]> {
-  await simulateNetworkDelay(120);
-  return redemptionRecords.slice(0, limit);
+  const response = await fetchApi("/dealer/transactions");
+  const records = unwrapArray(response).map(toRedemptionRecord);
+  return (records.length > 0 ? records : redemptionRecords).slice(0, limit);
 }
 
 export async function getRedemptionHistory(): Promise<RedemptionRecord[]> {
-  await simulateNetworkDelay(140);
-  return redemptionRecords;
+  const response = await fetchApi("/dealer/transactions");
+  const records = unwrapArray(response).map(toRedemptionRecord);
+  return records.length > 0 ? records : redemptionRecords;
 }
 
 export async function validateVoucherCode(code: string): Promise<VoucherValidationResult> {
-  await simulateNetworkDelay(260);
   const normalizedCode = code.trim();
-  const voucher = voucherRegistry[normalizedCode];
-
   if (!/^\d{6}$/.test(normalizedCode)) {
     return { valid: false, reason: "Voucher code must be exactly 6 digits." };
   }
+
+  const response = await fetchApi("/dealer/validate-otp", {
+    method: "POST",
+    body: JSON.stringify({ otp: normalizedCode, code: normalizedCode })
+  });
+  const data = unwrapRecord(response);
+
+  if (data) {
+    const voucherData = unwrapNestedRecord(data, ["voucher", "otp", "allocation"]);
+    return { valid: true, voucher: toVoucher(voucherData ?? data, normalizedCode) };
+  }
+
+  const voucher = voucherRegistry[normalizedCode];
 
   if (!voucher) {
     return { valid: false, reason: "No active voucher was found for this code." };
@@ -248,7 +263,13 @@ export async function validateVoucherCode(code: string): Promise<VoucherValidati
 }
 
 export async function getVoucherFromCode(code: string): Promise<Voucher> {
-  await simulateNetworkDelay(150);
+  const response = await fetchApi(`/dealer/vouchers/${encodeURIComponent(code)}`);
+  const data = unwrapRecord(response);
+
+  if (data) {
+    return toVoucher(unwrapNestedRecord(data, ["voucher", "otp", "allocation"]) ?? data, code);
+  }
+
   return (
     voucherRegistry[code] ?? {
       code,
@@ -265,8 +286,21 @@ export async function getVoucherFromCode(code: string): Promise<Voucher> {
   );
 }
 
-export async function confirmRedemption(voucher: Voucher): Promise<RedemptionReceipt> {
-  await simulateNetworkDelay(420);
+export async function confirmRedemption(voucher: Voucher, farmerPhone?: string): Promise<RedemptionReceipt> {
+  const response = await fetchApi("/dealer/redeem", {
+    method: "POST",
+    body: JSON.stringify({
+      code: voucher.code,
+      voucherCode: voucher.code,
+      farmerPhone: farmerPhone || "unknown"
+    })
+  });
+  const data = unwrapRecord(response);
+
+  if (data) {
+    return toReceipt(unwrapNestedRecord(data, ["receipt", "redemption", "transaction"]) ?? data, voucher);
+  }
+
   const profile = await getDealerProfile();
 
   return {
@@ -285,7 +319,13 @@ export async function confirmRedemption(voucher: Voucher): Promise<RedemptionRec
 }
 
 export async function getReceiptFromReference(reference: string): Promise<RedemptionReceipt> {
-  await simulateNetworkDelay(120);
+  const response = await fetchApi(`/dealer/receipts/${encodeURIComponent(reference)}`);
+  const data = unwrapRecord(response);
+
+  if (data) {
+    return toReceipt(unwrapNestedRecord(data, ["receipt", "redemption", "transaction"]) ?? data);
+  }
+
   const profile = await getDealerProfile();
 
   return {
@@ -319,8 +359,150 @@ export function formatDealerDate(value: string): string {
   }).format(new Date(value));
 }
 
-async function simulateNetworkDelay(milliseconds: number): Promise<void> {
-  await new Promise((resolve) => {
-    setTimeout(resolve, milliseconds);
+export async function registerDealer(payload: any): Promise<boolean> {
+  const response = await fetchApi("/dealer/register", {
+    method: "POST",
+    body: JSON.stringify(payload)
   });
+  return response !== null;
 }
+
+function unwrapArray(response: unknown): any[] {
+  const value = (response as any)?.data ?? response;
+
+  if (Array.isArray(value)) {
+    return value;
+  }
+
+  for (const key of ["transactions", "records", "redemptions", "items"]) {
+    if (Array.isArray(value?.[key])) {
+      return value[key];
+    }
+  }
+
+  return [];
+}
+
+function unwrapRecord(response: unknown): Record<string, any> | null {
+  const value = (response as any)?.data ?? response;
+  return value && typeof value === "object" && !Array.isArray(value) ? value : null;
+}
+
+function unwrapNestedRecord(source: Record<string, any>, keys: string[]): Record<string, any> | null {
+  for (const key of keys) {
+    const value = source[key];
+    if (value && typeof value === "object" && !Array.isArray(value)) {
+      return value;
+    }
+  }
+
+  return null;
+}
+
+function toDealerProfile(data: Record<string, any>): DealerProfile {
+  const inventory = Array.isArray(data.inventory) ? data.inventory : Array.isArray(data.items) ? data.items : [];
+
+  return {
+    id: asString(data.id ?? data._id ?? data.dealerId, dealerProfile.id),
+    shopName: asString(data.shopName ?? data.businessName ?? data.name, dealerProfile.shopName),
+    dealerCode: asString(data.dealerCode ?? data.code, dealerProfile.dealerCode),
+    ownerName: asString(data.ownerName ?? data.contactName ?? data.fullName, dealerProfile.ownerName),
+    phoneNumber: asString(data.phoneNumber ?? data.phone, dealerProfile.phoneNumber),
+    location: asString(data.location ?? data.address ?? data.zone, dealerProfile.location),
+    verificationStatus: data.verificationStatus === "pending" ? "pending" : "verified",
+    todayVoucherCount: asNumber(data.todayVoucherCount ?? data.vouchersRedeemedToday ?? data.todayRedemptions, dealerProfile.todayVoucherCount),
+    todayDisbursedValue: asNumber(data.todayDisbursedValue ?? data.disbursedToday ?? data.todayValue, dealerProfile.todayDisbursedValue),
+    inventory: inventory.length > 0 ? inventory.map(toInventoryItem) : dealerProfile.inventory
+  };
+}
+
+function toInventoryItem(item: any, index: number): InputInventoryItem {
+  const fallback = dealerProfile.inventory[index % dealerProfile.inventory.length];
+
+  return {
+    id: asString(item.id ?? item._id ?? item.sku, fallback.id),
+    name: asString(item.name ?? item.itemName ?? item.productName, fallback.name),
+    unit: asString(item.unit, fallback.unit),
+    stockOnHand: asNumber(item.stockOnHand ?? item.stock ?? item.quantity, fallback.stockOnHand),
+    lowStockThreshold: asNumber(item.lowStockThreshold ?? item.threshold, fallback.lowStockThreshold),
+    valuePerUnit: asNumber(item.valuePerUnit ?? item.price ?? item.unitPrice, fallback.valuePerUnit)
+  };
+}
+
+function toRedemptionRecord(record: any): RedemptionRecord {
+  return {
+    id: asString(record.id ?? record._id ?? record.reference, `rdm_${Date.now()}`),
+    voucherCode: asString(record.voucherCode ?? record.code ?? record.otp, "000000"),
+    farmerId: asString(record.farmerId ?? record.farmer?.id, "FRM-UNKNOWN"),
+    farmerName: asString(record.farmerName ?? record.farmer?.name, "Unknown farmer"),
+    farmerMaskedPhone: asString(record.farmerMaskedPhone ?? record.farmer?.maskedPhone ?? maskPhone(record.farmerPhone ?? record.farmer?.phone), "****"),
+    itemName: asString(record.itemName ?? record.itemAllocation ?? record.productName, "Input allocation"),
+    quantity: asNumber(record.quantity, 0),
+    unit: asString(record.unit, "unit"),
+    walletContribution: asNumber(record.walletContribution ?? record.walletAmount ?? record.subsidyAmount, 0),
+    farmerCopayDue: asNumber(record.farmerCopayDue ?? record.copayDue ?? record.coPay, 0),
+    ledgerReference: asString(record.ledgerReference ?? record.reference ?? record.transactionReference, "AGR-LDG-PENDING"),
+    status: normalizeDisbursementStatus(record.status),
+    redeemedAt: asString(record.redeemedAt ?? record.createdAt ?? record.timestamp, new Date().toISOString())
+  };
+}
+
+function toVoucher(data: Record<string, any>, fallbackCode = "000000"): Voucher {
+  return {
+    code: asString(data.code ?? data.voucherCode ?? data.otp, fallbackCode),
+    farmerId: asString(data.farmerId ?? data.farmer?.id, "FRM-UNKNOWN"),
+    farmerName: asString(data.farmerName ?? data.farmer?.name, "Unknown farmer"),
+    farmerMaskedPhone: asString(data.farmerMaskedPhone ?? data.farmer?.maskedPhone ?? maskPhone(data.farmerPhone ?? data.farmer?.phone), "****"),
+    itemAllocation: asString(data.itemAllocation ?? data.itemName ?? data.productName, "Input allocation"),
+    quantity: asNumber(data.quantity, 1),
+    unit: asString(data.unit, "unit"),
+    walletContribution: asNumber(data.walletContribution ?? data.walletAmount ?? data.subsidyAmount, 0),
+    farmerCopayDue: asNumber(data.farmerCopayDue ?? data.copayDue ?? data.coPay, 0),
+    expiresAt: asString(data.expiresAt ?? data.expiryDate, new Date(Date.now() + 36e5).toISOString())
+  };
+}
+
+function toReceipt(data: Record<string, any>, voucher?: Voucher): RedemptionReceipt {
+  return {
+    ledgerReference: asString(data.ledgerReference ?? data.reference ?? data.transactionReference, `AGR-LDG-${Date.now().toString().slice(-8)}`),
+    timestamp: asString(data.timestamp ?? data.redeemedAt ?? data.createdAt, new Date().toISOString()),
+    dealerName: asString(data.dealerName ?? data.dealer?.shopName, dealerProfile.shopName),
+    dealerCode: asString(data.dealerCode ?? data.dealer?.code, dealerProfile.dealerCode),
+    farmerId: asString(data.farmerId ?? data.farmer?.id, voucher?.farmerId ?? "FRM-UNKNOWN"),
+    farmerName: asString(data.farmerName ?? data.farmer?.name, voucher?.farmerName ?? "Unknown farmer"),
+    itemName: asString(data.itemName ?? data.itemAllocation ?? data.productName, voucher?.itemAllocation ?? "Input allocation"),
+    quantity: asNumber(data.quantity, voucher?.quantity ?? 0),
+    unit: asString(data.unit, voucher?.unit ?? "unit"),
+    walletContribution: asNumber(data.walletContribution ?? data.walletAmount ?? data.subsidyAmount, voucher?.walletContribution ?? 0),
+    farmerCopayDue: asNumber(data.farmerCopayDue ?? data.copayDue ?? data.coPay, voucher?.farmerCopayDue ?? 0)
+  };
+}
+
+function normalizeDisbursementStatus(status: unknown): DealerDisbursementStatus {
+  const value = String(status ?? "completed").toLowerCase().replace(/_/g, " ");
+
+  if (value.includes("pending")) {
+    return "pending";
+  }
+
+  if (value.includes("reverse") || value.includes("failed") || value.includes("cancel")) {
+    return "reversed";
+  }
+
+  return "completed";
+}
+
+function asString(value: unknown, fallback: string): string {
+  return typeof value === "string" && value.length > 0 ? value : fallback;
+}
+
+function asNumber(value: unknown, fallback: number): number {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function maskPhone(phoneNumber: unknown): string {
+  const value = String(phoneNumber ?? "");
+  return value.length >= 8 ? `${value.slice(0, 3)}****${value.slice(-4)}` : "****";
+}
+

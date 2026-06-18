@@ -33,7 +33,7 @@ export function DealerRedeemSuccessClient() {
   };
 
   return (
-    <main className="min-h-screen bg-surface text-ink lg:pl-72">
+    <main className="min-h-screen bg-surface text-ink lg:pl-[var(--role-sidebar-width,18rem)]">
       <section className="mx-auto min-h-screen max-w-7xl bg-slate-50 px-4 py-6 pb-24 shadow-sm sm:px-6 lg:bg-transparent lg:px-8 lg:shadow-none">
         <section className="rounded-xl border border-emerald-200 bg-white p-6 text-center shadow-sm">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
@@ -81,3 +81,4 @@ function ReceiptRow({ icon: Icon, label, value }: { icon: typeof FileKey2; label
     </div>
   );
 }
+

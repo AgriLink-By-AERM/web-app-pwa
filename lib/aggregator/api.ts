@@ -1,9 +1,27 @@
+import { fetchApi } from "@/lib/api-client";
 import type { AggregatorProfile, AggregatorRegistrationPayload, AggregatorRegistrationResult } from "@/lib/types";
 
 export async function registerAggregator(
   payload: AggregatorRegistrationPayload
 ): Promise<AggregatorRegistrationResult> {
-  await simulateNetworkDelay(450);
+  const backendPayload = {
+    phone: payload.phoneNumber,
+    fullName: payload.fullName,
+    password: "defaultPassword123", // UI doesn't collect password currently
+    zone: payload.zone,
+    governmentIdType: "nin", // default for now
+    governmentIdNumber: payload.governmentIdNumber,
+    governmentIdPhotoUrl: "http://example.com/" + payload.idPhotoFileName,
+    guarantorPhone: payload.guarantorPhoneNumber
+  };
+
+  const response = await fetchApi('/aggregator/register', {
+    method: 'POST',
+    body: JSON.stringify(backendPayload)
+  });
+
+  // Backend returns 201 with `{ data: { message: ... } }` based on standard ok() response format
+  // or `{ message: ... }` if unwrapped. Let's assume standard response structure.
 
   const profile: AggregatorProfile = {
     id: `agg_${Date.now()}`,
@@ -16,12 +34,6 @@ export async function registerAggregator(
 
   return {
     profile,
-    message: "Registration submitted. Your account is pending verification before field logging is enabled."
+    message: response?.data?.message || response?.message || "Registration submitted successfully."
   };
-}
-
-async function simulateNetworkDelay(milliseconds: number): Promise<void> {
-  await new Promise((resolve) => {
-    setTimeout(resolve, milliseconds);
-  });
 }

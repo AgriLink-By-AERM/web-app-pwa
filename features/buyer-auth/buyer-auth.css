@@ -1,6 +1,8 @@
 @import './fonts.css';
 
 .buyer-auth { min-height: 100vh; padding: 32px; background: #faf7f3; color: #111827; font-family: 'Inter', sans-serif; }
+.farmtry-site.buyer-auth { background: #faf7f3; color: #111827; }
+.buyer-auth-main { color: #111827; }
 .buyer-auth-shell { display: grid; grid-template-columns: 5fr 7fr; max-width: 1376px; margin: auto; min-height: 900px; background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 45px -16px #182a1826; }
 .buyer-auth-register { padding: 40px; }
 .buyer-auth-register .buyer-auth-shell { min-height: 965px; }
@@ -42,7 +44,8 @@
 .buyer-auth-password-rules [data-met=true] { color: #1e4d2b; }
 .buyer-auth-check,.buyer-auth-submit,.buyer-auth-google { width: 100%; min-height: 44px; font-size: 14px; }
 .buyer-auth .buyer-auth-check { border-color: #b5cdbb; color: #1e4d2b; }
-.buyer-auth .buyer-auth-submit { background: #1e4d2b; color: white; opacity: .6; }
+.buyer-auth .buyer-auth-submit { background: #1e4d2b; color: white; opacity: 1; }
+.buyer-auth .buyer-auth-submit:disabled { opacity: .6; }
 .buyer-auth .buyer-auth-status { font-size: 12px; line-height: 1.6; color: #1e4d2b; margin: 10px 0; }
 .buyer-auth .buyer-auth-status:empty { margin: 10px 0 0; }
 .buyer-auth-divider { display: flex; align-items: center; gap: 14px; font-size: 12px; color: #64748b; margin: 24px 0; }
@@ -88,6 +91,7 @@
 }
 @media (max-width: 767px) {
   .buyer-auth { padding: 0; background: white; }
+  .farmtry-site.buyer-auth { background: white; }
 
   .buyer-auth-mobile-header { height: 61px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
   .buyer-auth-mobile-header > a { display: flex; align-items: center; gap: 7px; font-size: 12px; }

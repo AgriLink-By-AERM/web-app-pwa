@@ -36,7 +36,7 @@ The complete node inventory remains in `REPOSITORY_AND_DESIGN_INDEX.md`. The Goo
 
 ## Current blocker and continuation
 
-The Figma connector returned its Starter-plan call limit while retrieving marketplace sections. The user is restoring Figma access. High-fidelity references already retrieved are cached locally under ignored `.figma-reference/`; they are reference material, never shipped screenshots or production components. Screens without full context remain pending instead of being claimed as implemented.
+The Figma connector returned its Starter-plan call limit while retrieving marketplace sections on 2026-10-04. On 2026-10-05 the user reported renewed usage and supplied backend contracts; this continuation prioritized the documented API integration. Figma access has not been rechecked during that integration work. High-fidelity references already retrieved are cached locally under ignored `.figma-reference/`; they are reference material, never shipped screenshots or production components. Screens without full context remain pending instead of being claimed as implemented.
 
 After access returns, finish desktop marketplace context, then cart/wishlist/checkout; continue buyer, aggregator and admin flows. Every route must retain disabled service actions and explicit contract-unavailable behavior until backend specifications are approved. Do not import legacy demo mutation fallbacks into these previews.
 

@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { ServiceWorkerRegistration } from "./service-worker-registration";
 import "./globals.css";
+import { LegacyDemoNotice } from "@/components/auth/legacy-demo-notice";
 
 export const metadata: Metadata = {
+  referrer: "no-referrer",
   title: {
     default: "AgriLink",
     template: "%s | AgriLink"
@@ -37,6 +39,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
+        <LegacyDemoNotice />
         {children}
         <ServiceWorkerRegistration />
       </body>

@@ -8,6 +8,10 @@ import { BuyerAuthPage } from "@/features/buyer-auth/buyer-auth-page";
 import "@/features/buyer-auth/buyer-auth.css";
 import { ProductPage } from "@/features/commerce/product-page";
 import "@/features/commerce/commerce.css";
+import { AggregatorWorkspace } from "@/features/core/aggregator-workspace";
+import { LiveAggregatorRegistration } from "@/features/core/aggregator-registration";
+import { OtpVerification } from "@/features/core/otp-verification";
+import "@/features/core/core.css";
 
 export function generateStaticParams() { return Object.keys(pageRequirements).map(page => ({ page })); }
 export const dynamicParams = false;
@@ -23,6 +27,10 @@ export default async function PreviewPage({ params }: { params: Promise<{ page: 
   const { page } = await params;
   if (!Object.prototype.hasOwnProperty.call(pageRequirements, page)) notFound();
   if (page === "product") return <ProductPage />;
+  if (page === "aggregator") return <AggregatorWorkspace />;
+  if (page === "aggregator-register") return <LiveAggregatorRegistration />;
+  if (page === "aggregator-login") return <BuyerAuthPage key="aggregator-login" screen="login" audience="aggregator" />;
+  if (page === "aggregator-verify") return <OtpVerification />;
   if (page === "buyer-register") return <BuyerAuthPage key="register" screen="register" />;
   if (page === "buyer-login") return <BuyerAuthPage key="login" screen="login" />;
   if (page === "recovery") return <BuyerAuthPage key="recovery" screen="recovery" />;

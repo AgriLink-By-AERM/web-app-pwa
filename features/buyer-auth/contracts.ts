@@ -1,12 +1,12 @@
 import { pendingContract } from "@/lib/integration/page-requirements";
 
-/** Deliberately no callable transport or invented request/response DTOs. */
+/** Supplied v1 handoff covers shared login/recovery; buyer signup and OAuth are still unspecified. */
 export const buyerAuthContracts = {
-  login: { ...pendingContract },
+  login: { status: "specified", method: "POST", endpoint: "/auth/login" },
   register: { ...pendingContract },
   googleSignIn: { ...pendingContract },
-  recover: { ...pendingContract },
+  recover: { status: "specified", method: "POST", endpoint: "/auth/forgot-password" },
   verifyResetCode: { ...pendingContract },
   resendCode: { ...pendingContract },
-  resetPassword: { ...pendingContract },
+  resetPassword: { status: "specified", method: "POST", endpoint: "/auth/reset-password" },
 } as const;

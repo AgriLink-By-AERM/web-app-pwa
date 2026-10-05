@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "start": "node scripts/preview.cjs",
+    "preview": "node scripts/preview.cjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/test-farmtry-api.cjs && node scripts/test-buyer-auth.cjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

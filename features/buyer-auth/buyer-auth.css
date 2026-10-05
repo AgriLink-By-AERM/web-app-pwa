@@ -178,3 +178,5 @@
 @media (max-width: 767px) {
   .buyer-auth-register .buyer-auth-tomatoes img { height: 220px; }
 }
+
+.buyer-auth-live-fields{border:0;padding:0;margin:0;min-width:0;display:grid;gap:18px}.buyer-auth-live-fields:disabled{opacity:.7}

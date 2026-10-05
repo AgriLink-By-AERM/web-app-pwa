@@ -1,6 +1,6 @@
 # Farmtry frontend build status
 
-Updated 2026-10-04. User scope: finish the remaining Figma screens before connecting backend services. This document records actual completion; existing legacy demo pages do not count as completed Figma implementations.
+Updated 2026-10-05. User supplied backend contracts and prioritized implementation for testing. Shared auth and aggregator operations now have connected web clients; see `BACKEND_INTEGRATION_2026-10-05.md`. Remaining Figma fidelity work below is still pending. This document records design completion; legacy demo pages do not count as completed Figma implementations.
 
 ## Delivered
 

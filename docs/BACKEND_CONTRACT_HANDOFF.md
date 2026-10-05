@@ -1,6 +1,6 @@
 # Backend contract handoff
 
-Status: **awaiting backend specifications**. Reviewed 2026-09-30.
+Status update **2026-10-05**: the user supplied shared auth, password recovery and aggregator v1 contracts. Those operations are implemented separately from the legacy demo services; see `BACKEND_INTEGRATION_2026-10-05.md` and `FARMTRY_API_REFERENCE_2026-10-05.txt`. Buyer registration, marketplace/payment, buyer workspace, admin and dealer specifications remain pending. The following notes preserve the earlier design-preview handoff and should not override the new supplied contracts.
 
 Account-preview update: desktop/mobile signup, login, reset and recovery now have Figma-based local forms (updated 2026-10-04). These remain non-submitting previews; operation contracts in `features/buyer-auth/contracts.ts` retain null endpoints and schemas. See `BUYER_AUTH_IMPLEMENTATION.md` for exact delivered and pending scope.
 

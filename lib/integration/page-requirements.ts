@@ -1,5 +1,6 @@
 /** UI requirements only. No endpoint, wire schema, or authentication contract is approved. */
 export const pageRequirements = {
+  "aggregator-verify": { title: "Verify aggregator email", description: "Confirm your registration email with the code you received.", needs: ["POST auth/verify-otp", "POST auth/resend-otp"], figmaNode: null },
   marketplace: { title: "Marketplace", description: "Discover verified produce and agricultural waste from local hubs.", needs: ["Paginated listings and filter options", "Listing details, availability, price units and image URLs", "Verification and quality certificate status"], figmaNode: "372:9017" },
   product: { title: "Product details", description: "View a verified listing before starting a purchase.", needs: ["Stable listing identifier and current inventory", "Price, currency, quantity units and delivery options", "Quality certificates and supplier information"], figmaNode: "371:8473" },
   cart: { title: "Shopping cart", description: "Review your selected products and delivery costs.", needs: ["Cart identity, line items and inventory checks", "Authoritative totals, taxes and delivery quote", "Cart update and expiry rules"], figmaNode: "374:10149" },

@@ -1,5 +1,7 @@
 # Buyer account preview — updated 2026-10-04
 
+**Superseded behavior on 2026-10-05:** shared sign-in and recovery now use the supplied v1 backend contract. Reset consumes a 64-character token from a recovery link instead of a six-digit code, uses the documented 8-character minimum, and requires sign-in afterward. Buyer registration, Google sign-in and remember me remain pending. See `BACKEND_INTEGRATION_2026-10-05.md`. The historical preview notes below describe the earlier non-submitting implementation.
+
 ## Delivered design scope
 
 | Route | Retrieved Figma reference | Availability |

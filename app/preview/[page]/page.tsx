@@ -1,0 +1,32 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Card } from "@/components/ui/card";
+import { LandingHeader } from "@/features/landing/components/landing-header";
+import { pageRequirements, type IntegrationPage } from "@/lib/integration/page-requirements";
+import "@/features/landing/landing.css";
+import { BuyerAuthPage } from "@/features/buyer-auth/buyer-auth-page";
+import "@/features/buyer-auth/buyer-auth.css";
+import { ProductPage } from "@/features/commerce/product-page";
+import "@/features/commerce/commerce.css";
+
+export function generateStaticParams() { return Object.keys(pageRequirements).map(page => ({ page })); }
+export const dynamicParams = false;
+
+export async function generateMetadata({ params }: { params: Promise<{ page: string }> }) {
+  const { page } = await params;
+  const title = Object.prototype.hasOwnProperty.call(pageRequirements, page)
+    ? pageRequirements[page as IntegrationPage].title : "Preview";
+  return { title: { absolute: `${title} | Farmtry` } };
+}
+
+export default async function PreviewPage({ params }: { params: Promise<{ page: string }> }) {
+  const { page } = await params;
+  if (!Object.prototype.hasOwnProperty.call(pageRequirements, page)) notFound();
+  if (page === "product") return <ProductPage />;
+  if (page === "buyer-register") return <BuyerAuthPage key="register" screen="register" />;
+  if (page === "buyer-login") return <BuyerAuthPage key="login" screen="login" />;
+  if (page === "recovery") return <BuyerAuthPage key="recovery" screen="recovery" />;
+  if (page === "buyer-reset") return <BuyerAuthPage key="reset" screen="reset" />;
+  const requirement = pageRequirements[page as IntegrationPage];
+  return <div className="farmtry-site"><LandingHeader /><main className="farmtry-container farmtry-placeholder"><p className="farmtry-eyebrow">FARMTRY · COMING SOON</p><h1>{requirement.title}</h1><p>{requirement.description}</p><Card className="mt-8 max-w-xl p-8 text-ink"><h2 className="text-xl font-bold">This service is being prepared</h2><p className="mt-3 text-body">This page is a preview. Live account and transaction services are not available yet.</p><p className="mt-3 text-sm text-muted">No information has been submitted and no purchase or account action has been completed.</p><Link className="farmtry-action mt-6" href="/">Back to Farmtry</Link></Card><nav className="mt-8 flex flex-wrap gap-6" aria-label="Explore Farmtry"><Link href="/preview/marketplace">Marketplace</Link><Link href="/preview/buyer">Buyer Hub</Link><Link href="/preview/aggregator">Aggregator Hub</Link></nav></main></div>;
+}

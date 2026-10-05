@@ -1,0 +1,32 @@
+// Run with node scripts/test-buyer-auth.cjs. Uses the project's existing TypeScript dependency.
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+const ts = require('typescript');
+const source = fs.readFileSync(path.join(__dirname, '../features/buyer-auth/validation.ts'), 'utf8');
+const output = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
+const sandbox = { exports: {} };
+vm.runInNewContext(output, sandbox);
+const { validateAuth, emptyValues } = sandbox.exports;
+const valid = { ...emptyValues, company: 'Example Test Ltd', email: 'buyer@example.com', phone: '+234 801 234 5678', password: 'Preview123!', confirmation: 'Preview123!', code: '012345' };
+let passed = 0;
+function test(name, fn) { fn(); passed++; console.log(`PASS ${name}`); }
+test('blank registration identifies every required field', () => assert.equal(Object.keys(validateAuth('register', emptyValues)).length, 4));
+test('valid registration has no local errors', () => assert.equal(Object.keys(validateAuth('register', valid)).length, 0));
+test('whitespace-only organization is invalid', () => assert.ok(validateAuth('register', { ...valid, company: '  ' }).company));
+test('email whitespace and malformed address are rejected', () => assert.ok(validateAuth('register', { ...valid, email: 'buyer @company' }).email));
+test('local Nigerian phone format is accepted', () => assert.equal(validateAuth('register', { ...valid, phone: '08012345678' }).phone, undefined));
+test('short phone is rejected', () => assert.ok(validateAuth('register', { ...valid, phone: '+234 801' }).phone));
+test('recovery only validates the selected channel', () => assert.equal(Object.keys(validateAuth('recovery', { ...emptyValues, email: valid.email })).length, 0));
+test('SMS requires a phone instead of email', () => assert.equal(Object.keys(validateAuth('recovery', { ...emptyValues, phone: valid.phone }, 'sms')).length, 0));
+test('empty SMS value is rejected', () => assert.ok(validateAuth('recovery', emptyValues, 'sms').phone));
+test('leading zero in six-digit code is preserved', () => assert.equal(Object.keys(validateAuth('reset', valid)).length, 0));
+test('short, alphabetic and long codes are rejected', () => ['12345', 'abcdef', '1234567'].forEach(code => assert.ok(validateAuth('reset', { ...valid, code }).code)));
+test('mismatched confirmation is rejected', () => assert.ok(validateAuth('reset', { ...valid, confirmation: 'Other123!' }).confirmation));
+test('blank confirmation is rejected', () => assert.ok(validateAuth('reset', { ...valid, confirmation: '' }).confirmation));
+test('password requirements are independently enforced', () => ['Ab1!', 'abcdefgh!', 'abcdefgh1'].forEach(password => assert.ok(validateAuth('reset', { ...valid, password }).password)));
+test('login requires email and password', () => assert.equal(Object.keys(validateAuth('login', emptyValues)).length, 2));
+test('login rejects malformed email', () => assert.ok(validateAuth('login', { ...valid, email: 'invalid' }).email));
+test('login accepts existing passwords independently of signup policy', () => assert.equal(Object.keys(validateAuth('login', { ...emptyValues, email: valid.email, password: 'old' })).length, 0));
+console.log(`${passed} validation tests passed. These do not verify accounts or codes.`);

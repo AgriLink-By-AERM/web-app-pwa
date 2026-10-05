@@ -9,3 +9,5 @@ build/
 
 .env
 .env*.local
+
+.figma-reference/

@@ -1,5 +1,5 @@
 /** Browser transport for the supplied Farmtry v1 contract; never imports demo services. */
-export const FARMTRY_API_URL = (process.env.NEXT_PUBLIC_FARMTRY_API_URL || "http://localhost:5001/api/v1").replace(/\/+$/, "");
+export const FARMTRY_API_URL = (process.env.NEXT_PUBLIC_FARMTRY_API_URL || "https://farmtry-core-engine.onrender.com/api/v1").replace(/\/+$/, "");
 export type ErrorKind = "network" | "timeout" | "unauthorized" | "forbidden" | "validation" | "conflict" | "rate-limit" | "not-found" | "server" | "contract";
 export class FarmtryError extends Error {
   constructor(public kind: ErrorKind, message: string, public status = 0, public retryAfter: number | null = null) { super(message); this.name = "FarmtryError"; }

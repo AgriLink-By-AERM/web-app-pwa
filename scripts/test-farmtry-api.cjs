@@ -29,7 +29,7 @@ const body = index => JSON.parse(calls[index ?? calls.length - 1].body);
   await test('login uses documented body, cookies, no-store and saves only logout reference', async () => {
     handler = () => ok({ user: { role: 'aggregator' }, sessionId: 'session-1' });
     await auth.login(' user@example.com ', 'fixture-password');
-    assert.equal(calls[0].url, 'http://localhost:5001/api/v1/auth/login');
+    assert.equal(calls[0].url, 'https://farmtry-core-engine.onrender.com/api/v1/auth/login');
     assert.deepEqual(body(), { emailOrPhone: 'user@example.com', password: 'fixture-password' });
     assert.equal(calls[0].credentials, 'include'); assert.equal(calls[0].cache, 'no-store'); assert.equal(calls[0].redirect, 'error');
     assert.deepEqual([...storage.values()], ['session-1']); assert.equal(calls[0].headers.Authorization, undefined);

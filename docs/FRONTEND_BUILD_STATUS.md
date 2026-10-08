@@ -1,5 +1,11 @@
 # Farmtry frontend build status
 
+## Current checkpoint — 2026-10-08
+
+Cart, buyer dashboard and purchase history are now implemented from saved desktop references with responsive adaptations and explicit sample data. See [the continuation report](FRONTEND_CONTINUATION_2026-10-08.md) for routes, verification and remaining scope. The complete native Figma archive is verified; older access notes below are historical.
+
+The following 2026-10-05 record is retained as prior implementation history.
+
 Updated 2026-10-05. User supplied backend contracts and prioritized implementation for testing. Shared auth and aggregator operations now have connected web clients; see `BACKEND_INTEGRATION_2026-10-05.md`. Remaining Figma fidelity work below is still pending. This document records design completion; legacy demo pages do not count as completed Figma implementations.
 
 ## Delivered

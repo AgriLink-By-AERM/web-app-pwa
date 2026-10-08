@@ -6,6 +6,10 @@ import { pageRequirements, type IntegrationPage } from "@/lib/integration/page-r
 import "@/features/landing/landing.css";
 import { BuyerAuthPage } from "@/features/buyer-auth/buyer-auth-page";
 import "@/features/buyer-auth/buyer-auth.css";
+import { BuyerDashboard, BuyerPurchaseHistory } from "@/features/buyer-workspace/buyer-workspace";
+import "@/features/buyer-workspace/buyer-workspace.css";
+import { CartPage } from "@/features/commerce/cart-page";
+import "@/features/commerce/cart.css";
 import { ProductPage } from "@/features/commerce/product-page";
 import "@/features/commerce/commerce.css";
 import { AggregatorWorkspace } from "@/features/core/aggregator-workspace";
@@ -26,6 +30,9 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
 export default async function PreviewPage({ params }: { params: Promise<{ page: string }> }) {
   const { page } = await params;
   if (!Object.prototype.hasOwnProperty.call(pageRequirements, page)) notFound();
+  if (page === "buyer") return <BuyerDashboard />;
+  if (page === "buyer-history") return <BuyerPurchaseHistory />;
+  if (page === "cart") return <CartPage />;
   if (page === "product") return <ProductPage />;
   if (page === "aggregator") return <AggregatorWorkspace />;
   if (page === "aggregator-register") return <LiveAggregatorRegistration />;

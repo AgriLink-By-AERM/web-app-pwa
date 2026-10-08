@@ -1,5 +1,20 @@
 /** UI requirements only. No endpoint, wire schema, or authentication contract is approved. */
 export const pageRequirements = {
+  "admin-login": {"title":"Admin Login","description":"Preview the saved admin account screen.","needs":["Admin authentication and recovery contract"],"figmaNode":"383:19072"},
+  "admin-recovery": {"title":"Admin Account Recovery","description":"Preview the saved admin account screen.","needs":["Admin authentication and recovery contract"],"figmaNode":"383:19617"},
+  "admin-recovery-sms": {"title":"Admin SMS Recovery","description":"Preview the saved admin account screen.","needs":["Admin authentication and recovery contract"],"figmaNode":"383:19719"},
+  "admin-reset": {"title":"Admin Reset Password","description":"Preview the saved admin account screen.","needs":["Admin authentication and recovery contract"],"figmaNode":"383:19472"},
+
+  "admin-users": {"title":"Users Management","description":"Preview the saved users management workspace.","needs":["Approved admin operations, server-enforced permissions and response schemas"],"figmaNode":"381:14614"},
+  "admin-farmers": {"title":"Farmers","description":"Preview the saved farmers workspace.","needs":["Approved admin operations, server-enforced permissions and response schemas"],"figmaNode":"381:14937"},
+  "admin-verifications": {"title":"Verifications","description":"Preview the saved verifications workspace.","needs":["Approved admin operations, server-enforced permissions and response schemas"],"figmaNode":"381:15399"},
+  "admin-transactions": {"title":"Transactions","description":"Preview the saved transactions workspace.","needs":["Approved admin operations, server-enforced permissions and response schemas"],"figmaNode":"381:15772"},
+  "admin-matching": {"title":"Matching Engine","description":"Preview the saved matching engine workspace.","needs":["Approved admin operations, server-enforced permissions and response schemas"],"figmaNode":"381:17021"},
+  "admin-disputes": {"title":"Dispute Resolution","description":"Preview the saved dispute resolution workspace.","needs":["Approved admin operations, server-enforced permissions and response schemas"],"figmaNode":"381:17917"},
+  "admin-content": {"title":"Content & Notifications","description":"Preview the saved content & notifications workspace.","needs":["Approved admin operations, server-enforced permissions and response schemas"],"figmaNode":"381:16214"},
+  "admin-reports": {"title":"Reports","description":"Preview the saved reports workspace.","needs":["Approved admin operations, server-enforced permissions and response schemas"],"figmaNode":"381:17540"},
+  "admin-settings": {"title":"System Settings","description":"Preview the saved system settings workspace.","needs":["Approved admin operations, server-enforced permissions and response schemas"],"figmaNode":"381:16711"},
+
   "aggregator-verify": { title: "Verify aggregator email", description: "Confirm your registration email with the code you received.", needs: ["POST auth/verify-otp", "POST auth/resend-otp"], figmaNode: null },
   marketplace: { title: "Marketplace", description: "Discover verified produce and agricultural waste from local hubs.", needs: ["Paginated listings and filter options", "Listing details, availability, price units and image URLs", "Verification and quality certificate status"], figmaNode: "372:9017" },
   product: { title: "Product details", description: "View a verified listing before starting a purchase.", needs: ["Stable listing identifier and current inventory", "Price, currency, quantity units and delivery options", "Quality certificates and supplier information"], figmaNode: "371:8473" },

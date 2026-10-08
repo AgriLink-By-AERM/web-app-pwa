@@ -1,3 +1,8 @@
+import { AdminAuth } from "@/features/admin-workspace/admin-auth";
+import "@/features/admin-workspace/admin-auth.css";
+import { AdminWorkspace } from "@/features/admin-workspace/admin-workspace";
+import { adminPages, type AdminPage } from "@/features/admin-workspace/admin-data";
+import "@/features/admin-workspace/admin-workspace.css";
 import { BuyerListings, BuyerListingDetail, BuyerMatchDetail, BuyerScanner } from "@/features/buyer-workspace/buyer-procurement";
 import "@/features/buyer-workspace/buyer-procurement.css";
 import { BuyerNotifications } from "@/features/buyer-workspace/buyer-notifications";
@@ -34,6 +39,10 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
 export default async function PreviewPage({ params }: { params: Promise<{ page: string }> }) {
   const { page } = await params;
   if (!Object.prototype.hasOwnProperty.call(pageRequirements, page)) notFound();
+  if (page === "admin-login") return <AdminAuth screen="login" />;
+  if (page === "admin-recovery" || page === "admin-recovery-sms") return <AdminAuth key={page} screen="recovery" initialMethod={page === "admin-recovery-sms" ? "sms" : "email"} />;
+  if (page === "admin-reset") return <AdminAuth screen="reset" />;
+  if (Object.prototype.hasOwnProperty.call(adminPages, page)) return <AdminWorkspace key={page} screen={page as AdminPage} />;
   if (page === "buyer-listings") return <BuyerListings />;
   if (page === "buyer-listing") return <BuyerListingDetail />;
   if (page === "buyer-match") return <BuyerMatchDetail />;

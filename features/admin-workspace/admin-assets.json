@@ -1,0 +1,142 @@
+{
+  "admin": {
+    "nav": {
+      "Dashboard": "/figma/admin/381-14266/381-14558.svg",
+      "Users Management": "/figma/admin/381-14266/381-14563.svg",
+      "Farmers": "/figma/admin/381-14266/381-14568.svg",
+      "Verifications": "/figma/admin/381-14266/381-14573.svg",
+      "Transactions": "/figma/admin/381-14266/381-14578.svg",
+      "Matching Engine": "/figma/admin/381-14266/381-14583.svg",
+      "Dispute Resolution": "/figma/admin/381-14266/381-14588.svg",
+      "Content & Notifications": "/figma/admin/381-14266/381-14593.svg",
+      "Reports": "/figma/admin/381-14266/381-14598.svg",
+      "System Settings": "/figma/admin/381-14266/381-14603.svg"
+    }
+  },
+  "admin-users": {
+    "nav": {
+      "Dashboard": "/figma/admin/381-14614/381-14881.svg",
+      "Users Management": "/figma/admin/381-14614/381-14886.svg",
+      "Farmers": "/figma/admin/381-14614/381-14891.svg",
+      "Verifications": "/figma/admin/381-14614/381-14896.svg",
+      "Transactions": "/figma/admin/381-14614/381-14901.svg",
+      "Matching Engine": "/figma/admin/381-14614/381-14906.svg",
+      "Dispute Resolution": "/figma/admin/381-14614/381-14911.svg",
+      "Content & Notifications": "/figma/admin/381-14614/381-14916.svg",
+      "Reports": "/figma/admin/381-14614/381-14921.svg",
+      "System Settings": "/figma/admin/381-14614/381-14926.svg"
+    }
+  },
+  "admin-farmers": {
+    "nav": {
+      "Dashboard": "/figma/admin/381-14937/381-15343.svg",
+      "Users Management": "/figma/admin/381-14937/381-15348.svg",
+      "Farmers": "/figma/admin/381-14937/381-15353.svg",
+      "Verifications": "/figma/admin/381-14937/381-15358.svg",
+      "Transactions": "/figma/admin/381-14937/381-15363.svg",
+      "Matching Engine": "/figma/admin/381-14937/381-15368.svg",
+      "Dispute Resolution": "/figma/admin/381-14937/381-15373.svg",
+      "Content & Notifications": "/figma/admin/381-14937/381-15378.svg",
+      "Reports": "/figma/admin/381-14937/381-15383.svg",
+      "System Settings": "/figma/admin/381-14937/381-15388.svg"
+    }
+  },
+  "admin-verifications": {
+    "nav": {
+      "Dashboard": "/figma/admin/381-15399/381-15716.svg",
+      "Users Management": "/figma/admin/381-15399/381-15721.svg",
+      "Farmers": "/figma/admin/381-15399/381-15726.svg",
+      "Verifications": "/figma/admin/381-15399/381-15731.svg",
+      "Transactions": "/figma/admin/381-15399/381-15736.svg",
+      "Matching Engine": "/figma/admin/381-15399/381-15741.svg",
+      "Dispute Resolution": "/figma/admin/381-15399/381-15746.svg",
+      "Content & Notifications": "/figma/admin/381-15399/381-15751.svg",
+      "Reports": "/figma/admin/381-15399/381-15756.svg",
+      "System Settings": "/figma/admin/381-15399/381-15761.svg"
+    }
+  },
+  "admin-transactions": {
+    "nav": {
+      "Dashboard": "/figma/admin/381-15772/381-16158.svg",
+      "Users Management": "/figma/admin/381-15772/381-16163.svg",
+      "Farmers": "/figma/admin/381-15772/381-16168.svg",
+      "Verifications": "/figma/admin/381-15772/381-16173.svg",
+      "Transactions": "/figma/admin/381-15772/381-16178.svg",
+      "Matching Engine": "/figma/admin/381-15772/381-16183.svg",
+      "Dispute Resolution": "/figma/admin/381-15772/381-16188.svg",
+      "Content & Notifications": "/figma/admin/381-15772/381-16193.svg",
+      "Reports": "/figma/admin/381-15772/381-16198.svg",
+      "System Settings": "/figma/admin/381-15772/381-16203.svg"
+    }
+  },
+  "admin-matching": {
+    "nav": {
+      "Dashboard": "/figma/admin/381-17021/381-17484.svg",
+      "Users Management": "/figma/admin/381-17021/381-17489.svg",
+      "Farmers": "/figma/admin/381-17021/381-17494.svg",
+      "Verifications": "/figma/admin/381-17021/381-17499.svg",
+      "Transactions": "/figma/admin/381-17021/381-17504.svg",
+      "Matching Engine": "/figma/admin/381-17021/381-17509.svg",
+      "Dispute Resolution": "/figma/admin/381-17021/381-17514.svg",
+      "Content & Notifications": "/figma/admin/381-17021/381-17519.svg",
+      "Reports": "/figma/admin/381-17021/381-17524.svg",
+      "System Settings": "/figma/admin/381-17021/381-17529.svg"
+    }
+  },
+  "admin-disputes": {
+    "nav": {
+      "Dashboard": "/figma/admin/381-17917/381-18341.svg",
+      "Users Management": "/figma/admin/381-17917/381-18346.svg",
+      "Farmers": "/figma/admin/381-17917/381-18351.svg",
+      "Verifications": "/figma/admin/381-17917/381-18356.svg",
+      "Transactions": "/figma/admin/381-17917/381-18361.svg",
+      "Matching Engine": "/figma/admin/381-17917/381-18366.svg",
+      "Dispute Resolution": "/figma/admin/381-17917/381-18371.svg",
+      "Content & Notifications": "/figma/admin/381-17917/381-18376.svg",
+      "Reports": "/figma/admin/381-17917/381-18381.svg",
+      "System Settings": "/figma/admin/381-17917/381-18386.svg"
+    }
+  },
+  "admin-content": {
+    "nav": {
+      "Dashboard": "/figma/admin/381-16214/381-16655.svg",
+      "Users Management": "/figma/admin/381-16214/381-16660.svg",
+      "Farmers": "/figma/admin/381-16214/381-16665.svg",
+      "Verifications": "/figma/admin/381-16214/381-16670.svg",
+      "Transactions": "/figma/admin/381-16214/381-16675.svg",
+      "Matching Engine": "/figma/admin/381-16214/381-16680.svg",
+      "Dispute Resolution": "/figma/admin/381-16214/381-16685.svg",
+      "Content & Notifications": "/figma/admin/381-16214/381-16690.svg",
+      "Reports": "/figma/admin/381-16214/381-16695.svg",
+      "System Settings": "/figma/admin/381-16214/381-16700.svg"
+    }
+  },
+  "admin-reports": {
+    "nav": {
+      "Dashboard": "/figma/admin/381-17540/381-17861.svg",
+      "Users Management": "/figma/admin/381-17540/381-17866.svg",
+      "Farmers": "/figma/admin/381-17540/381-17871.svg",
+      "Verifications": "/figma/admin/381-17540/381-17876.svg",
+      "Transactions": "/figma/admin/381-17540/381-17881.svg",
+      "Matching Engine": "/figma/admin/381-17540/381-17886.svg",
+      "Dispute Resolution": "/figma/admin/381-17540/381-17891.svg",
+      "Content & Notifications": "/figma/admin/381-17540/381-17896.svg",
+      "Reports": "/figma/admin/381-17540/381-17901.svg",
+      "System Settings": "/figma/admin/381-17540/381-17906.svg"
+    }
+  },
+  "admin-settings": {
+    "nav": {
+      "Dashboard": "/figma/admin/381-16711/381-16952.svg",
+      "Users Management": "/figma/admin/381-16711/381-16957.svg",
+      "Farmers": "/figma/admin/381-16711/381-16962.svg",
+      "Verifications": "/figma/admin/381-16711/381-16967.svg",
+      "Transactions": "/figma/admin/381-16711/381-16972.svg",
+      "Matching Engine": "/figma/admin/381-16711/381-16977.svg",
+      "Dispute Resolution": "/figma/admin/381-16711/381-16982.svg",
+      "Content & Notifications": "/figma/admin/381-16711/381-16987.svg",
+      "Reports": "/figma/admin/381-16711/381-16992.svg",
+      "System Settings": "/figma/admin/381-16711/381-16997.svg"
+    }
+  }
+}

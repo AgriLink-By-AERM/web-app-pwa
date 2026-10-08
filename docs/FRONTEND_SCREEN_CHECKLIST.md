@@ -35,24 +35,24 @@ This lists the current canvas targets from the verified archive inventory. Compo
 | Confirm Account | 380:12929 | Pending | No; native design preserved |
 | Aside - LeftSideOrderSummary | 380:13138 | Pending | No; native design preserved |
 | Confirm Account | 380:13399 | Pending | No; native design preserved |
-| Admin Dashboard | 381:14266 | Pending | No; native design preserved |
-| Users Management | 381:14614 | Pending | No; native design preserved |
-| Farmers Management | 381:14937 | Pending | No; native design preserved |
-| Verifications Management | 381:15399 | Pending | No; native design preserved |
-| Transactions Management | 381:15772 | Pending | No; native design preserved |
-| Content & Notifications | 381:16214 | Pending | No; native design preserved |
-| Content & Notifications | 398:15757 | Pending | No; native design preserved |
-| Content & Notifications | 398:16260 | Pending | No; native design preserved |
-| System Settings | 381:16711 | Pending | No; native design preserved |
-| Matching Engine Monitoring | 381:17021 | Pending | No; native design preserved |
-| Reports & Analytics | 381:17540 | Pending | No; native design preserved |
-| Dispute Resolution | 381:17917 | Pending | No; native design preserved |
-| Admin Log In | 383:19072 | Pending | No; native design preserved |
+| Admin Dashboard | 381:14266 | Implemented — /preview/admin | No; native design preserved |
+| Users Management | 381:14614 | Implemented — /preview/admin-users | No; native design preserved |
+| Farmers Management | 381:14937 | Implemented — /preview/admin-farmers | No; native design preserved |
+| Verifications Management | 381:15399 | Implemented — /preview/admin-verifications | No; native design preserved |
+| Transactions Management | 381:15772 | Implemented — /preview/admin-transactions | No; native design preserved |
+| Content & Notifications | 381:16214 | Implemented — /preview/admin-content | No; native design preserved |
+| Content & Notifications | 398:15757 | Implemented — /preview/admin-content (Announcements tab) | No; native design preserved |
+| Content & Notifications | 398:16260 | Implemented — /preview/admin-content (Updates tab) | No; native design preserved |
+| System Settings | 381:16711 | Implemented — /preview/admin-settings | No; native design preserved |
+| Matching Engine Monitoring | 381:17021 | Implemented — /preview/admin-matching | No; native design preserved |
+| Reports & Analytics | 381:17540 | Implemented — /preview/admin-reports | No; native design preserved |
+| Dispute Resolution | 381:17917 | Implemented — /preview/admin-disputes | No; native design preserved |
+| Admin Log In | 383:19072 | Implemented — /preview/admin-login | No; native design preserved |
 | Continue with Google - Account Selection | 383:19232 | Pending | No; native design preserved |
-| Farmtry - Reset Password & Verification | 383:19472 | Pending | No; native design preserved |
-| Farmtry - Forgot Password | 383:19617 | Pending | No; native design preserved |
-| Farmtry - Forgot Password | 390:2834 | Pending | No; native design preserved |
-| Farmtry - Forgot Password | 383:19719 | Pending | No; native design preserved |
+| Farmtry - Reset Password & Verification | 383:19472 | Implemented — /preview/admin-reset | No; native design preserved |
+| Farmtry - Forgot Password | 383:19617 | Implemented — /preview/admin-recovery | No; native design preserved |
+| Farmtry - Forgot Password | 390:2834 | Implemented — /preview/admin-recovery | No; native design preserved |
+| Farmtry - Forgot Password | 383:19719 | Implemented — /preview/admin-recovery-sms | No; native design preserved |
 | success | 388:1882 | Pending | No; native design preserved |
 | landing page (mobile) | 393:3676 | Implemented — / | No; native design preserved |
 | buyer sign up | 393:4580 | Implemented — /preview/buyer-register/ | No; native design preserved |
@@ -96,7 +96,7 @@ This lists the current canvas targets from the verified archive inventory. Compo
 | Admin Forgot Password - Email (Mobile) | 398:16925 | Pending | No; native design preserved |
 | Admin Forgot Password - SMS (Mobile) | 398:17032 | Pending | No; native design preserved |
 | Admin Reset Password & Verification (Mobile) | 398:17136 | Pending | No; native design preserved |
-| roless | 408:17927 | Pending | No; native design preserved |
+| roless | 408:17927 | Implemented — /preview/admin-users (Change role dialog) | No; native design preserved |
 | Components | 456:3863 | Pending | No; native design preserved |
 | Components | 456:3864 | Pending | No; native design preserved |
 | Corrected Matches Screens | 456:4039 | Pending | No; native design preserved |

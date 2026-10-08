@@ -1,0 +1,11 @@
+# Admin frontend checkpoint
+
+The saved admin designs now have 14 preview routes: dashboard, users, farmers, verifications, transactions, content/notifications, settings, matching, reports, disputes, login, email recovery, SMS recovery and reset. Content variants are tabs; the saved role-selection variant is reached from a user row's Change role action.
+
+Source nodes and routes are recorded in FRONTEND_SCREEN_CHECKLIST.md. Original icons, imagery and charts were exported from the complete local FarmTry.fig archive. Shared Button/Card/brand components are reused. Screens contain explicit sample-data notices. These routes are public design previews, not an admin authorization boundary.
+
+Search, table filters/sorting, dialogs, draft fields, role selection, notification content tabs, report tabs, dispute selection, password visibility and local form validation work. Save, publish, refund, settlement, exports, login and recovery actions remain disabled until their backend operations are connected. No fake account or payment success is produced. Settings tabs without designed panels explicitly explain that limitation; no undocumented security controls are invented. Google account selection remains provider-owned and is not duplicated.
+
+Validation: production build passed with 77 routes. Browser checks passed at 1440, 1024 and 390 pixels across all 14 admin routes (42 combinations), including asset loading, page overflow, table filters, empty state/reset, keyboard dialog dismissal, local role selection, settings cancellation, content drafts, dispute evidence changes and login labels/password visibility. No API requests occurred. Native references and rendered desktop screenshots were visually inspected. Mobile reference comparison remains deferred.
+
+Backend needs: server-enforced admin roles, user/farmer listing and lifecycle operations, role-change authorization and audit history, verification decisions, transaction/payout ledger, dispute evidence/refund decisions, matching supervision, report/export jobs, communications publishing, settings schemas and admin authentication policy. Every mutation needs validation/error contracts and audit records; financial operations need idempotency rules.

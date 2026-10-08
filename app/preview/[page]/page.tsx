@@ -1,3 +1,7 @@
+import { BuyerListings, BuyerListingDetail, BuyerMatchDetail, BuyerScanner } from "@/features/buyer-workspace/buyer-procurement";
+import "@/features/buyer-workspace/buyer-procurement.css";
+import { BuyerNotifications } from "@/features/buyer-workspace/buyer-notifications";
+import "@/features/buyer-workspace/buyer-notifications.css";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Card } from "@/components/ui/card";
@@ -30,6 +34,11 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
 export default async function PreviewPage({ params }: { params: Promise<{ page: string }> }) {
   const { page } = await params;
   if (!Object.prototype.hasOwnProperty.call(pageRequirements, page)) notFound();
+  if (page === "buyer-listings") return <BuyerListings />;
+  if (page === "buyer-listing") return <BuyerListingDetail />;
+  if (page === "buyer-match") return <BuyerMatchDetail />;
+  if (page === "buyer-scan") return <BuyerScanner />;
+  if (page === "buyer-notifications") return <BuyerNotifications />;
   if (page === "buyer") return <BuyerDashboard />;
   if (page === "buyer-history") return <BuyerPurchaseHistory />;
   if (page === "cart") return <CartPage />;

@@ -2,6 +2,10 @@
 
 ## Current checkpoint — 2026-10-08
 
+Listings, Maize Husks listing/match details and the QR handover preview are also implemented. See [the buyer workspace continuation](BUYER_WORKSPACE_CONTINUATION_2026-10-08.md) for routes, boundaries and validation.
+
+Buyer notifications now render at `/preview/buyer-notifications/` from saved node `329:3870`, with original icons, local filters/read indicators and disabled service actions. The header bell connects the buyer screens. Build exports 64 routes; browser checks passed at 1440/1024/820/390/320px for assets, overflow, filtering, reset/reload and navigation. Mobile is a responsive adaptation. See [the current screen checklist](FRONTEND_SCREEN_CHECKLIST.md) and [the backend request](BACKEND_REQUIRED_ACTIONS_2026-10-08.md).
+
 Cart, buyer dashboard and purchase history are now implemented from saved desktop references with responsive adaptations and explicit sample data. See [the continuation report](FRONTEND_CONTINUATION_2026-10-08.md) for routes, verification and remaining scope. The complete native Figma archive is verified; older access notes below are historical.
 
 The following 2026-10-05 record is retained as prior implementation history.

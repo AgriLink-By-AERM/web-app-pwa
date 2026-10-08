@@ -8,7 +8,7 @@
     "start": "node scripts/preview.cjs",
     "preview": "node scripts/preview.cjs",
     "typecheck": "tsc --noEmit",
-    "test": "node scripts/test-farmtry-api.cjs && node scripts/test-buyer-auth.cjs"
+    "test": "node scripts/test-farmtry-api.cjs && node scripts/test-buyer-auth.cjs && node scripts/test-auth-proxy.cjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

@@ -1,5 +1,6 @@
 // Serve the static export on localhost, matching the development API cookie host.
 const http = require('node:http');
+const { proxyApi } = require('./proxy-api.cjs');
 const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '../out');
@@ -10,6 +11,7 @@ const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
 http.createServer((req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
+    if (url.pathname === '/api/v1' || url.pathname.startsWith('/api/v1/')) return proxyApi(req, res);
     let file = path.resolve(root, '.' + decodeURIComponent(url.pathname));
     if (file !== root && !file.startsWith(root + path.sep)) { res.writeHead(403); return res.end(); }
     if (fs.statSync(file).isDirectory()) file = path.join(file, 'index.html');

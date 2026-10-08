@@ -1,5 +1,5 @@
 /** Browser transport for the supplied Farmtry v1 contract; never imports demo services. */
-export const FARMTRY_API_URL = (process.env.NEXT_PUBLIC_FARMTRY_API_URL || "https://farmtry-core-engine.onrender.com/api/v1").replace(/\/+$/, "");
+export const FARMTRY_API_URL = "/api/v1"; // Same-origin proxy preserves HttpOnly SameSite cookies.
 export type ErrorKind = "network" | "timeout" | "unauthorized" | "forbidden" | "validation" | "conflict" | "rate-limit" | "not-found" | "server" | "contract";
 export class FarmtryError extends Error {
   constructor(public kind: ErrorKind, message: string, public status = 0, public retryAfter: number | null = null) { super(message); this.name = "FarmtryError"; }
@@ -57,20 +57,47 @@ export async function request<T>(path: string, decode: (data: unknown) => T, opt
 
 const sessionKey = "farmtry.session-id"; // Logout reference only; tokens remain in HttpOnly cookies.
 let sessionId: string | null = null;
-export function saveSession(id: string) { sessionId = id; try { sessionStorage.setItem(sessionKey, id); } catch { /* Memory session still supports logout. */ } }
-export function clearSession() { sessionId = null; try { sessionStorage.removeItem(sessionKey); } catch { /* No storage available. */ } }
-export function currentSession() { try { return sessionId ?? sessionStorage.getItem(sessionKey); } catch { return sessionId; } }
+let generation = 0;
+let expired = false;
 let refreshing: Promise<void> | null = null;
-export function refreshSession(): Promise<void> {
-  if (!refreshing) refreshing = request("/auth/refresh-token", value => string(record(value).sessionId), { method: "POST" }).then(saveSession).catch(error => { if (error instanceof FarmtryError && error.kind === "unauthorized") clearSession(); throw error; }).finally(() => { refreshing = null; });
-  return refreshing;
-}
-/** Only read requests retry after a cookie refresh. Mutations are never replayed automatically. */
-export async function authenticatedRead<T>(path: string, decode: (data: unknown) => T, signal?: AbortSignal): Promise<T> {
-  try { return await request(path, decode, { signal }); }
-  catch (error) {
-    if (!(error instanceof FarmtryError) || error.status !== 401 || signal?.aborted) throw error;
-    await refreshSession();
-    return request(path, decode, { signal });
+export function saveSession(id: string) { generation++; expired = false; sessionId = id; try { sessionStorage.setItem(sessionKey, id); } catch { /* Memory session still supports logout. */ } }
+export function clearSession() { generation++; sessionId = null; try { sessionStorage.removeItem(sessionKey); } catch { /* No storage available. */ } }
+export function currentSession() { try { return sessionId ?? sessionStorage.getItem(sessionKey); } catch { return sessionId; } }
+function expireSession() {
+  clearSession();
+  if (expired) return;
+  expired = true;
+  if (typeof window !== "undefined") {
+    const path = window.location.pathname;
+    if (!path.includes("login")) window.location.replace(path.includes("aggregator") ? "/preview/aggregator-login/?expired=true" : "/login/?expired=true");
   }
 }
+const sessionChanged = () => new FarmtryError("unauthorized", "Your session changed. Please sign in again.", 401);
+export function refreshSession(): Promise<void> {
+  if (expired) return Promise.reject(sessionChanged());
+  if (!refreshing) {
+    const started = generation;
+    refreshing = request("/auth/refresh-token", value => string(record(value).sessionId), { method: "POST" })
+      .then(id => { if (generation !== started) throw sessionChanged(); saveSession(id); })
+      .catch(error => { if (generation === started && error instanceof FarmtryError && error.status === 401) expireSession(); throw error; })
+      .finally(() => { refreshing = null; });
+  }
+  return refreshing;
+}
+/** Retry once only after a definite authentication rejection; never replay network/server failures. */
+export async function authenticatedRequest<T>(path: string, decode: (data: unknown) => T, options: Parameters<typeof request>[2] = {}): Promise<T> {
+  const started = generation;
+  try { return await request(path, decode, options); }
+  catch (error) {
+    if (!(error instanceof FarmtryError) || error.status !== 401 || options.signal?.aborted) throw error;
+    if (expired || (generation !== started && !currentSession())) throw sessionChanged();
+    if (generation === started) await refreshSession();
+    const retried = generation;
+    try { return await request(path, decode, options); }
+    catch (retryError) {
+      if (retried === generation && retryError instanceof FarmtryError && retryError.status === 401) expireSession();
+      throw retryError;
+    }
+  }
+}
+export const authenticatedRead = <T>(path: string, decode: (data: unknown) => T, signal?: AbortSignal) => authenticatedRequest(path, decode, { signal });

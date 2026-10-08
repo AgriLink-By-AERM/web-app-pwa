@@ -69,6 +69,7 @@ export function BuyerAuthPage({ screen, audience: initialAudience = "buyer" }: {
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");
   const [failure, setFailure] = useState("");
+  useEffect(() => { if (screen === "login" && new URLSearchParams(window.location.search).get("expired") === "true") setNotice("Your session has expired. Please sign in again."); }, [screen]);
   const [signedIn, setSignedIn] = useState(false);
   const [completed, setCompleted] = useState(false);
   const inFlight = useRef(false);

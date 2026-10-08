@@ -1,4 +1,4 @@
-import { array, authenticatedRead, FarmtryError, number, oneOf, record, request, string } from "./client";
+import { array, authenticatedRead, authenticatedRequest, FarmtryError, number, oneOf, record, string } from "./client";
 export type KycStatus = "pending" | "approved" | "rejected";
 export type LogStatus = "pending" | "verified" | "rejected";
 export type LogInput = { farmerPhone: string; pipeline: string; category: string; weightKg: number; condition: "good" | "fair" | "damaged"; latitude: number; longitude: number; photoUrl: string; harvestedAt: string };
@@ -20,9 +20,9 @@ export const getStatus = (signal?: AbortSignal) => authenticatedRead("/aggregato
 export const getLogs = (filters: { page: number; status: string; category: string; pipeline: string }, signal?: AbortSignal) => { const query = new URLSearchParams({ page: String(filters.page), limit: "20" }); for (const key of ["status", "category", "pipeline"] as const) if (filters[key]) query.set(key, filters[key]); return authenticatedRead(`/aggregator/logs?${query}`, decodeLogs, signal); };
 function logId(id: string) { if (!/^[a-f\d]{24}$/i.test(id)) throw new FarmtryError("contract", "This log does not have a valid service identifier."); return id; }
 export const getLog = (id: string, signal?: AbortSignal) => authenticatedRead(`/aggregator/logs/${logId(id)}`, decodeLog, signal);
-export const createLog = (input: LogInput) => request("/aggregator/logs", decodeLog, { body: input });
+export const createLog = (input: LogInput) => authenticatedRequest("/aggregator/logs", decodeLog, { body: input });
 export type DisputeInput = { logId: string; reason: string; reportedWeightKg?: number; notes?: string; contactPhone: string };
-export const fileDispute = (input: DisputeInput) => { logId(input.logId); return request("/aggregator/disputes", value => { const d = record(value); return { disputeId: string(d.disputeId), logId: string(d.logId), reason: string(d.reason), status: oneOf(d.status, ["open"] as const), createdAt: timestamp(d.createdAt) }; }, { body: input }); };
+export const fileDispute = (input: DisputeInput) => { logId(input.logId); return authenticatedRequest("/aggregator/disputes", value => { const d = record(value); return { disputeId: string(d.disputeId), logId: string(d.logId), reason: string(d.reason), status: oneOf(d.status, ["open"] as const), createdAt: timestamp(d.createdAt) }; }, { body: input }); };
 export type Dashboard = ReturnType<typeof decodeDashboard>;
 export type ReviewStatus = ReturnType<typeof decodeStatus>;
 export type LogList = ReturnType<typeof decodeLogs>;

@@ -7,7 +7,13 @@ export async function login(emailOrPhone: string, password: string) {
 }
 export async function logout() {
   if (!currentSession()) await refreshSession();
-  await request("/auth/logout", () => undefined, { body: { sessionId: currentSession() } });
+  const endSession = () => request("/auth/logout", () => undefined, { body: { sessionId: currentSession() } });
+  try { await endSession(); }
+  catch (error) {
+    if (!(error instanceof FarmtryError) || error.status !== 401) throw error;
+    await refreshSession();
+    await endSession();
+  }
   clearSession();
 }
 export const forgotPassword = (contact: { email: string } | { phone: string }) => request("/auth/forgot-password", () => undefined, { body: contact });
@@ -18,7 +24,7 @@ export async function resetPassword(token: string, newPassword: string) {
   clearSession();
 }
 export async function verifyOtp(email: string, code: string) {
-  await request("/auth/verify-otp", value => { const data = record(value); record(data.user); string(record(data.token).accessToken); return undefined; }, { body: { email, code } });
+  await request("/auth/verify-otp", value => { const data = record(value); record(data.user); return undefined; }, { body: { email, code } });
   // Verification does not supply sessionId. Require cookie login before entering the workspace.
 }
 export const resendOtp = (email: string) => request("/auth/resend-otp", () => undefined, { body: { email } });

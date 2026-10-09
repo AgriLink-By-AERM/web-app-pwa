@@ -14,27 +14,27 @@ This lists the current canvas targets from the verified archive inventory. Compo
 | QR Code Scanner & Verification - Mobile | 397:9505 | Pending | Yes |
 | Purchase History & Orders | 329:3611 | Implemented — /preview/buyer-history/ | Yes |
 | Notifications Center | 329:3870 | Implemented — /preview/buyer-notifications/ | Yes |
-| Profile & Settings | 329:4066 | Pending | No; native design preserved |
+| Profile & Settings | 329:4066 | Implemented — /preview/buyer-profile | No; native design preserved |
 | Dashboard | 338:4351 | Implemented — /preview/buyer/ | Yes |
-| Listing | 339:4735 | Pending | No; native design preserved |
-| Aside - FilterDrawerPanel | 345:5347 | Pending | No; native design preserved |
+| Listing | 339:4735 | Implemented — /preview/buyer-filtered-listings | No; native design preserved |
+| Aside - FilterDrawerPanel | 345:5347 | Implemented — /preview/buyer-filtered-listings (filter drawer) | No; native design preserved |
 | Buyer - Sign Up | 352:5465 | Implemented — /preview/buyer-register/ | Yes |
 | Buyer - Login | 352:5611 | Implemented — /preview/buyer-login/ | No; native design preserved |
 | Farmtry - Reset Password & Verification | 356:5843 | Implemented — /preview/buyer-reset/ | Yes |
 | Farmtry - Forgot Password | 356:6018 | Implemented — /preview/recovery/ | No; native design preserved |
 | Farmtry - Forgot Password | 356:6126 | Pending | Yes |
-| Get Started(Buyer) | 368:7882 | Pending | Yes |
-| Get Started | 368:8222 | Pending | Yes |
-| Get Started(CB) | 368:8128 | Pending | No; native design preserved |
-| Get Started(Aggregator) | 368:8374 | Pending | No; native design preserved |
+| Get Started(Buyer) | 368:7882 | Implemented — /preview/get-started | Yes |
+| Get Started | 368:8222 | Implemented — /preview/buyer-login-compact | Yes |
+| Get Started(CB) | 368:8128 | Implemented — /preview/get-started-corporate | No; native design preserved |
+| Get Started(Aggregator) | 368:8374 | Implemented — /preview/get-started-aggregator | No; native design preserved |
 | Product detail marketplace | 371:8473 | Implemented — /preview/product/ | Yes |
-| marketplace | 372:9017 | Pending | No; native design preserved |
+| marketplace | 372:9017 | Implemented — /preview/marketplace | No; native design preserved |
 | Farmtry Marketplace - Shopping Cart & Landed SLA Summary | 374:10149 | Implemented — /preview/cart/ | Yes |
-| Farmtry Marketplace - Wishlist & Saved Items | 374:10620 | Pending | No; native design preserved |
-| checkout | 376:11408 | Pending | No; native design preserved |
+| Farmtry Marketplace - Wishlist & Saved Items | 374:10620 | Implemented — /preview/wishlist | No; native design preserved |
+| checkout | 376:11408 | Implemented — /preview/checkout | No; native design preserved |
 | Confirm Account | 380:12929 | Pending | No; native design preserved |
-| Aside - LeftSideOrderSummary | 380:13138 | Pending | No; native design preserved |
-| Confirm Account | 380:13399 | Pending | No; native design preserved |
+| Aside - LeftSideOrderSummary | 380:13138 | Implemented — /preview/confirm-account-summary | No; native design preserved |
+| Confirm Account | 380:13399 | Implemented — /preview/confirm-account | No; native design preserved |
 | Admin Dashboard | 381:14266 | Implemented — /preview/admin | No; native design preserved |
 | Users Management | 381:14614 | Implemented — /preview/admin-users | No; native design preserved |
 | Farmers Management | 381:14937 | Implemented — /preview/admin-farmers | No; native design preserved |
@@ -53,7 +53,7 @@ This lists the current canvas targets from the verified archive inventory. Compo
 | Farmtry - Forgot Password | 383:19617 | Implemented — /preview/admin-recovery | No; native design preserved |
 | Farmtry - Forgot Password | 390:2834 | Implemented — /preview/admin-recovery | No; native design preserved |
 | Farmtry - Forgot Password | 383:19719 | Implemented — /preview/admin-recovery-sms | No; native design preserved |
-| success | 388:1882 | Pending | No; native design preserved |
+| success | 388:1882 | Implemented — /preview/account-success | No; native design preserved |
 | landing page (mobile) | 393:3676 | Implemented — / | No; native design preserved |
 | buyer sign up | 393:4580 | Implemented — /preview/buyer-register/ | No; native design preserved |
 | success | 395:5313 | Pending | No; native design preserved |

@@ -1,3 +1,11 @@
+import { BuyerProfile } from "@/features/buyer-workspace/buyer-profile";
+import "@/features/buyer-workspace/buyer-profile.css";
+import { BuyerFilteredListings } from "@/features/buyer-workspace/buyer-filtered-listings";
+import "@/features/buyer-workspace/buyer-filtered-listings.css";
+import { Marketplace, Wishlist, Checkout } from "@/features/commerce/shopping-pages";
+import "@/features/commerce/shopping-pages.css";
+import { GetStarted, ConfirmAccount, AccountSuccess } from "@/features/commerce/account-entry";
+import "@/features/commerce/account-entry.css";
 import { AdminAuth } from "@/features/admin-workspace/admin-auth";
 import "@/features/admin-workspace/admin-auth.css";
 import { AdminWorkspace } from "@/features/admin-workspace/admin-workspace";
@@ -39,6 +47,15 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
 export default async function PreviewPage({ params }: { params: Promise<{ page: string }> }) {
   const { page } = await params;
   if (!Object.prototype.hasOwnProperty.call(pageRequirements, page)) notFound();
+  if (page === "buyer-profile") return <BuyerProfile />;
+  if (page === "buyer-filtered-listings") return <BuyerFilteredListings />;
+  if (page === "marketplace") return <Marketplace />;
+  if (page === "wishlist") return <Wishlist />;
+  if (page === "checkout") return <Checkout />;
+  if (page === "get-started" || page === "get-started-corporate" || page === "get-started-aggregator") return <GetStarted initialRole={page === "get-started-corporate" ? "Corporate Buyer" : page === "get-started-aggregator" ? "Aggregator" : "Buyer"} />;
+  if (page === "confirm-account" || page === "confirm-account-summary") return <ConfirmAccount summary={page === "confirm-account-summary"} />;
+  if (page === "account-success") return <AccountSuccess />;
+  if (page === "buyer-login-compact") return <div className="buyer-compact"><BuyerAuthPage screen="login" /></div>;
   if (page === "admin-login") return <AdminAuth screen="login" />;
   if (page === "admin-recovery" || page === "admin-recovery-sms") return <AdminAuth key={page} screen="recovery" initialMethod={page === "admin-recovery-sms" ? "sms" : "email"} />;
   if (page === "admin-reset") return <AdminAuth screen="reset" />;

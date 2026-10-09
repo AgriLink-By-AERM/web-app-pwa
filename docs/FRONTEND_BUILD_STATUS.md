@@ -1,6 +1,8 @@
 # Farmtry frontend build status
 
-## Current checkpoint — 2026-10-08
+## Current checkpoint — 2026-10-09
+
+Buyer profile, filtered listings, marketplace, wishlist, checkout and account-entry/confirmation designs are implemented. See [buyer and shopping checkpoint](BUYER_SHOPPING_FRONTEND_2026-10-09.md). Production export now contains 86 routes; the current checklist supersedes the historical pending table below.
 
 Admin frontend: 14 saved-design routes, content tabs and role-selection dialog are implemented and browser-checked. See [admin checkpoint](ADMIN_FRONTEND_2026-10-08.md). Backend actions remain placeholders. Older pending/access notes below are historical; the complete native archive is available.
 

@@ -1,5 +1,14 @@
 /** UI requirements only. No endpoint, wire schema, or authentication contract is approved. */
 export const pageRequirements = {
+  "buyer-profile": {"title":"Profile & Settings","description":"Saved Farmtry design preview.","needs":["Approved account, catalogue and order API contracts"],"figmaNode":"329:4066"},
+  "buyer-filtered-listings": {"title":"Browse Crops & Waste","description":"Saved Farmtry design preview.","needs":["Approved account, catalogue and order API contracts"],"figmaNode":"339:4735"},
+  "get-started": {"title":"Create Your Account","description":"Saved Farmtry design preview.","needs":["Approved account, catalogue and order API contracts"],"figmaNode":"368:7882"},
+  "get-started-corporate": {"title":"Create Corporate Buyer Account","description":"Saved Farmtry design preview.","needs":["Approved account, catalogue and order API contracts"],"figmaNode":"368:8128"},
+  "get-started-aggregator": {"title":"Create Aggregator Account","description":"Saved Farmtry design preview.","needs":["Approved account, catalogue and order API contracts"],"figmaNode":"368:8374"},
+  "buyer-login-compact": {"title":"Buyer Login","description":"Saved Farmtry design preview.","needs":["Approved account, catalogue and order API contracts"],"figmaNode":"368:8222"},
+  "confirm-account": {"title":"Confirm Buyer Account","description":"Saved Farmtry design preview.","needs":["Approved account, catalogue and order API contracts"],"figmaNode":"380:13399"},
+  "confirm-account-summary": {"title":"Cart & Account Confirmation","description":"Saved Farmtry design preview.","needs":["Approved account, catalogue and order API contracts"],"figmaNode":"380:13138"},
+  "account-success": {"title":"Account Confirmation Design","description":"Saved Farmtry design preview.","needs":["Approved account, catalogue and order API contracts"],"figmaNode":"388:1882"},
   "admin-login": {"title":"Admin Login","description":"Preview the saved admin account screen.","needs":["Admin authentication and recovery contract"],"figmaNode":"383:19072"},
   "admin-recovery": {"title":"Admin Account Recovery","description":"Preview the saved admin account screen.","needs":["Admin authentication and recovery contract"],"figmaNode":"383:19617"},
   "admin-recovery-sms": {"title":"Admin SMS Recovery","description":"Preview the saved admin account screen.","needs":["Admin authentication and recovery contract"],"figmaNode":"383:19719"},

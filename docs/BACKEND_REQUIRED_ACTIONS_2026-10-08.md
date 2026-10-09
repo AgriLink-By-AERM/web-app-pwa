@@ -4,6 +4,10 @@ Prepared 2026-10-08 against the supplied Farmtry v1 handoff and the saved design
 
 API environment: https://farmtry-core-engine.onrender.com/api/v1
 
+## October 9 update
+
+The frontend now uses same-origin `/api/v1` with the Vercel rewrite/local proxy. The historical direct-origin CORS observation below is not a fresh blocker for this proxy path. Confirm HttpOnly/Secure cookies with no Render-specific Domain attribute and the correct path; test login through refresh on the deployed frontend using a designated account. The frontend screen pass is complete, but this does not prove backend correctness.
+
 ## 1. Unblock live testing first
 
 | Priority | Backend request | Evidence needed |

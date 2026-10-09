@@ -51,7 +51,7 @@ function Field({ label, error, hint, id, type, eyeAsset = "c4d2d.svg", mobileEye
   </div>;
 }
 
-export function BuyerAuthPage({ screen, audience: initialAudience = "buyer" }: { screen: AuthScreen; audience?: "buyer" | "aggregator" }) {
+export function BuyerAuthPage({ screen, audience: initialAudience = "buyer", initialMethod = "email" }: { screen: AuthScreen; audience?: "buyer" | "aggregator"; initialMethod?: "email" | "sms" }) {
   const [audience, setAudience] = useState(initialAudience);
   useEffect(() => {
     // This hint affects navigation and copy only; authorization comes from the API.
@@ -64,7 +64,7 @@ export function BuyerAuthPage({ screen, audience: initialAudience = "buyer" }: {
   const router = useRouter();
   const [values, setValues] = useState<AuthValues>({ ...emptyValues });
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [method, setMethod] = useState<"email" | "sms">("email");
+  const [method, setMethod] = useState<"email" | "sms">(initialMethod);
   const [checked, setChecked] = useState(false);
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");

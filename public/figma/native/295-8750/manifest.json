@@ -1,0 +1,205 @@
+[
+  {
+    "id": "295:8756",
+    "name": "Icon",
+    "width": 12.833333015441895,
+    "height": 12.25,
+    "file": "/figma/native/295-8750/295-8756.svg"
+  },
+  {
+    "id": "295:8764",
+    "name": "SVG",
+    "width": 48,
+    "height": 48,
+    "file": "/figma/native/295-8750/295-8764.svg"
+  },
+  {
+    "id": "295:8773",
+    "name": "Icon",
+    "width": 8,
+    "height": 10.5,
+    "file": "/figma/native/295-8750/295-8773.svg"
+  },
+  {
+    "id": "295:8787",
+    "name": "Icon",
+    "width": 16.995454788208008,
+    "height": 16.992307662963867,
+    "file": "/figma/native/295-8750/295-8787.svg"
+  },
+  {
+    "id": "295:8801",
+    "name": "Icon",
+    "width": 20,
+    "height": 16,
+    "file": "/figma/native/295-8750/295-8801.svg"
+  },
+  {
+    "id": "295:8815",
+    "name": "Icon",
+    "width": 21.027273178100586,
+    "height": 21,
+    "file": "/figma/native/295-8750/295-8815.svg"
+  },
+  {
+    "id": "295:8917",
+    "name": "Background",
+    "width": 44,
+    "height": 44,
+    "file": "/figma/native/295-8750/295-8917.svg"
+  },
+  {
+    "id": "295:8919",
+    "name": "Icon",
+    "width": 20.16666603088379,
+    "height": 14.666666984558105,
+    "file": "/figma/native/295-8750/295-8919.svg"
+  },
+  {
+    "id": "295:8926",
+    "name": "Overlay",
+    "width": 44,
+    "height": 44,
+    "file": "/figma/native/295-8750/295-8926.svg"
+  },
+  {
+    "id": "295:8928",
+    "name": "Icon",
+    "width": 18.33333396911621,
+    "height": 13.818750381469727,
+    "file": "/figma/native/295-8750/295-8928.svg"
+  },
+  {
+    "id": "295:8934",
+    "name": "Overlay",
+    "width": 40,
+    "height": 40,
+    "file": "/figma/native/295-8750/295-8934.svg"
+  },
+  {
+    "id": "295:8936",
+    "name": "Icon",
+    "width": 18.33333396911621,
+    "height": 18.33333396911621,
+    "file": "/figma/native/295-8750/295-8936.svg"
+  },
+  {
+    "id": "302:9996",
+    "name": "Background",
+    "width": 40,
+    "height": 40,
+    "file": "/figma/native/295-8750/302-9996.svg"
+  },
+  {
+    "id": "302:10003",
+    "name": "Icon",
+    "width": 20.16666603088379,
+    "height": 14.666666984558105,
+    "file": "/figma/native/295-8750/302-10003.svg"
+  },
+  {
+    "id": "295:8967",
+    "name": "Icon",
+    "width": 11.666666984558105,
+    "height": 15.848419189453125,
+    "file": "/figma/native/295-8750/295-8967.svg"
+  },
+  {
+    "id": "295:8979",
+    "name": "Icon",
+    "width": 11.916666984558105,
+    "height": 8.666666984558105,
+    "file": "/figma/native/295-8750/295-8979.svg"
+  },
+  {
+    "id": "295:8983",
+    "name": "Icon",
+    "width": 11.666666984558105,
+    "height": 11.666666984558105,
+    "file": "/figma/native/295-8750/295-8983.svg"
+  },
+  {
+    "id": "295:8991",
+    "name": "Icon",
+    "width": 16.66666603088379,
+    "height": 13.333333015441895,
+    "file": "/figma/native/295-8750/295-8991.svg"
+  },
+  {
+    "id": "295:9003",
+    "name": "Icon",
+    "width": 10.884183883666992,
+    "height": 9.75,
+    "file": "/figma/native/295-8750/295-9003.svg"
+  },
+  {
+    "id": "295:9007",
+    "name": "Icon",
+    "width": 12.833333015441895,
+    "height": 12.25,
+    "file": "/figma/native/295-8750/295-9007.svg"
+  },
+  {
+    "id": "302:9883",
+    "name": "Background",
+    "width": 32,
+    "height": 32,
+    "file": "/figma/native/295-8750/302-9883.svg"
+  },
+  {
+    "id": "302:9893",
+    "name": "Background",
+    "width": 32,
+    "height": 32,
+    "file": "/figma/native/295-8750/302-9893.svg"
+  },
+  {
+    "id": "302:9904",
+    "name": "Background",
+    "width": 32,
+    "height": 32,
+    "file": "/figma/native/295-8750/302-9904.svg"
+  },
+  {
+    "id": "302:9919",
+    "name": "Background",
+    "width": 32,
+    "height": 32,
+    "file": "/figma/native/295-8750/302-9919.svg"
+  },
+  {
+    "id": "295:9016",
+    "name": "Icon",
+    "width": 16,
+    "height": 18,
+    "file": "/figma/native/295-8750/295-9016.svg"
+  },
+  {
+    "id": "295:9021",
+    "name": "Icon",
+    "width": 20,
+    "height": 18,
+    "file": "/figma/native/295-8750/295-9021.svg"
+  },
+  {
+    "id": "295:9026",
+    "name": "Icon",
+    "width": 22.010000228881836,
+    "height": 20,
+    "file": "/figma/native/295-8750/295-9026.svg"
+  },
+  {
+    "id": "295:9031",
+    "name": "Icon",
+    "width": 22,
+    "height": 16,
+    "file": "/figma/native/295-8750/295-9031.svg"
+  },
+  {
+    "id": "295:9036",
+    "name": "Icon",
+    "width": 16,
+    "height": 16,
+    "file": "/figma/native/295-8750/295-9036.svg"
+  }
+]

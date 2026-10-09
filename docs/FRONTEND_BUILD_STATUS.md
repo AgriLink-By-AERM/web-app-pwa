@@ -2,6 +2,8 @@
 
 ## Current checkpoint — 2026-10-09
 
+The current saved-design web frontend pass is complete, including 52 aggregator design routes and final buyer variants. Review all screens at `/preview/screens/`. Build exports 141 total routes; 55 existing tests pass. See [completion checkpoint](FRONTEND_COMPLETION_2026-10-09.md) for exact scope, validation and deferred backend/mobile/content work.
+
 Buyer profile, filtered listings, marketplace, wishlist, checkout and account-entry/confirmation designs are implemented. See [buyer and shopping checkpoint](BUYER_SHOPPING_FRONTEND_2026-10-09.md). Production export now contains 86 routes; the current checklist supersedes the historical pending table below.
 
 Admin frontend: 14 saved-design routes, content tabs and role-selection dialog are implemented and browser-checked. See [admin checkpoint](ADMIN_FRONTEND_2026-10-08.md). Backend actions remain placeholders. Older pending/access notes below are historical; the complete native archive is available.

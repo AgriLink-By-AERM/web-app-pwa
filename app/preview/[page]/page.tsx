@@ -1,3 +1,7 @@
+import {DesignPreviewIndex} from "@/features/design-preview-index";
+import {AggregatorDesignPageView} from "@/features/aggregator-design/aggregator-design-page";
+import {aggregatorDesignPages, type AggregatorDesignPage} from "@/features/aggregator-design/aggregator-design-data";
+import "@/features/aggregator-design/aggregator-design.css";
 import { BuyerProfile } from "@/features/buyer-workspace/buyer-profile";
 import "@/features/buyer-workspace/buyer-profile.css";
 import { BuyerFilteredListings } from "@/features/buyer-workspace/buyer-filtered-listings";
@@ -47,6 +51,10 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
 export default async function PreviewPage({ params }: { params: Promise<{ page: string }> }) {
   const { page } = await params;
   if (!Object.prototype.hasOwnProperty.call(pageRequirements, page)) notFound();
+  if (Object.prototype.hasOwnProperty.call(aggregatorDesignPages, page)) return <AggregatorDesignPageView key={page} page={page as AggregatorDesignPage}/>;
+  if (page === "recovery-sms") return <BuyerAuthPage key="recovery-sms" screen="recovery" initialMethod="sms"/>;
+  if (page === "confirm-account-basic") return <ConfirmAccount tabs={false}/>;
+  if (page === "screens") return <DesignPreviewIndex/>;
   if (page === "buyer-profile") return <BuyerProfile />;
   if (page === "buyer-filtered-listings") return <BuyerFilteredListings />;
   if (page === "marketplace") return <Marketplace />;

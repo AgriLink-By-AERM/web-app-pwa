@@ -1,0 +1,78 @@
+{
+  "352:5465": {
+    "imgVuesaxLinearEye": "c4d2d.svg",
+    "imgImage1": "3b179.png",
+    "imgFreshRedTomatoesInAWoodenCrateOnAgriculturalFarmland": "18922.png",
+    "imgSvg": "cfb3e.svg",
+    "imgSvg1": "da276.svg",
+    "imgSvgOfficialGoogleIcon": "b5051.svg"
+  },
+  "356:5843": {
+    "imgImage1": "3b179.png",
+    "imgSvg": "22214.svg",
+    "imgSvg1": "da276.svg",
+    "imgSvg2": "572dc.svg",
+    "imgSvg3": "3d758.svg",
+    "imgSvg4": "48164.svg",
+    "imgSvg5": "acfca.svg"
+  },
+  "356:6018": {
+    "imgImage1": "3b179.png",
+    "imgModernAgriculturalLogisticsEnterpriseOperations": "be3ba.png",
+    "imgSvg": "09efb.svg",
+    "imgSvg1": "43d4e.svg",
+    "imgSvg2": "cedbc.svg",
+    "imgSvg3": "3e027.svg",
+    "imgSvg4": "cc625.svg",
+    "imgSvg5": "82d09.svg"
+  },
+  "395:6139": {
+    "imgFreshRedTomatoesInAWoodenCrateOnAgriculturalFarmland": "18922.png",
+    "imgImage1": "3b179.png",
+    "imgSvg": "d4b0a.svg",
+    "imgSvg1": "695d6.svg",
+    "imgSvg2": "82d09.svg",
+    "imgVector": "cccdf.svg",
+    "imgSvg3": "c44c1.svg"
+  },
+  "352:5611": {
+    "logo": "../landing/3b179.png",
+    "workspace": "3870e.png",
+    "browse": "36ee2.svg",
+    "shipments": "4f0ff.svg",
+    "suppliers": "a4e53.svg",
+    "invoices": "48188.svg",
+    "trust": "3c020.svg",
+    "back": "5f93d.svg",
+    "eye": "c4d2d.svg",
+    "google": "b5051.svg"
+  },
+  "393:4580": {
+    "logo": "../landing/3b179.png",
+    "brand": "d4b0a.svg",
+    "tomatoes": "18922.png",
+    "check": "695d6.svg",
+    "eye": "a6f4f.svg",
+    "google": "004af.svg",
+    "back": "cccdf.svg"
+  },
+  "393:4748": {
+    "logo": "../landing/3b179.png",
+    "brand": "d4b0a.svg",
+    "tomatoes": "18922.png",
+    "check": "695d6.svg",
+    "eye": "c4d2d.svg",
+    "google": "b5051.svg",
+    "back": "cccdf.svg"
+  },
+  "396:6316": {
+    "logo": "../landing/3b179.png",
+    "brand": "d4b0a.svg",
+    "tomatoes": "18922.png",
+    "check": "695d6.svg",
+    "eye": "572dc.svg",
+    "back": "cccdf.svg",
+    "confirmationEye": "572dc.svg",
+    "passwordMatch": "48164.svg"
+  }
+}

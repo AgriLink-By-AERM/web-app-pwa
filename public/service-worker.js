@@ -1,10 +1,13 @@
 /* eslint-disable no-restricted-globals */
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/7.1.0/workbox-sw.js");
 
-const CACHE_VERSION = "v1";
+const CACHE_VERSION = "v2";
 const STATIC_CACHE = `agrilink-static-${CACHE_VERSION}`;
 const PAGE_CACHE = `agrilink-pages-${CACHE_VERSION}`;
-const API_CACHE = `agrilink-api-${CACHE_VERSION}`;
+// Private responses and recovery URLs must never enter offline caches.
+self.addEventListener("activate", event => {
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith("agrilink-api-") || key === "agrilink-pages-v1").map(key => caches.delete(key)))));
+});
 
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
@@ -22,6 +25,11 @@ workbox.core.setCacheNameDetails({
 });
 
 workbox.routing.registerRoute(
+  ({ url, request }) => url.pathname.startsWith("/api/") || request.headers.get("accept")?.includes("application/json") || url.searchParams.has("token") || url.pathname === "/recovery" || url.pathname.startsWith("/recovery/") || url.pathname.startsWith("/preview/buyer-reset"),
+  new workbox.strategies.NetworkOnly()
+);
+
+workbox.routing.registerRoute(
   ({ request, url }) =>
     request.destination === "script" ||
     request.destination === "style" ||
@@ -35,22 +43,6 @@ workbox.routing.registerRoute(
       new workbox.expiration.ExpirationPlugin({
         maxEntries: 120,
         maxAgeSeconds: 30 * 24 * 60 * 60
-      }),
-      new workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [0, 200]
-      })
-    ]
-  })
-);
-
-workbox.routing.registerRoute(
-  ({ url, request }) => url.pathname.startsWith("/api/") || request.headers.get("accept")?.includes("application/json"),
-  new workbox.strategies.StaleWhileRevalidate({
-    cacheName: API_CACHE,
-    plugins: [
-      new workbox.expiration.ExpirationPlugin({
-        maxEntries: 80,
-        maxAgeSeconds: 24 * 60 * 60
       }),
       new workbox.cacheableResponse.CacheableResponsePlugin({
         statuses: [0, 200]

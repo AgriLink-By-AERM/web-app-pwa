@@ -1,5 +1,8 @@
-import { redirect } from "next/navigation";
+import { LandingPage } from "@/features/landing/components/landing-page";
+import "@/features/landing/landing.css";
+
+export const metadata = { title: { absolute: "Farmtry | The SMS-to-market platform" } };
 
 export default function HomePage() {
-  redirect("/buyer/dashboard");
+  return <LandingPage />;
 }

@@ -5,14 +5,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "start": "node scripts/preview.cjs",
+    "preview": "node scripts/preview.cjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/test-farmtry-api.cjs && node scripts/test-buyer-auth.cjs && node scripts/test-auth-proxy.cjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
-    "next": "15.3.3",
-    "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "next": "15.5.27",
+    "react": "19.0.8",
+    "react-dom": "19.0.8"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
@@ -20,7 +22,7 @@
     "@types/react-dom": "^19.0.2",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.17.0",
-    "eslint-config-next": "15.3.3",
+    "eslint-config-next": "15.5.27",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2"

@@ -20,11 +20,14 @@ export function ServiceWorkerRegistration() {
       return;
     }
 
-    window.addEventListener("load", () => {
+    const register = () => {
       navigator.serviceWorker.register("/service-worker.js").catch((error) => {
         console.error("AgriLink service worker registration failed:", error);
       });
-    });
+    };
+    if (document.readyState === "complete") register();
+    else window.addEventListener("load", register, { once: true });
+    return () => window.removeEventListener("load", register);
   }, []);
 
   return null;

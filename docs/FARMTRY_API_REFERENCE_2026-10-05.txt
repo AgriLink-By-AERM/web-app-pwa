@@ -1,0 +1,281 @@
+
+================================================================================
+  FARMTRY CORE ENGINE — API ENDPOINT TEST REFERENCE
+  Base URL: http://localhost:5001/api/v1/
+  All timestamps: ISO 8601 UTC
+  All authenticated routes require: Authorization: Bearer <accessToken>
+  (or accessToken HttpOnly cookie for web clients)
+================================================================================
+
+Below are the response types the backend expects
+
+-------- Api Response ----------
+export interface ApiResponse<T = any> {
+    success: true;
+    message: string;
+    timestamp: string;
+    data?: T;
+}
+
+------- Error Response ---------
+export interface ErrorResponse {
+    success: false;
+    message: string;
+    timestamp: string;
+    error: {
+        code: string;
+        path: string;
+        details?: any;
+        stack?: any
+    }
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  COMMON ERROR RESPONSES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  400 Bad Request    → Validation error or business rule violation
+  401 Unauthorized   → Missing, invalid, or expired token
+  403 Forbidden      → Valid token but insufficient role/KYC status
+  404 Not Found      → Resource does not exist or belongs to another user
+  409 Conflict       → Duplicate email/phone or duplicate open dispute
+  422 Unprocessable  → Joi schema validation failed (check data.details)
+  429 Too Many Req.  → Rate limit hit (auth endpoints: stricter limit)
+  500 Internal       → Unexpected server error (check Sentry / Pino logs)
+
+================================================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  AUTH ENDPOINTS  (no authentication required)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[1] REGISTER AGGREGATOR
+    POST /api/v1/auth/aggregator/register
+    Body (JSON):
+    {
+      "fullName":             "John Doe",
+      "email":                "john@example.com",
+      "password":             "password123",
+      "phone":                "08012345678",
+      "zone":                 "Lagos-North",
+      "governmentIdType":     "nin",            // "nin" | "drivers-license" | "intl_passport"
+      "governmentIdNumber":   "12345678901",    // required when type is "nin" (11 digits)
+      "governmentIdPhotoUrl": "https://example.com/id-photo.jpg",
+      "guarantorPhone":       "08099887766"
+    }
+    Expected: 201 { success, message, data: { userId, fullName, email, role, status, aggregator } }
+
+────────────────────────────────────────────────────────────────────────────────
+
+[2] VERIFY OTP
+    POST /api/v1/auth/verify-otp
+    Body (JSON):
+    {
+      "email": "john@example.com",
+      "code":  "123456"
+    }
+    NOTE: Check server logs for the OTP during development (logged at INFO level).
+    Expected: 200 { success, message, data: { message, user, token: { accessToken } } }
+
+────────────────────────────────────────────────────────────────────────────────
+
+[3] RESEND OTP
+    POST /api/v1/auth/resend-otp
+    Body (JSON):
+    {
+      "email": "john@example.com"
+    }
+    NOTE: 60-second cooldown enforced between resends.
+    Expected: 200 { success, message }
+
+────────────────────────────────────────────────────────────────────────────────
+
+[4] LOGIN
+    POST /api/v1/auth/login
+    Body (JSON):
+    {
+      "emailOrPhone": "john@example.com",
+      "password":     "password123"
+    }
+    Expected: 200 { success, data: { user, sessionId } }
+    NOTE: accessToken set as HttpOnly cookie (web). refreshToken set as HttpOnly cookie (web).
+    Save sessionId for logout.
+
+────────────────────────────────────────────────────────────────────────────────
+
+[5] REFRESH TOKEN
+    POST /api/v1/auth/refresh-token
+    Body (JSON) — mobile only:
+    {
+      "refreshToken": "<refreshToken>"
+    }
+    NOTE: Web clients send refreshToken cookie automatically.
+    Expected: 200 { success, data: { sessionId } }
+
+────────────────────────────────────────────────────────────────────────────────
+
+[6] LOGOUT
+    POST /api/v1/auth/logout
+    Auth: Required
+    Body (JSON):
+    {
+      "sessionId": "<sessionId from login>"
+    }
+    Expected: 200 { success, message: "Logged out successfully." }
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  AGGREGATOR ENDPOINTS  (authentication required on all routes)
+  PREREQUISITE: Must be logged in as a user with role "aggregator"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[7] GET DASHBOARD
+    GET /api/v1/aggregator/dashboard
+    Auth: Required
+    Query Params: none
+    Expected: 200 {
+      success, data: {
+        profile: { id, fullName, email, phone, zone, kycStatus },
+        stats:   { totalLogs, pendingLogs, verifiedLogs, totalWeightKg, openDisputes },
+        recentLogs: [ ...up to 5 most recent logs ]
+      }
+    }
+
+────────────────────────────────────────────────────────────────────────────────
+
+[8] GET STATUS (KYC)
+    GET /api/v1/aggregator/status
+    Auth: Required
+    Query Params: none
+    Expected: 200 {
+      success, data: {
+        kycStatus: "pending" | "approved" | "rejected",
+        rejectionReason: "..." | undefined,
+        reviewSteps: [
+          { label: "Registration submitted",   done: true },
+          { label: "Documents under review",   done: false },
+          { label: "Identity verified",        done: false },
+          { label: "Account activated",        done: false }
+        ]
+      }
+    }
+
+────────────────────────────────────────────────────────────────────────────────
+
+[9] LIST LOGS
+    GET /api/v1/aggregator/logs
+    Auth: Required
+    Query Params (all optional):
+      ?status=pending          // "pending" | "verified" | "rejected"
+      ?pipeline=waste          // free text filter
+      ?category=cassava        // free text filter
+      ?page=1                  // default: 1
+      ?limit=20                // default: 20, max: 50
+    Expected: 200 {
+      success, data: {
+        logs:  [ ...LogResponseDTO[] ],
+        total: 42,
+        page:  1,
+        limit: 20
+      }
+    }
+
+────────────────────────────────────────────────────────────────────────────────
+
+[10] GET SINGLE LOG
+    GET /api/v1/aggregator/logs/:id
+    Auth: Required
+    Path Param: :id = MongoDB ObjectId of the log
+    Example: GET /api/v1/aggregator/logs/64f1a2b3c4d5e6f7a8b9c0d1
+    Expected: 200 { success, data: LogResponseDTO }
+
+────────────────────────────────────────────────────────────────────────────────
+
+[11] CREATE LOG
+    POST /api/v1/aggregator/logs
+    Auth: Required
+    NOTE: Aggregator KYC must be "approved" to submit logs.
+    Body (JSON):
+    {
+      "farmerPhone": "08011223344",
+      "pipeline":    "waste",
+      "category":    "rice husks",
+      "weightKg":    250.5,
+      "condition":   "good",         // "good" | "fair" | "damaged"
+      "latitude":    6.5244,
+      "longitude":   3.3792,
+      "photoUrl":    "https://example.com/harvest-photo.jpg",
+      "harvestedAt": "2026-09-28T10:00:00.000Z"
+    }
+    Expected: 201 {
+      success, data: {
+        id, farmerPhone, pipeline, category, weightKg, condition,
+        latitude, longitude, photoUrl, harvestedAt,
+        status:      "pending",
+        urgencyTier: "low",     // derived: good→low | fair→medium | damaged→high
+        qrPayload:   "<uuid>",  // QR ticket reference
+        createdAt:   "..."
+      }
+    }
+
+────────────────────────────────────────────────────────────────────────────────
+
+[12] FILE DISPUTE
+    POST /api/v1/aggregator/disputes
+    Auth: Required
+    NOTE: Only one open dispute allowed per log entry.
+    Body (JSON):
+    {
+      "logId":             "64f1a2b3c4d5e6f7a8b9c0d1",  // ObjectId of the log
+      "reason":            "Weight recorded was incorrect.",
+      "reportedWeightKg":  180.0,                        // optional
+      "notes":             "Farmer confirmed actual weight was 180kg.",  // optional
+      "contactPhone":      "08012345678"
+    }
+    Expected: 201 {
+      success, data: {
+        disputeId, logId, reason,
+        status:    "open",
+        createdAt: "...",
+        message:   "Dispute filed successfully. Our team will review it shortly."
+      }
+    }
+
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  PHASE 2 — PASSWORD RECOVERY ENDPOINTS  (no authentication required)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[13] FORGOT PASSWORD
+    POST /api/v1/auth/forgot-password
+    Body (JSON) — provide either email or phone:
+    {
+      "email": "john@example.com"
+    }
+    OR:
+    {
+      "phone": "08012345678"
+    }
+    Expected: 200 { success, message: "If an account exists for that contact, a password reset link has been sent." }
+    NOTE: Response is ALWAYS the same whether account exists or not (prevents user enumeration).
+          Check server logs for the raw token during development.
+          Token expires in 60 minutes.
+          Reset URL format: <FRONTEND_URL>/recovery?token=<64-char-hex-token>
+
+────────────────────────────────────────────────────────────────────────────────
+
+[14] RESET PASSWORD
+    POST /api/v1/auth/reset-password
+    Body (JSON):
+    {
+      "token":       "<64-char hex token from the reset URL>",
+      "newPassword": "newSecurePassword123"
+    }
+    Expected: 200 { success, message: "Password reset successfully. Please log in with your new password." }
+    NOTE: On success — ALL active sessions are immediately invalidated (sessionVersion bumped).
+          Any existing accessTokens/refreshTokens will be rejected on next use.
+          User must log in again with the new password.
+    Error cases:
+      400 → Token is invalid or has already expired
+      422 → Validation error (token not 64 hex chars, password < 8 chars)

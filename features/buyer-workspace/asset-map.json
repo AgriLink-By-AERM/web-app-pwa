@@ -1,0 +1,983 @@
+{
+  "source": "Saved high-fidelity Figma context and assets; shared brand uses existing /figma/landing/3b179.png",
+  "assets": [
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/0dfb6.svg",
+      "bytes": 1777,
+      "sha256": "4b3408ad6eb24bf7742d5b0c8b350a4ac179bb7e739ec4502bf60f42dd78c597"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/1e7e5.svg",
+      "bytes": 264,
+      "sha256": "2758a81e61e64aeb98a486eef763ccbf9c4066cae7a03ddbc05d9f9a95cfb1f8"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/22d63.png",
+      "bytes": 965806,
+      "sha256": "0db2838e7ac0a3883fd0e2bf8727e2c9284d048d41c17f1c47cac8011193fb09"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/2cd18.png",
+      "bytes": 1081722,
+      "sha256": "369fbc489de4149081dbd74f9c8b17ee85418e735219e02ba460f69580cb8bed"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/3be0e.svg",
+      "bytes": 326,
+      "sha256": "29145a84bce4618e61b85649e4e76a851809a72891d5bda9c25aaea7d91dcf91"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/3efbf.svg",
+      "bytes": 1547,
+      "sha256": "fbc4966a3177086653eb5f473ea81a4e4b65a1f5bb3581c915b9cb8dee70c1b2"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/576a6.svg",
+      "bytes": 1557,
+      "sha256": "3b7389d193344a7bc3403106c8e9292beeae70e79074f3dbe2a9aa5540aa3352"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/581c9.svg",
+      "bytes": 630,
+      "sha256": "ffb1902b0519271d56f9b427ba6b824e3383edd1701df7af8137ded6a70b9518"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/5a984.svg",
+      "bytes": 2024,
+      "sha256": "eb90446ca1fd29cbd0f41f55756ce5c896f0b7c427871d3a8868005d7e9ea384"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/654ec.svg",
+      "bytes": 1212,
+      "sha256": "f52f97b5ac1414989403d52929164d035dd0901a804f110fa8b45ac39b9a924a"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/695e1.svg",
+      "bytes": 737,
+      "sha256": "c2618054d63699a302b961c91c899223113e2bb5bee724fc07b648b9ac79644d"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/77060.svg",
+      "bytes": 373,
+      "sha256": "72be58003413352f98cc4595f78c9dffb624ce7672ce04d79cf2c6a557975b29"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/99f2f.svg",
+      "bytes": 1506,
+      "sha256": "3232239564a25db5a86494b0741099f56a728daa155543693d6a4105a6153be2"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/9b79d.svg",
+      "bytes": 921,
+      "sha256": "1d9e40f8daed637457c6fe274419ea4a5a3863c17f408d15ad6482747cec1b6f"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/a4cc4.svg",
+      "bytes": 1439,
+      "sha256": "c204b5dbb9c3daa2d281c0afadb238f9e4dd2e2638a204174e1aecdf2372f408"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/b1558.svg",
+      "bytes": 1755,
+      "sha256": "804825940dbb398a020a5ff3b90eb786da66596d734638cbc53c8bcb2ddfec8f"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/b47dc.svg",
+      "bytes": 322,
+      "sha256": "95eb6babb97a4e0bd1d51b9f4cccac7958909830b5250207414a338fc0e30b92"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/bfda7.svg",
+      "bytes": 2463,
+      "sha256": "4200e3d7b5a450b360e2ec756f3c1b78b095c9618e16f1686de0508df8b3932c"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/e08b5.svg",
+      "bytes": 1533,
+      "sha256": "f3f3e06ec50d50a385c009219f88e72926ad815110c8a5be8c285eb5ee773898"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/e613e.svg",
+      "bytes": 603,
+      "sha256": "47a4df550318785e077f69221c7820854c6967084b32641f353f32413bcbe923"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/edb16.svg",
+      "bytes": 1503,
+      "sha256": "8d4755700039c06fd5434c956ad30ac35faee3b98c3252e0136ddd092524316a"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/f05ff.svg",
+      "bytes": 668,
+      "sha256": "5ee8840be3475b01762919d5981cb575c9b29a0bdea8d61e340abe84a82fab8e"
+    },
+    {
+      "node": "374:10149",
+      "file": "/figma/cart/fa127.svg",
+      "bytes": 289,
+      "sha256": "cd65c49c83268533d3475e118e0b46b0c63cb7363cbdf4b8bdfacb6e71b0db4d"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/081ac.svg",
+      "bytes": 1516,
+      "sha256": "896b155dddb45a8f180486952b70aa6b3dfa21a2b462f41c4542c97f6e8d9c9b"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/18804.svg",
+      "bytes": 1313,
+      "sha256": "25ae0015476e4fe9092cb3d21da378ba0f5143ebff0469ddcfddca74a18db543"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/20062.svg",
+      "bytes": 493,
+      "sha256": "090b3bbd95b01bb77460aa429cda21c5257a93a6efe5deb87b1727b5e207402a"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/30646.svg",
+      "bytes": 775,
+      "sha256": "ffef19c0f4bf6f977aaac3a6865b7e1406560d8c4205647e5586f1000ff90877"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/37db4.svg",
+      "bytes": 326,
+      "sha256": "e6dec513abd90ac4cfba25b691aab8c5ad931f95ebb77a1c42c4760a6ebe3051"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/3d449.svg",
+      "bytes": 611,
+      "sha256": "f54a7338c6681fab569f031229dfa0e75e966938d0972f4966f3b3f816192c9f"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/4849f.svg",
+      "bytes": 863,
+      "sha256": "817c1b79bd3c13bb3afe06bd58729e14fbbaf97eedca7354150bbbc1c2b835af"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/50b33.svg",
+      "bytes": 677,
+      "sha256": "d86a7cfca852ec5f8fa3bff8714b2c172bed78548ba527142b35ec133ec0129e"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/50d22.svg",
+      "bytes": 498,
+      "sha256": "964cbac9e06eba7c8566a3f8023e50fbfdf9b95c9ac160450cc08558d1e7b7a4"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/5d6e3.svg",
+      "bytes": 553,
+      "sha256": "4549b7d2b9838802e8952dc7f54d8447273884d55caef54aa2017b39b942a2f3"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/61425.svg",
+      "bytes": 498,
+      "sha256": "87bfa98b2112d6853cc0bf3aeb001e1845c39e186d94a3caa64d0422ef7ed2a0"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/65337.svg",
+      "bytes": 737,
+      "sha256": "e9a355e9ad743f63fb4b263bf82c5676cef753418992182ee73f9f7db2c17466"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/70ef8.svg",
+      "bytes": 628,
+      "sha256": "e3132a668351dfb76fd3fc57d4721bf844a9a648e857f1e5b245004bde7f1ec0"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/740ce.svg",
+      "bytes": 649,
+      "sha256": "797ab368aab0b9c98475397b67f7fa4aa90ee0883b157d0618b8518338a4da69"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/7e4c3.svg",
+      "bytes": 1266,
+      "sha256": "ec088a70c11200fb6e63c7d493986c8603c5d4c84ee6da7ddd8c02ec9dd590f5"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/91343.svg",
+      "bytes": 660,
+      "sha256": "1bc3907547b48c21926f986c84decac0126541b825e52fc977856f0350bad6f8"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/91d59.svg",
+      "bytes": 602,
+      "sha256": "66399a62448e40a47645afdfd8171e57d14ac8ecb23052501dc8f300a5f50d93"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/b99d4.svg",
+      "bytes": 1313,
+      "sha256": "57e68add16776d0e2da3b4e67e3c080c9b87ced9c7669532664f8f2344ea3d64"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/cb0aa.svg",
+      "bytes": 647,
+      "sha256": "47cbe1972d86fbb93d395d38f6a8f00eabcc5b2cb9d7827cb76f00c1c009fc40"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/d1bbe.svg",
+      "bytes": 743,
+      "sha256": "52ab13723c646d4de20cc48b2c5529133658c7af6adde40925a4ceb81a61d2c8"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/daba3.svg",
+      "bytes": 517,
+      "sha256": "75cc2169d69ab146e3da79029ca82d19b8ccbbe3c55ab9006d1902c620443eb0"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/eb4d3.svg",
+      "bytes": 683,
+      "sha256": "70290e59f46771e28ed5f512c68f4a47bb4caabe1647b3990cfbbd4c3dad9f79"
+    },
+    {
+      "node": "338:4351",
+      "file": "/figma/buyer-workspace/338-4351/efa0d.svg",
+      "bytes": 806,
+      "sha256": "b6e8acd25b5474f7308e0e73501ad0c763d98ab9586d9c3d24c2549d9caef241"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/180e1.svg",
+      "bytes": 339,
+      "sha256": "75bb52a29344cce1ad6a74783fa15bfd2e7f5fd0a20c922e7f46aa32b366bb28"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/2b20b.svg",
+      "bytes": 428,
+      "sha256": "6467ea51599809d0bcf9f6142cd6bd954f542766c6fddf107ce9eb2495a99447"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/4a0f5.svg",
+      "bytes": 619,
+      "sha256": "96701fd2c76ac295325c2241c6c62f0565261a24a269342cd797f9b1ad70fde5"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/4fd6f.svg",
+      "bytes": 614,
+      "sha256": "6b776c9fc361e4008eb775eba685439e89d5e89746944db098dcd510e291330f"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/54522.svg",
+      "bytes": 717,
+      "sha256": "b13261975bbcd0378bc960ba85323988b09aead515a515e1ba05080f2963b9cc"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/5c75a.svg",
+      "bytes": 339,
+      "sha256": "28ccdf9042366d6fe8cb860a0ed2bd3cdcfc2f25696a13f63ddb108aa6a3ef58"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/5e0cd.svg",
+      "bytes": 733,
+      "sha256": "5abeccf37adf932d8fb5f1a72a26ad6fc105e4052b0285a84475a1a57e697a49"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/66f84.svg",
+      "bytes": 645,
+      "sha256": "a9984ad74b9d269a3df1f547738536b41101720545dc6d707a0721ef6aa27487"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/6961f.svg",
+      "bytes": 717,
+      "sha256": "cc5445a8407a840132196dff28e2d6a6a104d4181f895e22eba1571e6d5f2675"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/70197.svg",
+      "bytes": 608,
+      "sha256": "1e5bec8055ec1b85d7fdd3837734d73c5fb16b7533b64614094c98ca23b11df1"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/7984c.svg",
+      "bytes": 607,
+      "sha256": "a4d20331400c1387a3a29974c15cf13826a0603e68ef31a44e785b9d92804585"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/798ba.svg",
+      "bytes": 599,
+      "sha256": "4c8ecb18539828b2c251264da2031f0bdc3051d76bf0cfeed2fe28fd06c06b9a"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/8d705.svg",
+      "bytes": 626,
+      "sha256": "80289f0bff692c6b0d24c6813bdf3785d34af22f94d82b487f052cedbd17c7c7"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/8f203.svg",
+      "bytes": 634,
+      "sha256": "67a598bf8213c350252d4a23f2d76a21212fa23d5cc9e1af60435ce2e468df28"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/ae4ef.svg",
+      "bytes": 717,
+      "sha256": "e137de3d4ed9d7b7c81ba0af1a49fb84442251b04568b92af84c9f82a205d345"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/aff9c.svg",
+      "bytes": 1309,
+      "sha256": "4087d3a6fbde81a6723b5896a054c9bc8ebcd51ab19b971caa2eb839ee3f70a9"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/b4d89.svg",
+      "bytes": 472,
+      "sha256": "b5c8fe927eb521cb8ad666a943dc2179984d876146189b484a5d12709f1b5abd"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/bc270.svg",
+      "bytes": 497,
+      "sha256": "6c2db9ee007dcf6894014c7031f0b70402508da834788cfa77715d3f14a63064"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/f0db4.svg",
+      "bytes": 717,
+      "sha256": "d9fa5de3b2e6c58af08417148f9d18047f8ec6c68ce080227fdb99cb2763523d"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/f82b0.svg",
+      "bytes": 383,
+      "sha256": "3217de17049fe212d749205c91e5ed4e18cb43fa8c65204ca189157aa80b392d"
+    },
+    {
+      "node": "329:3611",
+      "file": "/figma/buyer-workspace/329-3611/f9831.svg",
+      "bytes": 513,
+      "sha256": "90553207ef28eb68bd5b42269ab75f46425591c7287fa4d322fff3a836507c2b"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/047b5.svg",
+      "bytes": 350,
+      "sha256": "d3bfbfef99f454557ac60706a7ce224c82406cb059d767c49649513d9244f7ce"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/05282.svg",
+      "bytes": 806,
+      "sha256": "6114616c50663f9f771fd5d81a992fd8813840548e65ce4ea114397923054c4d"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/0fbc6.svg",
+      "bytes": 1243,
+      "sha256": "7455d20b3b632e77df6f89d1c5a272a11254c4dbeb59f92ef11bcb1ec787b383"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/10569.svg",
+      "bytes": 534,
+      "sha256": "2fd43affcce10f82db541d9646a73c0d615ec2ea240e9a17162c53193a83c69a"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/4330d.svg",
+      "bytes": 754,
+      "sha256": "eb3cf3a409d6fc9dd2b141b160b7d18d81ce26ea59eb6414c065e91e08a79af7"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/45c86.svg",
+      "bytes": 878,
+      "sha256": "97e07a933b7c0b733f6773f77ffa26d62dcaa72d225251791bd560edcf2ca1cc"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/5216c.svg",
+      "bytes": 1330,
+      "sha256": "f3d5224dd45dd0c4cb1f57d05c23ddd94961b4746fa52947824ff9405ac98e70"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/60366.svg",
+      "bytes": 392,
+      "sha256": "7ec86f383d7af91a757ba49e453606dbdb16b5ff9212837eba5d92ab701f61cd"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/718c3.svg",
+      "bytes": 493,
+      "sha256": "0a74d2c076ce89b9f5ab51d767bf841d58c670123dca6fb29da961287ce954cc"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/8614f.svg",
+      "bytes": 894,
+      "sha256": "0b711d7bfeb12907636c93873594861129527591916492e2f12461144c995ae7"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/8c78a.svg",
+      "bytes": 614,
+      "sha256": "b3943579b0d7e124a02514c03970e17360a9fab35e92c3ca2c82df589a54b159"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/96e60.svg",
+      "bytes": 348,
+      "sha256": "b7dc8a01b41a3103a29a71df5bedfaadfce015ac38ea82a27588a1e64861f7ad"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/a2553.svg",
+      "bytes": 628,
+      "sha256": "7d30b8fa73b8e4400cd1bf3bd981dccca3cd26fb86fd22d076353132ee1037e4"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/acbb5.svg",
+      "bytes": 590,
+      "sha256": "8049a62cefb65700cc8f6731729a2041356d47527994ed9bf71ced751be8127d"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/bc460.svg",
+      "bytes": 494,
+      "sha256": "60d039219c6a4cc14452c2222fbeca1f978d2f7f55f4ad9fcd5e5b6d0df1bb71"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/d2848.svg",
+      "bytes": 611,
+      "sha256": "419b6a60ad8014525f4b4b8ba5c2af9df2c0bc37d634e92f79ac0d84132b0e97"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/e52b4.svg",
+      "bytes": 814,
+      "sha256": "a1254929a3701f657bcc884de82cf7a38d9f12fa9bd6cc471709ee587f971694"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/f6f52.svg",
+      "bytes": 612,
+      "sha256": "f22aa379273ccea4c0c2c508783ecb4fd919b9e90b9ffc887fd6c4175e976b09"
+    },
+    {
+      "node": "329:3870",
+      "file": "/figma/buyer-workspace/329-3870/f8be4.svg",
+      "bytes": 666,
+      "sha256": "23cc6b3cd1eba92f22036788ad7ccbb41911c1cb748cb4d062d59e10c9200f43"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/1c1e5.svg",
+      "bytes": 1309,
+      "sha256": "c7ed708b999d71b4831e8fb1e8ae8c7c7345bc6b34914daf7f57971ff18681c6"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/20062.svg",
+      "bytes": 493,
+      "sha256": "090b3bbd95b01bb77460aa429cda21c5257a93a6efe5deb87b1727b5e207402a"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/2d073.svg",
+      "bytes": 645,
+      "sha256": "04e24fdaf6d4258f07a2b948a0514d224efc36202dd14d3e2b1c9a920564f672"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/2eb6b.svg",
+      "bytes": 607,
+      "sha256": "ed6f5a980e17eff11fefc32fd67d7c246cd6dc11e387272949f4f1a269dc6156"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/37db4.svg",
+      "bytes": 326,
+      "sha256": "e6dec513abd90ac4cfba25b691aab8c5ad931f95ebb77a1c42c4760a6ebe3051"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/559f9.png",
+      "bytes": 17451,
+      "sha256": "79ec56c91718058a8a0c0d12af149d2eeb517b8a8730993e7846949ab89c6c30"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/70ae8.svg",
+      "bytes": 608,
+      "sha256": "3aba9679aa3ea0890672444b5e095ed47fe6682d8a281507d9ede9ecba24a26e"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/72b9f.png",
+      "bytes": 15116,
+      "sha256": "9d0c58947d0591ad8c0f67e0a2ce707956f2fa3e1af6d00f9502b1bf9f6e4e38"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/89067.png",
+      "bytes": 13331,
+      "sha256": "b4a3d2d3070dfe6f24b3ad080cf48bbe84b76fab603d663ef6b4a8c8ebb54a8f"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/96969.png",
+      "bytes": 13531,
+      "sha256": "c3d169104cdbd35f4baedc98802ac6ce05d15546cc13ee4897d0afea2605d736"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/b2197.svg",
+      "bytes": 452,
+      "sha256": "7a0d8286840e07ee3c888401ce6517cc3368275704eeee47f6a076ea6bbf6073"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/bc460.svg",
+      "bytes": 494,
+      "sha256": "60d039219c6a4cc14452c2222fbeca1f978d2f7f55f4ad9fcd5e5b6d0df1bb71"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/c9ece.svg",
+      "bytes": 517,
+      "sha256": "7d464812a88968f4f10b564a8cca6de44f37ac7b990b0ef46bbdc5616a5a4bff"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/ea2a7.svg",
+      "bytes": 739,
+      "sha256": "8b59d3de6764c17fbd07fb2278bc0b283e11446df65efa14ed51f86d4d40fa8f"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/eeea9.svg",
+      "bytes": 733,
+      "sha256": "3eeca122aaa20d8f2a1ba56f501a6d7bb73ccbf93266d96f1a98398af7ef6026"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/f2fc6.svg",
+      "bytes": 793,
+      "sha256": "dee7fdaa27fbd384bb9d8b52ba93c99a6db2d49c1b78ce00d168bc4a0d59310b"
+    },
+    {
+      "node": "329:2673",
+      "file": "/figma/buyer-workspace/329-2673/f7acd.svg",
+      "bytes": 597,
+      "sha256": "2f013dfaef5add1d3b4eaef36f276e4f7f5f6e98bf8825c25b656327043fd83b"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/070a6.png",
+      "bytes": 72202,
+      "sha256": "12a2e994800d00228859118f00e0592b9cf8134fc7dbb99c7ba71ac0bf5140b8"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/18cbf.svg",
+      "bytes": 517,
+      "sha256": "f29b4ef954e23c08a5496a643bdc3911b0b481a221688de315557b3730192d66"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/2a2b0.svg",
+      "bytes": 384,
+      "sha256": "539fb2501f2a66e96df4c8957614921c656cbde5926bf2ede09fa850ed319d04"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/2a3f5.svg",
+      "bytes": 493,
+      "sha256": "ce752762e7ad334a37e7465a52762ea2f47caa9ed03b163d6e65e8af712994f1"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/3503e.svg",
+      "bytes": 733,
+      "sha256": "6fead280bb57fb4ddee00881867d40c8c4486e44a148ff9d2a3b6a88b2673abd"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/44e2a.svg",
+      "bytes": 1309,
+      "sha256": "08bf31dbe2e83a09631def5db92fb2b3a096d09fb5940b542b30938ad4f0ac90"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/54dad.svg",
+      "bytes": 793,
+      "sha256": "a907e7c8f09acbbb947270bb9c7828ed846e2f685802dd8e16478fadd2baebae"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/623c0.svg",
+      "bytes": 348,
+      "sha256": "81b05d509361a4a4e8ac0f1a85dd3ef4537e763bd5cd737d1653d5451d68ce29"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/6e5da.svg",
+      "bytes": 645,
+      "sha256": "d2f58511b2b5b18cc78885b3faefa45d223271fa7528f4141aabfd1d122df7ca"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/7617d.svg",
+      "bytes": 717,
+      "sha256": "0f30c5ae5c6244672368f9893602ddc6b673b543537222577efb0e54eeaf7b7c"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/76329.svg",
+      "bytes": 1309,
+      "sha256": "e524838943d4a545af35e654616dcee341bb246240baaf914e335999bad85c5d"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/81b2f.svg",
+      "bytes": 613,
+      "sha256": "53a0f24f852c319ef019899330a99d2a5a3fb68d27b18e3d683ebf236446c7f3"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/a65bd.svg",
+      "bytes": 739,
+      "sha256": "cfebef18a7f95b1515030b7d2f6bcbd3a9fc398f99a945d12380db4f5eefc47a"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/a88ad.svg",
+      "bytes": 889,
+      "sha256": "b127c8c7c8459a120c9f93e4585a605c333d280ed65c35c87096221eb2e702c8"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/af175.svg",
+      "bytes": 611,
+      "sha256": "581c956c0898d59a79960cf9c1d52b96eef6fd54cbb00f0f3af16ba5b350f59d"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/b93c7.svg",
+      "bytes": 863,
+      "sha256": "3021358c8a8b731d90f8d170795e1a33143fab073e3a3a55bae345a79a45a089"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/ba314.svg",
+      "bytes": 350,
+      "sha256": "014ef5fb44dba649d06e77fd4bcc2583d73f13c9c64f3193b9a8313f096eda43"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/bc460.svg",
+      "bytes": 494,
+      "sha256": "60d039219c6a4cc14452c2222fbeca1f978d2f7f55f4ad9fcd5e5b6d0df1bb71"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/c5f54.svg",
+      "bytes": 445,
+      "sha256": "2a14a7278d8d53cfaecf5d267177212b062bfaa953a913d35a7361937be24fec"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/cccee.svg",
+      "bytes": 456,
+      "sha256": "8b2db0ea521d92b8a3b38e206c4e5c05dcfd1c9a4dfbad5c52e71445a20c93c9"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/d0f62.svg",
+      "bytes": 607,
+      "sha256": "4f34c584a278b1542c1c980efbe5b841a431c50141957f3af35f4bef2063ddf2"
+    },
+    {
+      "node": "329:2986",
+      "file": "/figma/buyer-workspace/329-2986/f7771.svg",
+      "bytes": 566,
+      "sha256": "634e6c123dd764e4f17a3d93b4a37746fd67b99619d29c4e67fd93d7f44c0161"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/245b7.svg",
+      "bytes": 828,
+      "sha256": "a4dbf69cbe0cca7ab7d6d3c53de95a136eaebd783393665b6b66e63378e8a6a1"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/5c5d2.svg",
+      "bytes": 1318,
+      "sha256": "e3e730c3df7b446b6516ca1970404665322cde67fcc0e8c11c60fe857709b39f"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/68657.svg",
+      "bytes": 1036,
+      "sha256": "4f331bd0099c0d069ba568ca91aad2dd14f152fdcc9bf0154fb4ddffdf001acd"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/6a46a.svg",
+      "bytes": 461,
+      "sha256": "8300a8d1a7c1b20081f471172fd5a90d7be60e58bf46945290c2389e9b9fe101"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/71d94.svg",
+      "bytes": 1379,
+      "sha256": "14918b8ca48c41c47587bb667fcba1724e0834a6f732415096bb32f671193a10"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/754f1.svg",
+      "bytes": 317,
+      "sha256": "98907defabc6e5ebc7b6734b47f4de36e50efe6e9ff07248f3f9bdbc13056690"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/86ca2.svg",
+      "bytes": 2082,
+      "sha256": "28d4d4e80222f1a7f24af1f6162ace63b5c4de8c2d6ca06f33cedba3463ffad7"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/8ed67.svg",
+      "bytes": 870,
+      "sha256": "5f5d8deb11cf84f651f5f1646270a7adfaba84523c26d2ce490faa1adda02eac"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/9235c.svg",
+      "bytes": 2394,
+      "sha256": "c595f88949341ff54ebd151e4f7065440d307cd9d20e2613c7eaaae7ca7a03de"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/92bd2.svg",
+      "bytes": 613,
+      "sha256": "7bc970035fc8d80f2cbd5900fa18bb5aab2be0f94fb3657f1daf05d3bbad3271"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/9f382.svg",
+      "bytes": 335,
+      "sha256": "decec56c94282cbd72265c0c81822525619185ad91f49cd2884afb3170b53e66"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/a562d.svg",
+      "bytes": 1365,
+      "sha256": "5434330d74d676a7b1e47e2fd66b67dc6b5917213c09c3473f7c971eb90b7c93"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/a6e0a.svg",
+      "bytes": 1092,
+      "sha256": "288a4cb7bc250f4c70a8e05df88f437f0d7342328b78514a07f3fede85a6c149"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/a8ebf.svg",
+      "bytes": 1355,
+      "sha256": "432c7b6d14e6b41ef7ab6ee4cc7d9119451f6573de59b2b8615116a7d709d869"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/b0d09.svg",
+      "bytes": 881,
+      "sha256": "0a4e58de9437cdbe2e8020d7d0635eaff55f553ba7d7a20fcb14989c8f91044e"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/bce37.svg",
+      "bytes": 613,
+      "sha256": "a5707e5df7e454f62e62b937d9b7868b39db2e08bf55151844567811ba91db68"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/bdb02.svg",
+      "bytes": 1094,
+      "sha256": "32718309a060a486e7358978ce4763c15fd2d0d19133580dc6992f20bad85dfe"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/c3d30.svg",
+      "bytes": 635,
+      "sha256": "406449bd6040f59c326a37b0669ed0238f295c16ed3ab66ed39938c3421817e4"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/cdcdb.png",
+      "bytes": 12855,
+      "sha256": "eb172440f29f9f9cc2f60e1fdee536cfbe602f0d1fecafb8cb3fc0cced0dd89f"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/dab2a.svg",
+      "bytes": 1745,
+      "sha256": "1f0761e60a6542849c6e1e91af1cc914538f5aacb5a6cf22cb447f54ecdffdb2"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/e7429.svg",
+      "bytes": 469,
+      "sha256": "ecaa6b0a23c1994657abd47680a4468ab5b1ff0a0e96083f17801f940a4fb8fc"
+    },
+    {
+      "node": "329:3178",
+      "file": "/figma/buyer-workspace/329-3178/ea9a5.svg",
+      "bytes": 703,
+      "sha256": "0eac0c6d69bf9d1008f2a00ab173701ef447b167c7ba0e29edd704544cc236d1"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/10569.svg",
+      "bytes": 534,
+      "sha256": "2fd43affcce10f82db541d9646a73c0d615ec2ea240e9a17162c53193a83c69a"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/20062.svg",
+      "bytes": 493,
+      "sha256": "090b3bbd95b01bb77460aa429cda21c5257a93a6efe5deb87b1727b5e207402a"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/368da.svg",
+      "bytes": 580,
+      "sha256": "eff3985769ce5eb5789da80b8dec91d8eff1badd719aee7ab19948bed2f76d31"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/40550.svg",
+      "bytes": 350,
+      "sha256": "83ae31d0cb8399033ee880d5156bb925a45936888d3de07a5a0ee8a091cf0d97"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/4330d.svg",
+      "bytes": 754,
+      "sha256": "eb3cf3a409d6fc9dd2b141b160b7d18d81ce26ea59eb6414c065e91e08a79af7"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/73083.svg",
+      "bytes": 4218,
+      "sha256": "b3ad8241b067c53d102faae809bab51ebd53bda372daf2f5f4d355658865fe4b"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/9c60e.svg",
+      "bytes": 588,
+      "sha256": "c4d61dbfe668005d49b1ab7173dcfeb887d4e34ce775d31bc942f407d143bc2a"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/a2553.svg",
+      "bytes": 628,
+      "sha256": "7d30b8fa73b8e4400cd1bf3bd981dccca3cd26fb86fd22d076353132ee1037e4"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/bc460.svg",
+      "bytes": 494,
+      "sha256": "60d039219c6a4cc14452c2222fbeca1f978d2f7f55f4ad9fcd5e5b6d0df1bb71"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/d2848.svg",
+      "bytes": 611,
+      "sha256": "419b6a60ad8014525f4b4b8ba5c2af9df2c0bc37d634e92f79ac0d84132b0e97"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/d3276.svg",
+      "bytes": 1313,
+      "sha256": "4b2d104ed20056ebdec1e3b3ee0e6cf39ecdacf11cd0b7dc5338f732a5cc9cc2"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/e4132.svg",
+      "bytes": 380,
+      "sha256": "fc5906b63912dce345596e5bfbd1cac1f1e3968b220a04765a63bacde207f2a1"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/e52b4.svg",
+      "bytes": 814,
+      "sha256": "a1254929a3701f657bcc884de82cf7a38d9f12fa9bd6cc471709ee587f971694"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/ea2a7.svg",
+      "bytes": 739,
+      "sha256": "8b59d3de6764c17fbd07fb2278bc0b283e11446df65efa14ed51f86d4d40fa8f"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/f8be4.svg",
+      "bytes": 666,
+      "sha256": "23cc6b3cd1eba92f22036788ad7ccbb41911c1cb748cb4d062d59e10c9200f43"
+    },
+    {
+      "node": "329:3417",
+      "file": "/figma/buyer-workspace/329-3417/fd533.svg",
+      "bytes": 680,
+      "sha256": "6b67dd52e5379cbc3a3ec9cd809c0deecd6185801d15ee8da80ef50d13b5230a"
+    }
+  ]
+}

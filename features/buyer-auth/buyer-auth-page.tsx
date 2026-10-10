@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent, type InputHTMLAttributes, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import { forgotPassword, login as signIn, logout, resetPassword } from "@/lib/farmtry/auth";
-import { errorMessage, FarmtryError } from "@/lib/farmtry/client";
+import { forgotPassword, login as signIn, logout, resetPassword } from "@/lib/auth/auth";
+import { errorMessage, ApiError } from "@/lib/api-client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { FarmtryBrand } from "@/features/landing/components/farmtry-brand";
@@ -125,7 +125,7 @@ export function BuyerAuthPage({ screen, audience: initialAudience = "buyer" }: {
         setCompleted(true); setNotice("If an account exists for that contact, a password reset link has been sent.");
       }
     } catch (error) {
-      setFailure(login && error instanceof FarmtryError && error.status === 401 ? "Sign-in was not accepted. Check your credentials and try again." : reset && error instanceof FarmtryError && error.status === 400 ? "This recovery link is invalid or expired. Request a new recovery link." : errorMessage(error));
+      setFailure(login && error instanceof ApiError && error.status === 401 ? "Sign-in was not accepted. Check your credentials and try again." : reset && error instanceof ApiError && error.status === 400 ? "This recovery link is invalid or expired. Request a new recovery link." : errorMessage(error));
     } finally { inFlight.current = false; setBusy(false); }
   }
   return <div className={`farmtry-site buyer-auth buyer-auth-${screen}`}>

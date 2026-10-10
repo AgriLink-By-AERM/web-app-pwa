@@ -3,9 +3,21 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { createLog, fileDispute, getDashboard, getLog, getLogs, getStatus, type Dashboard, type LogInput, type LogList, type LogRecord, type ReviewStatus } from "@/lib/farmtry/aggregator";
-import { logout } from "@/lib/farmtry/auth";
-import { errorMessage, FarmtryError } from "@/lib/farmtry/client";
+import {
+  createLog,
+  fileDispute,
+  getDashboard,
+  getLog,
+  getLogs,
+  getStatus,
+  type Dashboard,
+  type LogInput,
+  type LogList,
+  type LogRecord,
+  type ReviewStatus
+} from "@/lib/aggregator/api";
+import { logout } from "@/lib/auth/auth";
+import { errorMessage, ApiError } from "@/lib/api-client";
 import { ActionError, CoreField, CoreShell, useCoreAction } from "./core-ui";
 
 function LogForm({ onCreated }: { onCreated: (log: LogRecord) => void }) {
@@ -20,7 +32,7 @@ export function AggregatorWorkspace() {
   const [dashboard, setDashboard] = useState<Dashboard | null>(null); const [review, setReview] = useState<ReviewStatus | null>(null); const [list, setList] = useState<LogList | null>(null); const [selected, setSelected] = useState<LogRecord | null>(null);
   const [view, setView] = useState<"dashboard" | "logs" | "create" | "status" | "detail">("dashboard"); const [filters, setFilters] = useState({ page: 1, status: "", category: "", pipeline: "" }); const [revision, setRevision] = useState(0); const [loading, setLoading] = useState(false); const [error, setError] = useState(""); const [authNeeded, setAuthNeeded] = useState(false); const [created, setCreated] = useState(false); const action = useCoreAction();
   useEffect(() => { const controller = new AbortController(); let active = true; setLoading(true); setError(""); setAuthNeeded(false);
-    async function load() { try { if (view === "dashboard" || view === "create") { setDashboard(null); const data = await getDashboard(controller.signal); if (active) setDashboard(data); } else if (view === "logs") { setList(null); const data = await getLogs(filters, controller.signal); if (active) setList(data); } else if (view === "status") { setReview(null); const data = await getStatus(controller.signal); if (active) setReview(data); } } catch (err) { if (active) { setError(errorMessage(err)); setAuthNeeded(err instanceof FarmtryError && err.status === 401); } } finally { if (active) setLoading(false); } }
+    async function load() { try { if (view === "dashboard" || view === "create") { setDashboard(null); const data = await getDashboard(controller.signal); if (active) setDashboard(data); } else if (view === "logs") { setList(null); const data = await getLogs(filters, controller.signal); if (active) setList(data); } else if (view === "status") { setReview(null); const data = await getStatus(controller.signal); if (active) setReview(data); } } catch (err) { if (active) { setError(errorMessage(err)); setAuthNeeded(err instanceof ApiError && err.status === 401); } } finally { if (active) setLoading(false); } }
     if (view !== "detail") void load(); else setLoading(false);
     return () => { active = false; controller.abort(); };
   }, [view, filters, revision]);

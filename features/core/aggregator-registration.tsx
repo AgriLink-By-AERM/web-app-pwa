@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { registerAggregator, type AggregatorRegistration } from "@/lib/farmtry/auth";
+import { registerAggregator, type AggregatorRegistration } from "@/lib/aggregator/api";
 import { ActionError, CoreField, CoreShell, useCoreAction } from "./core-ui";
 
 export function LiveAggregatorRegistration() {

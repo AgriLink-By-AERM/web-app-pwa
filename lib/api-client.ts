@@ -82,6 +82,8 @@ export interface FetchOptions extends RequestInit {
 let refreshPromise: Promise<boolean> | null = null;
 
 export async function refreshAccessToken(): Promise<boolean> {
+  // During static build (Node.js), session cookies do not exist
+  if (typeof window === "undefined") return false;
   if (refreshPromise) return refreshPromise;
 
   refreshPromise = (async () => {
@@ -89,7 +91,8 @@ export async function refreshAccessToken(): Promise<boolean> {
       const response = await fetch(`${API_BASE_URL}/auth/refresh-token`, {
         method: "POST",
         credentials: "include",
-        headers: { Accept: "application/json" }
+        headers: { Accept: "application/json" },
+        signal: AbortSignal.timeout(5000)
       });
       if (!response.ok) return false;
       const data = await response.json();
@@ -110,6 +113,16 @@ export async function refreshAccessToken(): Promise<boolean> {
 }
 
 export async function fetchApi<T = any>(endpoint: string, options: FetchOptions = {}): Promise<T | null> {
+  const isServer = typeof window === "undefined";
+
+  // During static export (next build) in Node.js:
+  // 1. If API_BASE_URL is a relative path (e.g. "/api/v1"), Node fetch cannot parse it without an origin.
+  // 2. Private authenticated data cannot be resolved at build time without active user cookies.
+  // Short-circuit immediately so pages render fallback data instantly without blocking Next.js build workers.
+  if (isServer && !API_BASE_URL.startsWith("http://") && !API_BASE_URL.startsWith("https://")) {
+    return null;
+  }
+
   const { requireAuth = true, throwOnError = false, ...fetchOptions } = options;
 
   const headers: Record<string, string> = {
@@ -118,18 +131,23 @@ export async function fetchApi<T = any>(endpoint: string, options: FetchOptions 
     ...(fetchOptions.headers as Record<string, string> || {}),
   };
 
+  const timeoutMs = isServer ? 1500 : 10000;
+  const timeoutSignal = AbortSignal.timeout(timeoutMs);
+  const signal = fetchOptions.signal ?? timeoutSignal;
+
   const makeRequest = () =>
     fetch(`${API_BASE_URL}${endpoint}`, {
       ...fetchOptions,
       headers,
       credentials: "include", // sends HttpOnly cookies
+      signal,
     });
 
   try {
     let response = await makeRequest();
 
-    // Handle 401: try refresh once, then retry
-    if (response.status === 401 && requireAuth) {
+    // Handle 401: try refresh once, then retry (only in browser)
+    if (response.status === 401 && requireAuth && !isServer) {
       const refreshed = await refreshAccessToken();
       if (refreshed) {
         response = await makeRequest();
@@ -161,7 +179,11 @@ export async function fetchApi<T = any>(endpoint: string, options: FetchOptions 
   } catch (error) {
     if (error instanceof ApiError) throw error;
     if (throwOnError) {
-      throw new ApiError("network", "Cannot reach the service. Please check your connection.");
+      const isTimeout = (error as any)?.name === "TimeoutError" || (error as any)?.name === "AbortError";
+      throw new ApiError(
+        isTimeout ? "timeout" : "network",
+        isTimeout ? "The request timed out. Please check your connection." : "Cannot reach the service. Please check your connection."
+      );
     }
     return null;
   }

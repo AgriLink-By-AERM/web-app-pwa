@@ -125,7 +125,7 @@ export function BuyerAuthPage({ screen, audience: initialAudience = "buyer", ini
         setCompleted(true); setNotice("If an account exists for that contact, a password reset link has been sent.");
       }
     } catch (error) {
-      setFailure(login && error instanceof ApiError && error.status === 401 ? "Sign-in was not accepted. Check your credentials and try again." : reset && error instanceof ApiError && error.status === 400 ? "This recovery link is invalid or expired. Request a new recovery link." : errorMessage(error));
+      setFailure(errorMessage(error));
     } finally { inFlight.current = false; setBusy(false); }
   }
   return <div className={`farmtry-site buyer-auth buyer-auth-${screen}`}>

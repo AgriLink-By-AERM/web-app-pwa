@@ -21,7 +21,10 @@ export class ApiError extends Error {
     public kind: ErrorKind,
     message: string,
     public status = 0,
-    public retryAfter: number | null = null
+    public retryAfter: number | null = null,
+    public code: string | null = null,
+    public details: Array<{ field?: string; message: string }> | null = null,
+    public raw: any = null
   ) {
     super(message);
     this.name = "ApiError";
@@ -160,15 +163,46 @@ export async function fetchApi<T = any>(endpoint: string, options: FetchOptions 
       const retryAfter = retry && /^\d+$/.test(retry) ? Number(retry) : null;
       
       let errMsg = defaultMsg;
+      let errCode: string | null = null;
+      let errDetails: Array<{ field?: string; message: string }> | null = null;
+      let errorJson: any = null;
+
       try {
-        const errorJson = await response.json();
-        if (errorJson?.message) errMsg = errorJson.message;
+        errorJson = await response.json();
+
+        // Extract error code if present
+        if (errorJson?.error?.code) {
+          errCode = String(errorJson.error.code);
+        } else if (errorJson?.code) {
+          errCode = String(errorJson.code);
+        }
+
+        // Extract validation details or specific error messages
+        if (Array.isArray(errorJson?.error?.details) && errorJson.error.details.length > 0) {
+          errDetails = errorJson.error.details;
+          const messages = errorJson.error.details
+            .map((d: any) => d.message || d.msg)
+            .filter(Boolean);
+          if (messages.length > 0) errMsg = messages.join(" ");
+        } else if (Array.isArray(errorJson?.details) && errorJson.details.length > 0) {
+          errDetails = errorJson.details;
+          const messages = errorJson.details
+            .map((d: any) => d.message || d.msg)
+            .filter(Boolean);
+          if (messages.length > 0) errMsg = messages.join(" ");
+        } else if (typeof errorJson?.message === "string" && errorJson.message.trim().length > 0) {
+          errMsg = errorJson.message.trim();
+        } else if (typeof errorJson?.error?.message === "string" && errorJson.error.message.trim().length > 0) {
+          errMsg = errorJson.error.message.trim();
+        } else if (typeof errorJson?.error === "string" && errorJson.error.trim().length > 0) {
+          errMsg = errorJson.error.trim();
+        }
       } catch {
         // ignore json parse error on error response
       }
 
       if (throwOnError) {
-        throw new ApiError(kind, errMsg, response.status, retryAfter);
+        throw new ApiError(kind, errMsg, response.status, retryAfter, errCode, errDetails, errorJson);
       }
       return null;
     }

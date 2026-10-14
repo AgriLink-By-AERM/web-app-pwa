@@ -1,8 +1,8 @@
 /** Local preview values only; these are not backend request schemas. */
 export type AuthScreen = "register" | "login" | "recovery" | "reset";
-export type AuthValues = { company: string; email: string; phone: string; password: string; confirmation: string; code: string };
+export type AuthValues = { company: string; fullName: string; organizationType: string; contactPerson: string; address: string; zone: string; businessRegNumber: string; email: string; phone: string; password: string; confirmation: string; code: string };
 export type FieldErrors = Partial<Record<keyof AuthValues, string>>;
-export const emptyValues: AuthValues = { company: "", email: "", phone: "", password: "", confirmation: "", code: "" };
+export const emptyValues: AuthValues = { company: "", fullName: "", organizationType: "processor", contactPerson: "", address: "", zone: "", businessRegNumber: "", email: "", phone: "", password: "", confirmation: "", code: "" };
 export function passwordChecks(password: string) {
   return { length: password.length >= 8, number: /[0-9]/.test(password), symbol: /[^a-zA-Z0-9\s]/.test(password) };
 }
@@ -20,6 +20,8 @@ export function validateAuth(screen: AuthScreen, values: AuthValues, method: "em
   // Existing credentials must not be rejected by provisional signup policy.
   if (screen === "login" && !values.password) errors.password = "Enter your password.";
   if (screen === "register") {
+    for (const field of ["fullName", "contactPerson", "address", "zone", "businessRegNumber"] as const) if (!values[field].trim()) errors[field] = "This detail is required.";
+    if (!["factory", "restaurant", "processor", "exporter", "other"].includes(values.organizationType)) errors.organizationType = "Choose an organization type.";
     if (!Object.values(passwordChecks(values.password)).every(Boolean)) errors.password = "Use at least 8 characters, including a number and a special symbol.";
   }
   if (screen === "reset") {

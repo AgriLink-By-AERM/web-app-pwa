@@ -9,10 +9,10 @@ const output = ts.transpileModule(source, { compilerOptions: { module: ts.Module
 const sandbox = { exports: {} };
 vm.runInNewContext(output, sandbox);
 const { validateAuth, emptyValues } = sandbox.exports;
-const valid = { ...emptyValues, company: 'Example Test Ltd', email: 'buyer@example.com', phone: '+234 801 234 5678', password: 'Preview123!', confirmation: 'Preview123!', code: '012345' };
+const valid = { ...emptyValues, company: 'Example Test Ltd', fullName:'Fixture User', contactPerson:'Fixture Contact', address:'Fixture address', zone:'Lagos', businessRegNumber:'RC-123', email: 'buyer@example.com', phone: '+234 801 234 5678', password: 'Preview123!', confirmation: 'Preview123!', code: '012345' };
 let passed = 0;
 function test(name, fn) { fn(); passed++; console.log(`PASS ${name}`); }
-test('blank registration identifies every required field', () => assert.equal(Object.keys(validateAuth('register', emptyValues)).length, 4));
+test('blank registration identifies every required field', () => assert.equal(Object.keys(validateAuth('register', emptyValues)).length, 9));
 test('valid registration has no local errors', () => assert.equal(Object.keys(validateAuth('register', valid)).length, 0));
 test('whitespace-only organization is invalid', () => assert.ok(validateAuth('register', { ...valid, company: '  ' }).company));
 test('email whitespace and malformed address are rejected', () => assert.ok(validateAuth('register', { ...valid, email: 'buyer @company' }).email));

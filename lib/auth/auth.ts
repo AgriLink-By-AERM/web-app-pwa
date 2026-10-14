@@ -2,7 +2,6 @@ import {
   clearSession,
   currentSession,
   fetchApi,
-  refreshAccessToken,
   saveSession,
   ApiError
 } from '../api-client';
@@ -29,7 +28,8 @@ export async function loginUser(emailOrPhone: string, password: string): Promise
     throwOnError: true,
   });
 
-  if (result?.data?.sessionId) {
+  if (!result?.data?.user?.role || !result.data.sessionId) throw new ApiError("contract", "The service did not return a user and session reference.");
+  if (result.data.sessionId) {
     saveSession(result.data.sessionId);
   }
 
@@ -38,19 +38,26 @@ export async function loginUser(emailOrPhone: string, password: string): Promise
 
 export async function logoutUser(sessionId?: string): Promise<void> {
   const id = sessionId || currentSession();
-  try {
-    await fetchApi('/auth/logout', {
+  await fetchApi('/auth/logout', {
       method: 'POST',
       body: JSON.stringify({ sessionId: id }),
+      retryBody: () => JSON.stringify({ sessionId: currentSession() || id }),
       requireAuth: true,
       throwOnError: true,
     });
-  } finally {
-    clearSession();
-  }
+  clearSession();
 }
 
 export type OtpContact = { email?: string; phone?: string };
+function contactPayload(contact: string | OtpContact): OtpContact {
+  const value = typeof contact === "string" ? (contact.includes("@") ? { email: contact } : { phone: contact }) : contact;
+  const email = value.email?.trim();
+  const phone = value.phone?.replace(/[\s()-]/g, "");
+  if (!!email === !!phone) throw new ApiError("validation", "Provide either your email or phone number.");
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new ApiError("validation", "Enter a valid email address.");
+  if (phone && !/^(?:\+234|234|0)[789][01]\d{8}$/.test(phone)) throw new ApiError("validation", "Enter a valid Nigerian phone number.");
+  return email ? { email } : { phone };
+}
 
 export async function verifyOtp(
   contact: string | OtpContact,
@@ -114,11 +121,13 @@ export async function forgotPassword(
 }
 
 export async function resetPassword(
-  token: string,
+  contact: string | OtpContact,
+  code: string,
   newPassword: string
 ): Promise<{ success: boolean; message?: string }> {
-  if (!/^[a-f\d]{64}$/i.test(token.trim())) {
-    throw new ApiError('validation', 'Open the complete recovery link sent to your email or phone.');
+  const identity = contactPayload(contact);
+  if (!/^\d{6}$/.test(code.trim())) {
+    throw new ApiError("validation", "Enter the six-digit recovery code.");
   }
   if (newPassword.length < 8) {
     throw new ApiError('validation', 'Use at least 8 characters for your new password.');
@@ -126,7 +135,7 @@ export async function resetPassword(
 
   const result = await fetchApi('/auth/reset-password', {
     method: 'POST',
-    body: JSON.stringify({ token: token.trim(), newPassword }),
+    body: JSON.stringify({ ...identity, code: code.trim(), newPassword }),
     requireAuth: false,
     throwOnError: true,
   });

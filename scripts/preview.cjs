@@ -14,6 +14,7 @@ http.createServer((req, res) => {
     if (url.pathname === '/api/v1' || url.pathname.startsWith('/api/v1/')) return proxyApi(req, res);
     let file = path.resolve(root, '.' + decodeURIComponent(url.pathname));
     if (file !== root && !file.startsWith(root + path.sep)) { res.writeHead(403); return res.end(); }
+    if (!fs.existsSync(file) && fs.existsSync(file + '.html')) file += '.html';
     if (fs.statSync(file).isDirectory()) file = path.join(file, 'index.html');
     res.writeHead(200, { 'Content-Type': mime[path.extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' });
     const stream = fs.createReadStream(file); stream.on('error', () => res.destroy()); stream.pipe(res);

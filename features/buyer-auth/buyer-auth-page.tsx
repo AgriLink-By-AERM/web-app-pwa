@@ -21,7 +21,7 @@ function BrandPanel({ screen, audience }: { screen: AuthScreen; audience: "buyer
   const login = screen === "login";
   const reset = screen === "reset";
   const standardFeatures = ["Verified Suppliers", "Quality Assurance", "Reliable Deliveries", "Transparent Transactions"];
-  const features = login ? audience === "aggregator" ? ["View Your Field Records", "Track Verification", "Log Produce & Waste", "Report Log Issues"] : ["Browse & Order Produce", "Track Shipments", "Manage Suppliers", "View Invoices & Reports"] : reset ? ["Minimum 8 characters", "Recovery links expire in 60 minutes", "Previous sessions are revoked", "Sign in again after resetting"] : recovery ? ["Email or phone recovery", "Single-use recovery link", "60-minute link expiry", "Your account stays private"] : standardFeatures;
+  const features = login ? audience === "aggregator" ? ["View Your Field Records", "Track Verification", "Log Produce & Waste", "Report Log Issues"] : ["Browse & Order Produce", "Track Shipments", "Manage Suppliers", "View Invoices & Reports"] : reset ? ["Minimum 8 characters", "Recovery codes expire in 10 minutes", "Previous sessions are revoked", "Sign in again after resetting"] : recovery ? ["Email or phone recovery", "Six-digit recovery code", "10-minute code expiry", "Your account stays private"] : standardFeatures;
   return <aside className="buyer-auth-panel">
     <div className="buyer-auth-panel-content">
       <div className="buyer-auth-brand"><div className="buyer-auth-desktop-brand"><FarmtryBrand /><p>{audience === "aggregator" ? "AGGREGATOR" : "CORPORATE BUYER"}</p></div><div className="buyer-auth-mobile-brand"><span><Icon name="d4b0a.svg" /></span><div><strong>Farmtry</strong><p>{audience === "aggregator" ? "AGGREGATOR" : "CORPORATE BUYER"}</p></div></div></div>
@@ -31,7 +31,7 @@ function BrandPanel({ screen, audience }: { screen: AuthScreen; audience: "buyer
         <ul>{features.map((feature, index) => <li key={feature}><Icon name={login ? ["36ee2.svg", "4f0ff.svg", "a4e53.svg", "48188.svg"][index] : reset ? "22214.svg" : recovery ? "09efb.svg" : "cfb3e.svg"} />{feature}</li>)}</ul>
         {screen !== "register" && <p className="buyer-auth-panel-note">Sign-in and recovery are available. Other workspace features are still being prepared.</p>}
       </div>
-      {<div className="buyer-auth-mobile-story"><h2>{reset ? <>Set a new<br />secure password.</> : <>Fresh produce,<br /><em>real impact.</em></>}</h2><p className="buyer-auth-story-copy">{reset ? "Protect your agricultural trade transactions, orders, and company profile with an enterprise-grade passphrase." : "Source quality agricultural produce, streamline your supply chain and support local farmers."}</p><ul>{(reset ? features : standardFeatures).map(feature => <li key={feature}><Icon name="695d6.svg" />{feature === "Transparent Transactions" ? "Transparent Deals" : feature}</li>)}</ul>{reset && <p className="buyer-auth-panel-note">Password recovery uses the link sent to your registered contact.</p>}</div>}
+      {<div className="buyer-auth-mobile-story"><h2>{reset ? <>Set a new<br />secure password.</> : <>Fresh produce,<br /><em>real impact.</em></>}</h2><p className="buyer-auth-story-copy">{reset ? "Protect your agricultural trade transactions, orders, and company profile with an enterprise-grade passphrase." : "Source quality agricultural produce, streamline your supply chain and support local farmers."}</p><ul>{(reset ? features : standardFeatures).map(feature => <li key={feature}><Icon name="695d6.svg" />{feature === "Transparent Transactions" ? "Transparent Deals" : feature}</li>)}</ul>{reset && <p className="buyer-auth-panel-note">Password recovery uses the code sent to your registered contact.</p>}</div>}
       {login && <><div className="buyer-auth-workspace"><img src={asset("3870e.png")} alt="Corporate procurement officer viewing the marketplace on a laptop" /></div><p className="buyer-auth-panel-foot"><Icon name="3c020.svg" />Safe · Reliable · Sustainable</p></>}
       {recovery && <div className="buyer-auth-logistics"><img src={asset("be3ba.png")} alt="Agricultural logistics and warehouse operations" /><span>Enterprise Security Gateway</span></div>}
       {recovery && <p className="buyer-auth-panel-foot"><Icon name="43d4e.svg" /> Safe · Reliable · Sustainable</p>}
@@ -73,21 +73,12 @@ export function BuyerAuthPage({ screen, audience: initialAudience = "buyer", ini
   const [signedIn, setSignedIn] = useState(false);
   const [completed, setCompleted] = useState(false);
   const inFlight = useRef(false);
-  const tokenRead = useRef(false);
+
   const form = useRef<HTMLFormElement>(null);
   const register = screen === "register";
   const login = screen === "login";
   const reset = screen === "reset";
   const checks = passwordChecks(values.password);
-  useEffect(() => {
-    if (screen !== "reset" || tokenRead.current) return;
-    tokenRead.current = true;
-    const url = new URL(window.location.href);
-    const token = url.searchParams.get("token") || "";
-    setValues(current => ({ ...current, token }));
-    // The recovery secret stays in memory and is removed from history before leaving the page.
-    if (url.searchParams.has("token")) { url.searchParams.delete("token"); window.history.replaceState(null, "", url.pathname + url.search + url.hash); }
-  }, [screen]);
   const change = (field: keyof AuthValues, value: string) => {
     setValues(previous => ({ ...previous, [field]: value }));
     setErrors(previous => ({ ...previous, [field]: undefined }));
@@ -117,12 +108,12 @@ export function BuyerAuthPage({ screen, audience: initialAudience = "buyer", ini
         setSignedIn(true); setNotice("You are signed in. Your account session has been confirmed.");
         if (user.role === "aggregator") router.push("/preview/aggregator");
       } else if (reset) {
-        await resetPassword(values.token, values.password);
+        await resetPassword(method === "email" ? { email: values.email.trim() } : { phone: values.phone.replace(/[\s()-]/g, "") }, values.code, values.password);
         setValues({ ...emptyValues }); setCompleted(true);
         setNotice("Password reset successfully. Your previous sessions have been invalidated. Please sign in again.");
       } else {
         await forgotPassword(method === "email" ? { email: values.email.trim() } : { phone: values.phone.replace(/[\s()-]/g, "") });
-        setCompleted(true); setNotice("If an account exists for that contact, a password reset link has been sent.");
+        setCompleted(true); setNotice("If an account exists for that contact, a password reset code has been sent.");
       }
     } catch (error) {
       setFailure(errorMessage(error));
@@ -136,26 +127,26 @@ export function BuyerAuthPage({ screen, audience: initialAudience = "buyer", ini
         <Link className="buyer-auth-back" href={register || login ? "/" : loginHref}><Icon name={login ? "5f93d.svg" : "da276.svg"} />Back to {register || login ? "Home" : "Login"}</Link>
         <div className="buyer-auth-form-area">
           <h1 id="buyer-auth-title">{login ? audience === "aggregator" ? "Aggregator Login" : "Corporate Buyer Login" : register ? "Create Corporate Buyer Account" : reset ? "Reset Password" : "Forgot Password?"}</h1>
-          <p className="buyer-auth-intro">{login ? "Enter your details to access your account." : register ? "Join Farmtry and gain access to fresh produce from verified suppliers." : reset ? "Choose a new password using the recovery link you received." : "Recover access using your registered email address or Nigerian mobile number."}</p>
-          <p className="buyer-auth-preview" id="auth-preview">{register ? "Buyer registration is awaiting its service specification. You can check details locally; no account is created." : reset ? "Your recovery link can be used once and expires after 60 minutes. Resetting your password signs out previous sessions." : login ? "Sign in with an existing Farmtry account. Google sign-in and remember me are not yet available." : "We will send a recovery link if an account exists for the contact you provide."}</p>
+          <p className="buyer-auth-intro">{login ? "Enter your details to access your account." : register ? "Join Farmtry and gain access to fresh produce from verified suppliers." : reset ? "Enter your registered contact, six-digit recovery code and new password." : "Recover access using your registered email address or Nigerian mobile number."}</p>
+          <p className="buyer-auth-preview" id="auth-preview">{register ? "Buyer registration is awaiting integration with the updated service. You can check details locally; no account is created." : reset ? "Your recovery code expires after 10 minutes. Resetting your password signs out previous sessions." : login ? "Sign in with an existing Farmtry account. Google sign-in and remember me are not yet available." : "We will send a recovery code if an account exists for the contact you provide."}</p>
           <form ref={form} onSubmit={submit} noValidate aria-describedby="auth-preview" aria-busy={busy} data-contract-status={buyerAuthContracts[login ? "login" : register ? "register" : reset ? "resetPassword" : "recover"].status}>
             <fieldset disabled={busy || signedIn || completed} className="buyer-auth-live-fields">
             {register && <Field id="auth-company" label="Company name" placeholder="e.g. Grand Cereals Ltd" autoComplete="organization" value={values.company} onChange={e => change("company", e.target.value)} error={errors.company} />}
-            {screen === "recovery" && <fieldset className="buyer-auth-method"><legend>Recovery method</legend><div>{(["email", "sms"] as const).map(option => <label key={option}><input type="radio" name="recovery-method" value={option} checked={method === option} onChange={() => { setMethod(option); setErrors({}); setChecked(false); }} /><span><Icon name={option === "email" ? "3e027.svg" : "cc625.svg"} />{option === "email" ? "Email" : "SMS"}</span></label>)}</div></fieldset>}
-            {(register || login || (screen === "recovery" && method === "email")) && <Field id="auth-email" label={register ? "Business email" : login ? "Email or phone" : "Email address"} type={login ? "text" : "email"} autoComplete={login ? "username" : "email"} placeholder={register ? "procurement@company.com" : "you@company.com"} value={values.email} onChange={e => change("email", e.target.value)} error={errors.email} />}
-            {(register || (screen === "recovery" && method === "sms")) && <Field id="auth-phone" label="Phone number" hint="Nigerian (+234)" type="tel" autoComplete="tel" placeholder="+234 801 234 5678" value={values.phone} onChange={e => change("phone", e.target.value)} error={errors.phone} />}
-            {reset && !/^[a-f\d]{64}$/i.test(values.token) && !completed && <p className="buyer-auth-error">Open the recovery link from your email or phone. <Link href={recoveryHref}>Request a new link</Link>.</p>}
-            {errors.token && <p role="alert" className="buyer-auth-error">{errors.token}</p>}
+            {(screen === "recovery" || reset) && <fieldset className="buyer-auth-method"><legend>Recovery method</legend><div>{(["email", "sms"] as const).map(option => <label key={option}><input type="radio" name="recovery-method" value={option} checked={method === option} onChange={() => { setMethod(option); setErrors({}); setChecked(false); }} /><span><Icon name={option === "email" ? "3e027.svg" : "cc625.svg"} />{option === "email" ? "Email" : "SMS"}</span></label>)}</div></fieldset>}
+            {(register || login || ((screen === "recovery" || reset) && method === "email")) && <Field id="auth-email" label={register ? "Business email" : login ? "Email or phone" : "Email address"} type={login ? "text" : "email"} autoComplete={login ? "username" : "email"} placeholder={register ? "procurement@company.com" : "you@company.com"} value={values.email} onChange={e => change("email", e.target.value)} error={errors.email} />}
+            {(register || ((screen === "recovery" || reset) && method === "sms")) && <Field id="auth-phone" label="Phone number" hint="Nigerian (+234)" type="tel" autoComplete="tel" placeholder="+234 801 234 5678" value={values.phone} onChange={e => change("phone", e.target.value)} error={errors.phone} />}
+            {reset && <Field id="auth-code" label="Six-digit recovery code" inputMode="numeric" autoComplete="one-time-code" maxLength={6} value={values.code} onChange={e => change("code", e.target.value)} error={errors.code} hint={<Link href={recoveryHref}>Request a new code</Link>} />}
             {screen !== "recovery" && <Field eyeAsset={reset ? "572dc.svg" : "c4d2d.svg"} mobileEyeAsset={register ? "a6f4f.svg" : reset ? "572dc.svg" : "c4d2d.svg"} id="auth-password" label={reset ? "New password" : "Password"} type="password" autoComplete={login ? "current-password" : "new-password"} placeholder={login ? "Enter your password" : "Create a strong password"} value={values.password} onChange={e => change("password", e.target.value)} error={errors.password} />}
             {(register || reset) && <ul className="buyer-auth-password-rules" aria-label="Password format requirements">{([['length', 'At least 8 characters'], ['number', 'Contains a number'], ['symbol', 'Special symbol']] as const).filter(([key]) => !reset || key === "length").map(([key, label]) => <li key={key} data-met={checks[key]}><span aria-hidden="true">{checks[key] ? "✓" : "○"}</span>{label}<span className="sr-only">{checks[key] ? ": met" : ": not met"}</span></li>)}</ul>}
             {reset && <Field eyeAsset="572dc.svg" hint={values.confirmation && values.confirmation === values.password ? <span className="buyer-auth-match"><Icon name="48164.svg" />Passwords match</span> : undefined} id="auth-confirmation" label="Confirm new password" type="password" autoComplete="new-password" placeholder="Re-enter your new password" value={values.confirmation} onChange={e => change("confirmation", e.target.value)} error={errors.confirmation} />}
             {login && <div className="buyer-auth-options"><label><input type="checkbox" disabled aria-describedby="auth-preview" />Remember me</label><Link href={recoveryHref}>Forgot password?</Link></div>}
             {register && <Button type="submit" className="buyer-auth-check" variant="secondary">Check details locally</Button>}
             <div role="status" className="buyer-auth-status">{checked ? `Format checks passed. ${login ? "Your credentials have not been authenticated. You are not signed in." : reset ? "The code has not been verified and your password has not changed." : register ? "No account has been created." : "No recovery message has been sent."}` : ""}</div>
-            <Button type="submit" disabled={register || busy || signedIn || completed || (reset && !/^[a-f\d]{64}$/i.test(values.token))} className="buyer-auth-submit" aria-describedby="auth-preview">{busy ? "Please wait…" : login ? "Log In" : register ? "Create Account" : reset ? "Update Password" : "Send Recovery Link"}</Button>
+            <Button type="submit" disabled={register || busy || signedIn || completed} className="buyer-auth-submit" aria-describedby="auth-preview">{busy ? "Please wait…" : login ? "Log In" : register ? "Create Account" : reset ? "Update Password" : "Send Recovery Code"}</Button>
             </fieldset>
             {failure && <p role="alert" className="buyer-auth-error">{failure}</p>}
             {notice && <p role="status" className="buyer-auth-status">{notice}</p>}
+            {completed && screen === "recovery" && <Link className="buyer-auth-check" href={resetHref}>Enter recovery code</Link>}
             {completed && <Link className="buyer-auth-check" href={loginHref}>Back to sign in</Link>}
             {signedIn && <><p className="buyer-auth-intro">Buyer shopping and workspace services are still being prepared.</p><Button type="button" disabled={busy} onClick={async () => { setBusy(true); setFailure(""); try { await logout(); setSignedIn(false); setNotice("You have been signed out."); } catch(error) { setFailure(errorMessage(error)); } finally { setBusy(false); } }}>Sign out</Button></>}
           </form>

@@ -24,6 +24,7 @@ export function AggregatorRegistrationForm() {
   const [form, setForm] = useState<AggregatorRegistrationFormState>(initialAggregatorRegistrationForm);
   const [errors, setErrors] = useState<AggregatorRegistrationErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState("");
   const [result, setResult] = useState<AggregatorRegistrationResult | null>(null);
 
   const isComplete = useMemo(() => {
@@ -65,12 +66,15 @@ export function AggregatorRegistrationForm() {
       return;
     }
 
+    setSubmissionError("");
     setIsSubmitting(true);
 
     try {
       const payload = toAggregatorRegistrationPayload(form);
       const registrationResult = await registerAggregator(payload);
       setResult(registrationResult);
+    } catch {
+      setSubmissionError("Please use the complete registration form at /preview/aggregator-register. Email, password and a hosted ID photo are required.");
     } finally {
       setIsSubmitting(false);
     }
@@ -149,6 +153,7 @@ export function AggregatorRegistrationForm() {
             </div>
 
             <form className="space-y-5" onSubmit={handleSubmit}>
+          {submissionError && <p role="alert">{submissionError}</p>}
               <div className="rounded-lg border border-[#E5DDD4] bg-white p-4 shadow-panel">
                 <SectionLabel>Personal details</SectionLabel>
                 <TextInput

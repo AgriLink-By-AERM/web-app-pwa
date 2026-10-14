@@ -9,7 +9,7 @@ const output = ts.transpileModule(source, { compilerOptions: { module: ts.Module
 const sandbox = { exports: {} };
 vm.runInNewContext(output, sandbox);
 const { validateAuth, emptyValues } = sandbox.exports;
-const valid = { ...emptyValues, company: 'Example Test Ltd', email: 'buyer@example.com', phone: '+234 801 234 5678', password: 'Preview123!', confirmation: 'Preview123!', code: '012345', token: 'a'.repeat(64) };
+const valid = { ...emptyValues, company: 'Example Test Ltd', email: 'buyer@example.com', phone: '+234 801 234 5678', password: 'Preview123!', confirmation: 'Preview123!', code: '012345' };
 let passed = 0;
 function test(name, fn) { fn(); passed++; console.log(`PASS ${name}`); }
 test('blank registration identifies every required field', () => assert.equal(Object.keys(validateAuth('register', emptyValues)).length, 4));
@@ -21,8 +21,9 @@ test('short phone is rejected', () => assert.ok(validateAuth('register', { ...va
 test('recovery only validates the selected channel', () => assert.equal(Object.keys(validateAuth('recovery', { ...emptyValues, email: valid.email })).length, 0));
 test('SMS requires a phone instead of email', () => assert.equal(Object.keys(validateAuth('recovery', { ...emptyValues, phone: valid.phone }, 'sms')).length, 0));
 test('empty SMS value is rejected', () => assert.ok(validateAuth('recovery', emptyValues, 'sms').phone));
-test('valid recovery token and password pass local checks', () => assert.equal(Object.keys(validateAuth('reset', valid)).length, 0));
-test('missing, malformed and wrong-length recovery tokens are rejected', () => ['', 'g'.repeat(64), 'a'.repeat(63), 'a'.repeat(65)].forEach(token => assert.ok(validateAuth('reset', { ...valid, token }).token)));
+test('valid recovery code and password pass local checks', () => assert.equal(Object.keys(validateAuth('reset', valid)).length, 0));
+test('missing, malformed and wrong-length recovery codes are rejected', () => ['', 'abcdef', '12345', '1234567'].forEach(code => assert.ok(validateAuth('reset', { ...valid, code }).code)));
+test('reset requires the selected contact', () => { assert.ok(validateAuth('reset', { ...valid, email: '' }).email); assert.ok(validateAuth('reset', { ...valid, phone: '' }, 'sms').phone); });
 test('mismatched confirmation is rejected', () => assert.ok(validateAuth('reset', { ...valid, confirmation: 'Other123!' }).confirmation));
 test('blank confirmation is rejected', () => assert.ok(validateAuth('reset', { ...valid, confirmation: '' }).confirmation));
 test('reset follows the supplied minimum-length policy', () => { assert.ok(validateAuth('reset', { ...valid, password: 'short' }).password); assert.equal(validateAuth('reset', { ...valid, password: 'abcdefgh', confirmation: 'abcdefgh' }).password, undefined); });

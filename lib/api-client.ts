@@ -1,8 +1,4 @@
-export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ||
-  (typeof window !== "undefined" && window.location.hostname === "localhost"
-    ? "http://localhost:5002/api/v1"
-    : "/api/v1");
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "/api/v1";
 
 export type ErrorKind =
   | "network"
@@ -50,8 +46,12 @@ const statusMessages: Record<number, [ErrorKind, string]> = {
 // Session storage helpers for session tracking
 const sessionKey = "farmtry.session-id";
 let memorySessionId: string | null = null;
+let generation = 0;
+let expired = false;
 
 export function saveSession(id: string) {
+  generation++;
+  expired = false;
   memorySessionId = id;
   try {
     sessionStorage.setItem(sessionKey, id);
@@ -61,6 +61,7 @@ export function saveSession(id: string) {
 }
 
 export function clearSession() {
+  generation++;
   memorySessionId = null;
   try {
     sessionStorage.removeItem(sessionKey);
@@ -80,6 +81,7 @@ export function currentSession(): string | null {
 export interface FetchOptions extends RequestInit {
   requireAuth?: boolean;
   throwOnError?: boolean;
+  retryBody?: () => BodyInit;
 }
 
 let refreshPromise: Promise<boolean> | null = null;
@@ -89,29 +91,33 @@ export async function refreshAccessToken(): Promise<boolean> {
   if (typeof window === "undefined") return false;
   if (refreshPromise) return refreshPromise;
 
+  const started = generation;
   refreshPromise = (async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/auth/refresh-token`, {
-        method: "POST",
-        credentials: "include",
-        headers: { Accept: "application/json" },
-        signal: AbortSignal.timeout(5000)
-      });
-      if (!response.ok) return false;
-      const data = await response.json();
-      if (data?.data?.sessionId) {
-        saveSession(data.data.sessionId);
-      }
-      return true;
-    } catch {
-      return false;
-    }
+    const result = await fetchApi<{ success: true; data: { sessionId: string } }>("/auth/refresh-token", {
+      method: "POST", requireAuth: false, throwOnError: true,
+    });
+    if (started !== generation) throw new ApiError("unauthorized", "The session changed while refreshing.", 401);
+    if (!result?.data?.sessionId || typeof result.data.sessionId !== "string") throw new ApiError("contract", "The service did not return a session reference.");
+    saveSession(result.data.sessionId);
+    return true;
   })();
 
   try {
     return await refreshPromise;
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 401 && started === generation) expireSession();
+    throw error;
   } finally {
     refreshPromise = null;
+  }
+}
+
+function expireSession() {
+  if (expired) return;
+  clearSession(); expired = true;
+  if (typeof window !== "undefined") {
+    const audience = window.location.pathname.includes("aggregator") ? "aggregator" : "buyer";
+    window.location.replace(`/preview/${audience}-login/?expired=true`);
   }
 }
 
@@ -126,7 +132,7 @@ export async function fetchApi<T = any>(endpoint: string, options: FetchOptions 
     return null;
   }
 
-  const { requireAuth = true, throwOnError = false, ...fetchOptions } = options;
+  const { requireAuth = true, throwOnError = false, retryBody, ...fetchOptions } = options;
 
   const headers: Record<string, string> = {
     Accept: "application/json",
@@ -135,15 +141,17 @@ export async function fetchApi<T = any>(endpoint: string, options: FetchOptions 
   };
 
   const timeoutMs = isServer ? 1500 : 10000;
-  const timeoutSignal = AbortSignal.timeout(timeoutMs);
-  const signal = fetchOptions.signal ?? timeoutSignal;
 
-  const makeRequest = () =>
+  const started = generation;
+  const makeRequest = (retry = false) =>
     fetch(`${API_BASE_URL}${endpoint}`, {
       ...fetchOptions,
+      ...(retry && retryBody ? { body: retryBody() } : {}),
+      cache: "no-store",
+      redirect: "error",
       headers,
       credentials: "include", // sends HttpOnly cookies
-      signal,
+      signal: fetchOptions.signal ?? AbortSignal.timeout(timeoutMs),
     });
 
   try {
@@ -151,10 +159,12 @@ export async function fetchApi<T = any>(endpoint: string, options: FetchOptions 
 
     // Handle 401: try refresh once, then retry (only in browser)
     if (response.status === 401 && requireAuth && !isServer) {
-      const refreshed = await refreshAccessToken();
+      if (expired) throw new ApiError("unauthorized", "Please sign in again.", 401);
+      const refreshed = generation !== started ? !!currentSession() : await refreshAccessToken();
       if (refreshed) {
-        response = await makeRequest();
+        response = await makeRequest(true);
       }
+      if (response.status === 401) expireSession();
     }
 
     if (!response.ok) {
@@ -207,11 +217,14 @@ export async function fetchApi<T = any>(endpoint: string, options: FetchOptions 
       return null;
     }
 
-    if (response.status === 204) return null;
+    if (response.status === 204) throw new ApiError("contract", "The service did not return the documented success confirmation.");
 
-    return await response.json();
+    let envelope;
+    try { envelope = await response.json(); } catch { throw new ApiError("contract", "The service returned an unreadable response."); }
+    if (!envelope || envelope.success !== true) throw new ApiError("contract", "The service did not confirm this action.");
+    return envelope as T;
   } catch (error) {
-    if (error instanceof ApiError) throw error;
+    if (error instanceof ApiError) { if (throwOnError) throw error; return null; }
     if (throwOnError) {
       const isTimeout = (error as any)?.name === "TimeoutError" || (error as any)?.name === "AbortError";
       throw new ApiError(

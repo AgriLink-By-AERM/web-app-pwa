@@ -1,9 +1,9 @@
 import { pendingContract } from "@/lib/integration/page-requirements";
 
-/** Supplied v1 handoff covers shared login/recovery; buyer signup and OAuth are still unspecified. */
+/** Updated 2026-10-14 handoff. A specified contract does not imply UI integration is complete. */
 export const buyerAuthContracts = {
   login: { status: "specified", method: "POST", endpoint: "/auth/login" },
-  register: { ...pendingContract },
+  register: { status: "specified", method: "POST", endpoint: "/buyer/register" },
   googleSignIn: { ...pendingContract },
   recover: { status: "specified", method: "POST", endpoint: "/auth/forgot-password" },
   verifyResetCode: { ...pendingContract },

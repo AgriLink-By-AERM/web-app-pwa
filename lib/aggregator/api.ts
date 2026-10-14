@@ -1,4 +1,5 @@
-import { fetchApi } from "@/lib/api-client";
+import { array, number, oneOf, record, string } from "@/lib/api-validation";
+import { fetchApi, ApiError } from "@/lib/api-client";
 import type { AggregatorProfile, AggregatorRegistrationPayload, AggregatorRegistrationResult } from "@/lib/types";
 
 export type AggregatorRegistration = {
@@ -87,22 +88,8 @@ export type DisputeResult = {
 export async function registerAggregator(
   payload: AggregatorRegistrationPayload | AggregatorRegistration
 ): Promise<AggregatorRegistrationResult> {
-  const backendPayload: AggregatorRegistration =
-    "email" in payload && "password" in payload
-      ? payload
-      : {
-          phone: (payload as AggregatorRegistrationPayload).phoneNumber,
-          fullName: (payload as AggregatorRegistrationPayload).fullName,
-          email: `${(payload as AggregatorRegistrationPayload).phoneNumber.replace(/\D/g, "")}@farmtry.internal`,
-          password: "DefaultPassword123!",
-          zone: (payload as AggregatorRegistrationPayload).zone,
-          governmentIdType: "nin",
-          governmentIdNumber: (payload as AggregatorRegistrationPayload).governmentIdNumber,
-          governmentIdPhotoUrl: (payload as AggregatorRegistrationPayload).idPhotoFileName.startsWith("http")
-            ? (payload as AggregatorRegistrationPayload).idPhotoFileName
-            : "https://farmtry.app/uploads/" + (payload as AggregatorRegistrationPayload).idPhotoFileName,
-          guarantorPhone: (payload as AggregatorRegistrationPayload).guarantorPhoneNumber,
-        };
+  if (!("email" in payload) || !("password" in payload)) throw new ApiError("validation", "Register using your email, password and an uploaded ID photo URL.");
+  const backendPayload = payload;
 
   const response = await fetchApi<{
     success: boolean;
@@ -115,8 +102,9 @@ export async function registerAggregator(
     throwOnError: true,
   });
 
+  const registeredId = string(response?.data?.userId);
   const profile: AggregatorProfile = {
-    id: response?.data?.userId || `agg_${Date.now()}`,
+    id: registeredId,
     role: "aggregator",
     verificationStatus: "pending_verification",
     submittedAt: new Date().toISOString(),
@@ -141,7 +129,7 @@ export async function getDashboard(signal?: AbortSignal): Promise<Dashboard> {
     signal,
     throwOnError: true,
   });
-  return response?.data as Dashboard;
+  return decodeDashboard(response?.data);
 }
 
 export async function getStatus(signal?: AbortSignal): Promise<ReviewStatus> {
@@ -150,7 +138,7 @@ export async function getStatus(signal?: AbortSignal): Promise<ReviewStatus> {
     signal,
     throwOnError: true,
   });
-  return response?.data as ReviewStatus;
+  return decodeStatus(response?.data);
 }
 
 export async function getLogs(
@@ -166,16 +154,17 @@ export async function getLogs(
     signal,
     throwOnError: true,
   });
-  return response?.data as LogList;
+  return decodeLogs(response?.data);
 }
 
 export async function getLog(id: string, signal?: AbortSignal): Promise<LogRecord> {
+  if (!/^[a-f\d]{24}$/i.test(id)) throw new ApiError("validation", "Invalid log identifier.");
   const response = await fetchApi<{ success: boolean; data: LogRecord }>(`/aggregator/logs/${encodeURIComponent(id)}`, {
     method: "GET",
     signal,
     throwOnError: true,
   });
-  return response?.data as LogRecord;
+  return decodeLog(response?.data);
 }
 
 export async function createLog(input: LogInput): Promise<LogRecord> {
@@ -184,7 +173,7 @@ export async function createLog(input: LogInput): Promise<LogRecord> {
     body: JSON.stringify(input),
     throwOnError: true,
   });
-  return response?.data as LogRecord;
+  return decodeLog(response?.data);
 }
 
 export async function fileDispute(input: DisputeInput): Promise<DisputeResult> {
@@ -193,7 +182,21 @@ export async function fileDispute(input: DisputeInput): Promise<DisputeResult> {
     body: JSON.stringify(input),
     throwOnError: true,
   });
-  return response?.data as DisputeResult;
+  const d = record(response?.data);
+  return { disputeId: string(d.disputeId), logId: string(d.logId), reason: string(d.reason), status: oneOf(d.status, ["open"] as const), createdAt: timestamp(d.createdAt) };
 }
 
 
+
+function coordinate(value: unknown, max: number) { if (typeof value !== "number" || !Number.isFinite(value) || Math.abs(value) > max) throw new ApiError("contract", "The service returned invalid location coordinates."); return value; }
+function timestamp(value: unknown) { const text = string(value); if (!Number.isFinite(Date.parse(text))) throw new ApiError("contract", "The service returned an invalid date."); return text; }
+export function decodeLog(value: unknown): LogRecord {
+  const d = record(value);
+  return { id: string(d.id), farmerPhone: string(d.farmerPhone), pipeline: string(d.pipeline), category: string(d.category), weightKg: number(d.weightKg), condition: oneOf(d.condition, ["good", "fair", "damaged"]), latitude: coordinate(d.latitude, 90), longitude: coordinate(d.longitude, 180), photoUrl: string(d.photoUrl), harvestedAt: timestamp(d.harvestedAt), status: oneOf(d.status, ["pending", "verified", "rejected"]), urgencyTier: oneOf(d.urgencyTier, ["low", "medium", "high"]), qrPayload: string(d.qrPayload), createdAt: timestamp(d.createdAt) };
+}
+export function decodeDashboard(value: unknown) {
+  const d = record(value), p = record(d.profile), s = record(d.stats);
+  return { profile: { id: string(p.id), fullName: string(p.fullName), email: string(p.email), phone: string(p.phone), zone: string(p.zone), kycStatus: oneOf(p.kycStatus, ["pending", "approved", "rejected"] as const) }, stats: { totalLogs: number(s.totalLogs), pendingLogs: number(s.pendingLogs), verifiedLogs: number(s.verifiedLogs), totalWeightKg: number(s.totalWeightKg), openDisputes: number(s.openDisputes) }, recentLogs: array(d.recentLogs, decodeLog) };
+}
+export function decodeStatus(value: unknown) { const d = record(value); return { kycStatus: oneOf(d.kycStatus, ["pending", "approved", "rejected"] as const), rejectionReason: d.rejectionReason == null ? undefined : string(d.rejectionReason), reviewSteps: array(d.reviewSteps, item => { const step = record(item); if (typeof step.done !== "boolean") throw new ApiError("contract", "The service returned an invalid review step."); return { label: string(step.label), done: step.done }; }) }; }
+export function decodeLogs(value: unknown) { const d = record(value); return { logs: array(d.logs, decodeLog), total: number(d.total), page: number(d.page), limit: number(d.limit) }; }

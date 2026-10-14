@@ -1,3 +1,4 @@
+import {Marketplace as LiveMarket,Wishlist as LiveWishlist,Checkout as LiveCheckout,ProductPage as LiveProduct,CartPage as LiveCart,BuyerOrders,BuyerAccount} from "@/features/commerce/live-commerce";
 import {DesignPreviewIndex} from "@/features/design-preview-index";
 import {AggregatorDesignPageView} from "@/features/aggregator-design/aggregator-design-page";
 import {aggregatorDesignPages, type AggregatorDesignPage} from "@/features/aggregator-design/aggregator-design-data";
@@ -55,11 +56,11 @@ export default async function PreviewPage({ params }: { params: Promise<{ page: 
   if (page === "recovery-sms") return <BuyerAuthPage key="recovery-sms" screen="recovery" initialMethod="sms"/>;
   if (page === "confirm-account-basic") return <ConfirmAccount tabs={false}/>;
   if (page === "screens") return <DesignPreviewIndex/>;
-  if (page === "buyer-profile") return <BuyerProfile />;
-  if (page === "buyer-filtered-listings") return <BuyerFilteredListings />;
-  if (page === "marketplace") return <Marketplace />;
-  if (page === "wishlist") return <Wishlist />;
-  if (page === "checkout") return <Checkout />;
+  if (page === "buyer-profile") return <BuyerAccount profileOnly />;
+  if (page === "buyer-filtered-listings") return <LiveMarket />;
+  if (page === "marketplace") return <LiveMarket />;
+  if (page === "wishlist") return <LiveWishlist />;
+  if (page === "checkout") return <LiveCheckout />;
   if (page === "get-started" || page === "get-started-corporate" || page === "get-started-aggregator") return <GetStarted initialRole={page === "get-started-corporate" ? "Corporate Buyer" : page === "get-started-aggregator" ? "Aggregator" : "Buyer"} />;
   if (page === "confirm-account" || page === "confirm-account-summary") return <ConfirmAccount summary={page === "confirm-account-summary"} />;
   if (page === "account-success") return <AccountSuccess />;
@@ -68,15 +69,15 @@ export default async function PreviewPage({ params }: { params: Promise<{ page: 
   if (page === "admin-recovery" || page === "admin-recovery-sms") return <AdminAuth key={page} screen="recovery" initialMethod={page === "admin-recovery-sms" ? "sms" : "email"} />;
   if (page === "admin-reset") return <AdminAuth screen="reset" />;
   if (Object.prototype.hasOwnProperty.call(adminPages, page)) return <AdminWorkspace key={page} screen={page as AdminPage} />;
-  if (page === "buyer-listings") return <BuyerListings />;
-  if (page === "buyer-listing") return <BuyerListingDetail />;
+  if (page === "buyer-listings") return <LiveMarket />;
+  if (page === "buyer-listing") return <LiveProduct />;
   if (page === "buyer-match") return <BuyerMatchDetail />;
   if (page === "buyer-scan") return <BuyerScanner />;
   if (page === "buyer-notifications") return <BuyerNotifications />;
-  if (page === "buyer") return <BuyerDashboard />;
-  if (page === "buyer-history") return <BuyerPurchaseHistory />;
-  if (page === "cart") return <CartPage />;
-  if (page === "product") return <ProductPage />;
+  if (page === "buyer") return <BuyerAccount />;
+  if (page === "buyer-history") return <BuyerOrders />;
+  if (page === "cart") return <LiveCart />;
+  if (page === "product") return <LiveProduct />;
   if (page === "aggregator") return <AggregatorWorkspace />;
   if (page === "aggregator-register") return <LiveAggregatorRegistration />;
   if (page === "aggregator-login") return <BuyerAuthPage key="aggregator-login" screen="login" audience="aggregator" />;
@@ -86,5 +87,5 @@ export default async function PreviewPage({ params }: { params: Promise<{ page: 
   if (page === "recovery") return <BuyerAuthPage key="recovery" screen="recovery" />;
   if (page === "buyer-reset") return <BuyerAuthPage key="reset" screen="reset" />;
   const requirement = pageRequirements[page as IntegrationPage];
-  return <div className="farmtry-site"><LandingHeader /><main className="farmtry-container farmtry-placeholder"><p className="farmtry-eyebrow">FARMTRY · COMING SOON</p><h1>{requirement.title}</h1><p>{requirement.description}</p><Card className="mt-8 max-w-xl p-8 text-ink"><h2 className="text-xl font-bold">This service is being prepared</h2><p className="mt-3 text-body">This page is a preview. Live account and transaction services are not available yet.</p><p className="mt-3 text-sm text-muted">No information has been submitted and no purchase or account action has been completed.</p><Link className="farmtry-action mt-6" href="/">Back to Farmtry</Link></Card><nav className="mt-8 flex flex-wrap gap-6" aria-label="Explore Farmtry"><Link href="/preview/marketplace">Marketplace</Link><Link href="/preview/buyer">Buyer Hub</Link><Link href="/preview/aggregator">Aggregator Hub</Link></nav></main></div>;
+  return <div className="farmtry-site"><LandingHeader /><main className="farmtry-container farmtry-placeholder"><p className="farmtry-eyebrow">FARMTRY Â· COMING SOON</p><h1>{requirement.title}</h1><p>{requirement.description}</p><Card className="mt-8 max-w-xl p-8 text-ink"><h2 className="text-xl font-bold">This service is being prepared</h2><p className="mt-3 text-body">This page is a preview. Live account and transaction services are not available yet.</p><p className="mt-3 text-sm text-muted">No information has been submitted and no purchase or account action has been completed.</p><Link className="farmtry-action mt-6" href="/">Back to Farmtry</Link></Card><nav className="mt-8 flex flex-wrap gap-6" aria-label="Explore Farmtry"><Link href="/preview/marketplace">Marketplace</Link><Link href="/preview/buyer">Buyer Hub</Link><Link href="/preview/aggregator">Aggregator Hub</Link></nav></main></div>;
 }

@@ -116,7 +116,7 @@ function expireSession() {
   if (expired) return;
   clearSession(); expired = true;
   if (typeof window !== "undefined") {
-    const audience = window.location.pathname.includes("aggregator") ? "aggregator" : "buyer";
+    const audience = window.location.pathname.includes("admin") ? "admin" : window.location.pathname.includes("aggregator") ? "aggregator" : "buyer";
     window.location.replace(`/preview/${audience}-login/?expired=true`);
   }
 }

@@ -1,23 +1,3 @@
-import { Suspense } from "react";
-import { DealerRedeemConfirm } from "@/features/dealer/components/dealer-redeem-confirm";
-
-export default function DealerRedeemConfirmPage() {
-  return (
-    <Suspense fallback={<ConfirmLoading />}>
-      <DealerRedeemConfirm />
-    </Suspense>
-  );
-}
-
-function ConfirmLoading() {
-  return (
-    <main className="min-h-screen bg-surface text-ink lg:pl-[var(--role-sidebar-width,18rem)]">
-      <section className="mx-auto min-h-screen max-w-7xl bg-slate-50 px-4 py-6 shadow-sm sm:px-6 lg:bg-transparent lg:px-8 lg:shadow-none">
-        <p className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-700">Security confirmation</p>
-        <h1 className="mt-2 text-2xl font-extrabold tracking-tight">Loading voucher manifest</h1>
-        <p className="mt-2 text-sm leading-6 text-slate-500">Preparing the decoded OTP details.</p>
-      </section>
-    </main>
-  );
-}
-
+import {DealerRedemption} from "@/features/core/role-workspace";
+import "@/features/core/core.css";
+export default function Page(){return <DealerRedemption />;}

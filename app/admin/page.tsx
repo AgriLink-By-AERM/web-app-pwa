@@ -1,10 +1,3 @@
-import { AdminDashboard } from "@/features/admin/components/admin-dashboard";
-import { getAdminDashboardData } from "@/lib/admin/service";
-import { requireAdminSession } from "@/lib/auth/session";
-
-export default async function AdminPage() {
-  const session = await requireAdminSession();
-  const data = await getAdminDashboardData();
-
-  return <AdminDashboard initialData={data} session={session} />;
-}
+import {LiveAdmin} from "@/features/admin-workspace/live-admin";
+import "@/features/admin-workspace/admin-workspace.css";
+export default function Page(){return <LiveAdmin/>;}

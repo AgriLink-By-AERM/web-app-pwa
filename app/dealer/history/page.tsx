@@ -1,8 +1,3 @@
-import { DealerHistoryList } from "@/features/dealer/components/dealer-history-list";
-import { getRedemptionHistory } from "@/lib/dealer/store";
-
-export default async function DealerHistoryPage() {
-  const records = await getRedemptionHistory();
-
-  return <DealerHistoryList records={records} />;
-}
+import {DealerTransactions} from "@/features/core/role-workspace";
+import "@/features/core/core.css";
+export default function Page(){return <DealerTransactions />;}

@@ -1,3 +1,4 @@
+import {LiveAdmin} from "@/features/admin-workspace/live-admin";
 import {Marketplace as LiveMarket,Wishlist as LiveWishlist,Checkout as LiveCheckout,ProductPage as LiveProduct,CartPage as LiveCart,BuyerOrders,BuyerAccount} from "@/features/commerce/live-commerce";
 import {DesignPreviewIndex} from "@/features/design-preview-index";
 import {AggregatorDesignPageView} from "@/features/aggregator-design/aggregator-design-page";
@@ -68,6 +69,12 @@ export default async function PreviewPage({ params }: { params: Promise<{ page: 
   if (page === "admin-login") return <AdminAuth screen="login" />;
   if (page === "admin-recovery" || page === "admin-recovery-sms") return <AdminAuth key={page} screen="recovery" initialMethod={page === "admin-recovery-sms" ? "sms" : "email"} />;
   if (page === "admin-reset") return <AdminAuth screen="reset" />;
+  if (page === "admin" || page === "admin-audit") return <LiveAdmin section="audit"/>;
+  if (page === "admin-users") return <LiveAdmin section="users"/>;
+  if (page === "admin-farmers") return <LiveAdmin section="farmers"/>;
+  if (page === "admin-verifications") return <LiveAdmin section="kyc"/>;
+  if (page === "admin-disputes") return <LiveAdmin section="disputes"/>;
+  if (page === "admin-listings") return <LiveAdmin section="listings"/>;
   if (Object.prototype.hasOwnProperty.call(adminPages, page)) return <AdminWorkspace key={page} screen={page as AdminPage} />;
   if (page === "buyer-listings") return <LiveMarket />;
   if (page === "buyer-listing") return <LiveProduct />;

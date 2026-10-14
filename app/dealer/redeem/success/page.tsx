@@ -1,10 +1,3 @@
-import { Suspense } from "react";
-import { DealerRedeemSuccessClient } from "./success-client";
-
-export default function DealerRedeemSuccessPage() {
-  return (
-    <Suspense fallback={null}>
-      <DealerRedeemSuccessClient />
-    </Suspense>
-  );
-}
+import {DealerTransactions} from "@/features/core/role-workspace";
+import "@/features/core/core.css";
+export default function Page(){return <DealerTransactions />;}

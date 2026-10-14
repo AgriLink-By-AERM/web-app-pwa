@@ -1,5 +1,7 @@
 /** UI requirements only. No endpoint, wire schema, or authentication contract is approved. */
 export const pageRequirements = {
+  "admin-listings": {title:"Marketplace administration",description:"Manage marketplace listings.",needs:[],figmaNode:null},
+  "admin-audit": {title:"Audit logs",description:"Review recorded admin decisions.",needs:[],figmaNode:null},
   screens: {title:"Screen review",description:"Explore the saved frontend designs.",needs:[],figmaNode:null},
   "aggregator-match-confirmed": {"title":"Confirmed match","description":"Saved aggregator design preview. Local drafts only.","needs":["Approved operation contract and response schemas"],"figmaNode":"255:5704"},
   "aggregator-match-corridor": {"title":"Transit corridor","description":"Saved aggregator design preview. Local drafts only.","needs":["Approved operation contract and response schemas"],"figmaNode":"255:6347"},

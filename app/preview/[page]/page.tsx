@@ -12,6 +12,7 @@ import { Marketplace, Wishlist, Checkout } from "@/features/commerce/shopping-pa
 import "@/features/commerce/shopping-pages.css";
 import { GetStarted, ConfirmAccount, AccountSuccess } from "@/features/commerce/account-entry";
 import "@/features/commerce/account-entry.css";
+import "@/features/admin-workspace/admin-access.css";
 import { AdminAuth } from "@/features/admin-workspace/admin-auth";
 import "@/features/admin-workspace/admin-auth.css";
 import { AdminWorkspace } from "@/features/admin-workspace/admin-workspace";
@@ -69,7 +70,8 @@ export default async function PreviewPage({ params }: { params: Promise<{ page: 
   if (page === "admin-login") return <AdminAuth screen="login" />;
   if (page === "admin-recovery" || page === "admin-recovery-sms") return <AdminAuth key={page} screen="recovery" initialMethod={page === "admin-recovery-sms" ? "sms" : "email"} />;
   if (page === "admin-reset") return <AdminAuth screen="reset" />;
-  if (page === "admin" || page === "admin-audit") return <LiveAdmin section="audit"/>;
+  if (page === "admin") return <LiveAdmin/>;
+  if (page === "admin-audit") return <LiveAdmin section="audit"/>;
   if (page === "admin-users") return <LiveAdmin section="users"/>;
   if (page === "admin-farmers") return <LiveAdmin section="farmers"/>;
   if (page === "admin-verifications") return <LiveAdmin section="kyc"/>;

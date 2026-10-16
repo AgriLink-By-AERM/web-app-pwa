@@ -77,3 +77,11 @@ The renewed connector returned `Unknown tool` for both account identity and desi
 The supplied screenshot matches the already saved landing reference: node 608:1881 uses `fbb69.png` in a 262.737 × 624 slot, with the specified image crop. The homepage now uses that exact local asset instead of the older CSS phone illustration. Desktop and mobile use the same handset; mobile sizing is responsive adaptation, not newly confirmed mobile Figma fidelity.
 
 Public Vercel inspection before this change found the older homepage illustration and no new admin-access marker in the served admin JavaScript. Pushing the integration branch must not be reported as a confirmed production deployment. Verify the Vercel deployment branch/commit before acceptance testing.
+
+## Follow-up: full native export received
+
+`FarmTry-2026-10-16.fig` was received and preserved under `.figma-reference/archive/native-2026-10-16/`. ZIP integrity passed; source and backup SHA-256 both equal `7ab873a6dfc1c42088c4dca8a47993435fe312808bf418ce5263ce355f8bf2ac`. File size: 28,690,051 bytes. Native decoding found 51,499 nodes and 125 non-empty images, with current Farmtry, previous-design and design-system pages. The previous full export is retained separately.
+
+Design access worked after reconnection. A current buyer-login context and screenshot were retrieved, and 11 new screen renders were saved under `live-renders` before Starter-plan throttling resumed. No account identity tool was available, so the newly connected email was not verified. Saved current buyer login uses the full-height tomato image; its desktop implementation has been updated while retaining shared authentication and the separate mobile layout. The registration organization selector now has consistent field styling.
+
+The new full native archive removes the missing-native-backup blocker. It does **not** establish full visual sign-off. The archive crosscheck records changed/missing descendant IDs against the prior metadata; the original metadata remains intact. Remaining variant comparisons, supported interaction coverage and final visual review remain open. Existing business/API deviations listed above still apply.

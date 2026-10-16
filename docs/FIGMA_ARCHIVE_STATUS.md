@@ -1,3 +1,9 @@
+# Refresh checkpoint — 2026-10-16
+
+See [DESIGN_COMPARISON_2026-10-16.md](DESIGN_COMPARISON_2026-10-16.md) for current evidence and gaps. Saved 17 refreshed connector references, 154 downloaded assets, current-page metadata, structural diff and responsive review screenshots under `.figma-reference/archive/refresh-2026-10-16/`. The connector reached its Starter-plan limit. This refresh is partial; the complete native backup below remains the 7 October baseline, not a verified copy of the latest design.
+
+---
+
 # Verified native backup — 2026-10-07
 
 The complete native FarmTry.fig export is now saved and successfully decoded offline. The archive-first preservation gate is satisfied. The earlier partial-archive history below is retained for provenance and is superseded by this checkpoint.

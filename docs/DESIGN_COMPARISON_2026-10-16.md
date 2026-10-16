@@ -69,3 +69,11 @@ Intentional deviations to retain: no public admin navigation; shared /auth/login
 2. Use the 17 fresh references already saved for the changed auth/verification work; restore connected admin mobile navigation and direct staff-auth styling first.
 3. Restore buyer/admin design composition without regressing API contracts; then review populated screen states and each drawer/modal/tab variant.
 4. With renewed suitable Figma access or a fresh native export, verify the remaining mobile references and their styles before declaring design comparison complete.
+
+## Follow-up: renewed connection and landing handset
+
+The renewed connector returned `Unknown tool` for both account identity and design-context calls. Its new identity and current remote design could not be verified. The last complete native export remains dated 7 October; a new `FarmTry-2026-10-16.fig` was requested. Full visual sign-off remains open.
+
+The supplied screenshot matches the already saved landing reference: node 608:1881 uses `fbb69.png` in a 262.737 × 624 slot, with the specified image crop. The homepage now uses that exact local asset instead of the older CSS phone illustration. Desktop and mobile use the same handset; mobile sizing is responsive adaptation, not newly confirmed mobile Figma fidelity.
+
+Public Vercel inspection before this change found the older homepage illustration and no new admin-access marker in the served admin JavaScript. Pushing the integration branch must not be reported as a confirmed production deployment. Verify the Vercel deployment branch/commit before acceptance testing.

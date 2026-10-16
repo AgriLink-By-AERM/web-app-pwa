@@ -38,3 +38,9 @@
   .farmtry-footer{background:#040d07}
 }
 @media(prefers-reduced-motion:reduce){.farmtry-site *{transition:none!important;scroll-behavior:auto!important}}
+
+/* Saved Figma 318:1534 / image 36 (608:1881): preserve its image crop. */
+.farmtry-handset{position:relative;width:262.737px;max-width:100%;aspect-ratio:262.737/624;margin-inline:auto;isolation:isolate}
+.farmtry-handset:before{content:"";position:absolute;inset:0 -50px;background:rgba(16,185,129,.2);filter:blur(45px);border-radius:9999px;z-index:-1}
+.farmtry-handset-crop{position:absolute;inset:0;overflow:hidden}
+.farmtry-handset-crop img{position:absolute;width:195.92%;height:147.95%;max-width:none;left:-48.21%;top:-26.07%}

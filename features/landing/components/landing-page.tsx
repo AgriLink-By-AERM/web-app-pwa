@@ -8,12 +8,7 @@ function Icon({ file }: { file: string }) { return <img className="farmtry-icon"
 function Arrow() { return <Icon file="95d1b.svg" />; }
 
 function FeaturePhone() {
-  return <div className="farmtry-phone" aria-label="Illustration of Farmtry SMS notifications, showing example data">
-    <div className="farmtry-phone-speaker" /><div className="farmtry-phone-brand"><strong>FARMTRY 2G COMM</strong><span><Icon file="1ca05.svg" /> MTN NG <Icon file="ac192.svg" /></span></div>
-    <div className="farmtry-phone-screen"><div className="farmtry-sms"><div className="farmtry-sms-heading"><span>SMS: FARMTRY</span><span>10:42 AM</span></div><p><strong>FARMTRY:</strong> Cassava Peel (120kg) verified at Hub! <strong>₦14,400</strong> credited directly to your account.</p><strong className="farmtry-sms-success">Instant cash payout completed.</strong></div><div className="farmtry-sms farmtry-sms-outgoing"><div className="farmtry-sms-heading"><span>You (Farmer)</span><span>10:45 AM</span></div><strong>BAL</strong></div><div className="farmtry-sms"><div className="farmtry-sms-heading"><span>SMS: FARMTRY</span><span>10:45 AM</span></div><p>Account Balance: <strong>₦50,700</strong>.</p><small>All produce &amp; waste earnings paid directly to your registered bank / mobile wallet.<br />Text CASH to withdraw.</small></div></div>
-    <div className="farmtry-phone-keypad" aria-hidden="true"><div className="farmtry-phone-controls"><i /><b>●</b><i /></div><div className="farmtry-keys">{["1", "2|ABC", "3|DEF", "4|GHI", "5|JKL", "6|MNO"].map(key => <span key={key}>{key.split("|")[0]}<small>{key.split("|")[1] || "\u00a0"}</small></span>)}</div></div>
-    <div className="farmtry-phone-caption"><Icon file="b29f1.svg" /><span>Works on basic 2G feature phones via SMS<br />&amp; USSD — zero data required</span></div>
-  </div>;
+  return <div className="farmtry-handset"><div className="farmtry-handset-crop"><img src={base + "fbb69.png"} alt="Farmtry SMS on a basic feature phone: cassava peel verified at the hub and payment credited. Example notification." /></div></div>;
 }
 
 const pillars = [

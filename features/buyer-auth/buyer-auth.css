@@ -197,3 +197,61 @@
 @media(min-width:768px) and (max-width:1150px){.buyer-auth-panel-refreshed .buyer-auth-panel-content{padding:64px 32px 32px}}
 .buyer-auth select{width:100%;min-height:46px;border:1px solid #cbd5e1;border-radius:8px;padding:10px 14px;background:white;color:#111827;font:inherit}
 .buyer-auth select:focus-visible{outline:3px solid #51a66e;outline-offset:3px}
+
+/* Figma 352:5611 and 393:4748. These rules describe the sign-in frames only. */
+.buyer-auth-login .buyer-auth-main { position:relative; }
+.buyer-auth-login .buyer-auth-back { font-size:12px;line-height:16px;font-weight:700; }
+.buyer-auth-login .buyer-auth-form-area { margin:48px auto 0; }
+.buyer-auth-login h1 { line-height:36px;letter-spacing:0; }
+.buyer-auth-login .buyer-auth-intro { margin:8px 0 24px;line-height:20px;color:#6b7280; }
+.buyer-auth-login .buyer-auth-live-fields { gap:20px; }
+.buyer-auth-login .buyer-auth-field { margin:0; }
+.buyer-auth-login .buyer-auth-label-row { margin-bottom:6px;line-height:16px; }
+.buyer-auth-login .buyer-auth-label-row label { color:#374151; }
+.buyer-auth-login input:not([type=radio]):not([type=checkbox]) { height:46px;border-color:#e5e7eb;box-shadow:0 1px 2px #0000000d; }
+.buyer-auth-login .buyer-auth-options { margin:4px 0 8px; }
+.buyer-auth-login .buyer-auth-submit { min-height:40px;border-radius:8px;background:#163e26;font-weight:400;line-height:20px; }
+.buyer-auth-login .buyer-auth-divider { margin:20px 0;font-size:11px;line-height:16.5px;letter-spacing:.55px;text-transform:uppercase;color:#9ca3af; }
+.buyer-auth-login .buyer-auth-google { min-height:40px;border:1px solid #e5e7eb;border-radius:8px;background:white;color:#374151;opacity:1;font-size:12px;font-weight:400;gap:10px;box-shadow:0 1px 2px #0000000d; }
+.buyer-auth-login .buyer-auth-google:disabled { cursor:not-allowed; }
+.buyer-auth-login .buyer-auth-account-link { position:absolute;bottom:72px;left:64px;right:64px;margin:0;font-size:12px;line-height:16px; }
+.buyer-auth-login .buyer-auth-account-link a { text-decoration:none; }
+.buyer-auth-login .buyer-auth-footer { display:none; }
+@media(min-width:768px){
+ .buyer-auth-login .buyer-auth-shell { grid-template-columns:599.03px minmax(0,1fr);max-width:1440px;min-height:880px; }
+ .buyer-auth-panel-refreshed .buyer-auth-panel-content { padding:116px 76px 56px; }
+ .buyer-auth-panel-refreshed .buyer-auth-panel-foot { margin-left:-20px;color:#f2f8f3;font-size:12px;line-height:16px;letter-spacing:.3px; }
+ .buyer-auth-panel-refreshed h2 em { color:#4ade80; }
+ .buyer-auth-panel-refreshed .buyer-auth-desktop-story ul { margin-top:32px;gap:14px; }
+ .buyer-auth-login .buyer-auth-brand p { font-weight:500;letter-spacing:.275px;margin-top:5px; }
+ .buyer-auth-login .buyer-auth-brand .farmtry-brand { font-size:20px;gap:12px;line-height:25px; }
+ .buyer-auth-login .buyer-auth-form-area { max-width:448px; }
+}
+@media(min-width:768px) and (max-width:1200px){
+ .buyer-auth-login .buyer-auth-shell { grid-template-columns:42.55% minmax(0,1fr); }
+ .buyer-auth-panel-refreshed .buyer-auth-panel-content { padding:80px 32px 40px; }
+ .buyer-auth-login .buyer-auth-main { padding:48px 32px; }
+ .buyer-auth-login .buyer-auth-account-link { left:32px;right:32px; }
+}
+@media(max-width:767px){
+ .buyer-auth-login .buyer-auth-panel { background:#143621; }
+ .buyer-auth-login .buyer-auth-panel-content { padding:24px 20px 40px; }
+ .buyer-auth-login .buyer-auth-panel h2 { line-height:30px; }
+ .buyer-auth-login .buyer-auth-tomatoes { height:220px; }
+ .buyer-auth-login .buyer-auth-main { padding:24px 36px 40px; }
+ .buyer-auth-login .buyer-auth-form-area { margin:0;max-width:none; }
+ .buyer-auth-login h1 { line-height:32px; }
+ .buyer-auth-login .buyer-auth-intro { font-size:14px;margin:8px 0 32px; }
+ .buyer-auth-login input:not([type=radio]):not([type=checkbox]) { font-size:14px; }
+ .buyer-auth-login .buyer-auth-account-link { display:none; }
+ .buyer-auth-login .buyer-auth-footer { display:flex;justify-content:center;align-items:center;gap:8px;font-size:10px;color:#94a3b8;line-height:16px; }
+}
+
+@media(min-width:1400px){.buyer-auth-login .buyer-auth-shell{grid-template-columns:599.03px 648.95px minmax(0,1fr);}}
+
+@media(min-width:1200px){.buyer-auth-panel-refreshed .buyer-auth-tomatoes{inset:auto;left:-59px;top:77.2857px;width:881.654px;height:925.714px;opacity:.1;}.buyer-auth-panel-refreshed .buyer-auth-tomatoes img{position:absolute;left:-8.72%;top:0;width:117.45%;height:100%;object-fit:fill;margin:0;}.buyer-auth-panel-refreshed .buyer-auth-tomatoes:after{background:linear-gradient(#0e2e1c,transparent 115.714px);}.buyer-auth-login .buyer-auth-brand p{margin-left:44px;}.buyer-auth-login .buyer-auth-submit{font-weight:400!important;}}
+
+@media(max-width:767px){.buyer-auth.buyer-auth-login .buyer-auth-panel-content{min-height:283px;}.buyer-auth.buyer-auth-login .buyer-auth-tomatoes{height:220px;}.buyer-auth.buyer-auth-login .buyer-auth-main{padding:22px 36.47px 29px;}.buyer-auth.buyer-auth-login h1{line-height:36px;}.buyer-auth.buyer-auth-login .buyer-auth-intro{margin-bottom:32px;}.buyer-auth.buyer-auth-login .buyer-auth-footer{margin-left:-16.47px;margin-right:-16.47px;font-size:10px;white-space:nowrap;}}
+
+.farmtry-site.buyer-auth.buyer-auth-compact{padding:40px 24px;background:#0f2a1a;}.buyer-auth.buyer-auth-compact .buyer-auth-shell{display:block;max-width:648.95px;min-height:675px;border-radius:0;box-shadow:none;}.buyer-auth.buyer-auth-compact .buyer-auth-panel,.buyer-auth.buyer-auth-compact .buyer-auth-mobile-header{display:none;}.buyer-auth.buyer-auth-compact .buyer-auth-main{min-height:675px;padding:64px;}.buyer-auth.buyer-auth-compact h1{font-size:24px;line-height:32px;}.buyer-auth.buyer-auth-compact .buyer-auth-form-area{margin-top:48px;}.buyer-auth.buyer-auth-compact .buyer-auth-footer{display:none;}.buyer-auth.buyer-auth-compact .buyer-auth-account-link{display:block;bottom:64px;}.buyer-auth.buyer-auth-compact .buyer-auth-back{display:flex;}
+@media(max-width:700px){.farmtry-site.buyer-auth.buyer-auth-compact{padding:24px 16px;}.buyer-auth.buyer-auth-compact .buyer-auth-main{padding:32px 24px;}.buyer-auth.buyer-auth-compact .buyer-auth-account-link{left:24px;right:24px;}}

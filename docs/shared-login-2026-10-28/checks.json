@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "role": "buyer",
+      "registered": true,
+      "signOut": true,
+      "invalidPasswordRejected": true,
+      "sharedLogin": true,
+      "destination": "marketplace",
+      "pageErrors": []
+    },
+    {
+      "role": "corporate",
+      "registered": true,
+      "signOut": true,
+      "invalidPasswordRejected": true,
+      "sharedLogin": true,
+      "destination": "corporate dashboard",
+      "pageErrors": []
+    },
+    {
+      "role": "aggregator",
+      "registered": true,
+      "signOut": true,
+      "invalidPasswordRejected": true,
+      "sharedLogin": true,
+      "destination": "aggregator dashboard",
+      "pageErrors": []
+    }
+  ],
+  "aliases": 5
+}

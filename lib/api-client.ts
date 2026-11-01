@@ -65,6 +65,8 @@ export function clearSession() {
   memorySessionId = null;
   try {
     sessionStorage.removeItem(sessionKey);
+    sessionStorage.removeItem("farmtry.account.identity");
+    window.dispatchEvent(new Event("farmtry-account-changed"));
   } catch {
     // ignore
   }

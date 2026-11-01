@@ -3,7 +3,7 @@ export const aggregatorDesignPages = {
   'aggregator-intro': ['Log produce from the field', '78:3196'],
   'aggregator-intro-payouts': ['Real payouts', '78:3892'],
   'aggregator-intro-tickets': ['QR tickets', '78:3902'],
-  'aggregator-register-design': ['Create your account', '78:3206'],
+  'aggregator-register-design': ['Aggregator KYC', '78:3206'],
   'aggregator-login-design': ['Welcome back', '377:11846'],
   'aggregator-recovery-design': ['Forgot password', '377:11921'],
   'aggregator-recovery-sms-design': ['SMS recovery', '377:12501'],

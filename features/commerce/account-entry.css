@@ -3,3 +3,6 @@
 .buyer-compact .buyer-auth{background:white;padding:60px 20px}.buyer-compact .buyer-auth-shell{display:block;max-width:560px;border-radius:0;box-shadow:none;min-height:0}.buyer-compact .buyer-auth-panel,.buyer-compact .buyer-auth-mobile-header{display:none}.buyer-compact .buyer-auth-main{padding:30px}.buyer-compact .buyer-auth-form-area{max-width:448px;margin:auto}.buyer-compact .buyer-auth-back{margin-bottom:45px}
 
 .entry-card>.farmtry-brand,.entry-card .farmtry-brand-accent,.account-success>header .farmtry-brand,.account-success>header .farmtry-brand-accent{color:#1e4d2b}
+
+.entry-page{background:#003c1c}.entry-card{max-width:520px}.entry-card .entry-terms{min-height:0;padding:0;margin:24px 0 16px}.entry-card .entry-terms>p{display:none}.entry-card .entry-terms>a{display:none}.entry-card .entry-terms label{font-size:11px;line-height:18px}.entry-card form>button{width:100%}.entry-card .entry-password input{margin:0}.entry-card .entry-password{margin-top:8px}
+.entry-card{background:#fff;padding-top:40px}.entry-card>.farmtry-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;margin:0 0 24px;color:#1e4d2b;font-size:18px;font-weight:700;text-transform:uppercase}.entry-card>.farmtry-brand .farmtry-brand-accent{color:#1e4d2b}.entry-card form>button{background:#1e4d2b}.account-success>header .farmtry-brand{color:#1e4d2b}

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "results": [
+    "Root, home alias and installed-app launch use marketplace",
+    "Corporate Buyer identity, per-account profile/activity, header sign-out and logo home",
+    "Consumer details/cart/wishlist are isolated and restored; consumer cannot enter corporate workspace",
+    "Aggregator identity, no marketplace shortcut, availability toggle, offline/reconnect, last seen, sign-out and isolated KYC"
+  ],
+  "pageErrors": []
+}

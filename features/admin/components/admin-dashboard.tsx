@@ -450,7 +450,7 @@ function MatchesPanel({ matches, onResolve }: { matches: AdminDashboardData["mat
         <table className="w-full min-w-[1040px] text-left">
           <thead className="bg-slate-50">
             <tr>
-              <TableHead>Buyer</TableHead>
+              <TableHead>Corporate Buyer</TableHead>
               <TableHead>Batch</TableHead>
               <TableHead>Commodity</TableHead>
               <TableHead>Volume</TableHead>

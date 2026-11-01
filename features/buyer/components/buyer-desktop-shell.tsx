@@ -51,7 +51,7 @@ export function BuyerDesktopShell({ active, children, title, subtitle }: BuyerDe
           </button>
           {isSidebarCollapsed ? <span className="h-full w-full bg-[#1E4D2B]" /> : null}
           <div className={cn(isSidebarCollapsed && "hidden")}>
-            <AppLogo className="px-3" iconClassName="bg-[#1E4D2B]" subtitle="Enterprise Buyer" />
+            <AppLogo className="px-3" iconClassName="bg-[#1E4D2B]" subtitle="Corporate Buyer" />
           </div>
 
           <nav className={cn("mt-8 flex-1 space-y-1", isSidebarCollapsed && "hidden")}>
@@ -98,7 +98,7 @@ export function BuyerDesktopShell({ active, children, title, subtitle }: BuyerDe
                   className="lg:hidden"
                   iconClassName="h-10 w-10 bg-[#1E4D2B]"
                   textClassName="text-[#111827]"
-                  subtitle="Buyer"
+                  subtitle="Corporate Buyer"
                   subtitleClassName="text-slate-500"
                 />
                 <button className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm" type="button">

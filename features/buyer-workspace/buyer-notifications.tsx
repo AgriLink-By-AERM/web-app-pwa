@@ -1,4 +1,5 @@
 "use client";
+import {DemoButton} from "@/features/account-access/demo-button";
 
 import Link from "next/link";
 import { useState } from "react";
@@ -29,11 +30,11 @@ export function BuyerNotifications() {
     <p className="buyer-notification-status" role="status">{feedback || `${visible.length} sample notifications. Changes reset on reload.`}</p>
     <div className="buyer-notification-list">{visible.map(item => <Card key={item.id} className="buyer-notification-card"><span className={`buyer-notification-symbol ${item.tone}`}><Icon screen="notifications" file={item.icon} /></span><div className="buyer-notification-content"><h2>{item.title}{item.unread && !read && <span className="buyer-notification-unread" aria-label="Unread" />}</h2>
       {item.id === "match" && <><p>Maize Husks <span>from Adewale Farms</span></p><div className="buyer-notification-meta"><small className="mint">Waste Grade A</small><Link href="/preview/buyer-match">View Match Details →</Link></div></>}
-      {item.id === "delivery" && <><p>Fresh Tomatoes <span>from Sunrise Farms</span></p><div className="buyer-notification-meta"><small>1,200 kg fulfilled</small><button disabled>Confirm Receipt →</button></div></>}
+      {item.id === "delivery" && <><p>Fresh Tomatoes <span>from Sunrise Farms</span></p><div className="buyer-notification-meta"><small>1,200 kg fulfilled</small><DemoButton>Confirm Receipt →</DemoButton></div></>}
       {item.id === "pickup" && <><p>Cassava Peels <span>• Aug 26, 2026 • 10:00 AM</span></p><div className="buyer-notification-meta"><Icon screen="notifications" file="8614f" /><span>Oyo, Ibadan Farm Hub</span></div></>}
       {item.id === "message" && <><p><span>From </span>ABC Foods Ltd</p><blockquote>“Hello, we have confirmed the batch pickup dispatch time for tomorrow morning.”</blockquote></>}
       {item.id === "price" && <><p>Yellow Maize <span>• New price: </span><strong>₦620,000</strong></p><div className="buyer-notification-meta"><small className="orange">1,000 kg available</small><span>Grade A • Dry</span></div></>}
     </div><span className="buyer-notification-age">{item.age}</span></Card>)}</div>
-    <div className="buyer-notification-footer"><p>Showing saved sample notifications from the design</p><button disabled>View Older Notifications</button></div><p className="buyer-work-service-note">Match actions, receipt confirmation, messages and notification history await their backend contracts.</p>
+    <div className="buyer-notification-footer"><p>Showing saved sample notifications from the design</p><DemoButton>View Older Notifications</DemoButton></div><p className="buyer-work-service-note">Match actions, receipt confirmation, messages and notification history await their backend contracts.</p>
   </BuyerShell>;
 }

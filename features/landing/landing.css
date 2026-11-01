@@ -44,3 +44,53 @@
 .farmtry-handset:before{content:"";position:absolute;inset:0 -50px;background:rgba(16,185,129,.2);filter:blur(45px);border-radius:9999px;z-index:-1}
 .farmtry-handset-crop{position:absolute;inset:0;overflow:hidden}
 .farmtry-handset-crop img{position:absolute;width:195.92%;height:147.95%;max-width:none;left:-48.21%;top:-26.07%}
+
+/* Desktop landing specification: 318:1536 in FarmTry-2026-10-16.fig. */
+@media(min-width:1200px){
+ .farmtry-hero-grid{grid-template-columns:minmax(0,710px) minmax(0,498px);min-height:624.31px;}
+ .farmtry-hero-copy{min-height:583.75px;}
+ .farmtry-hero-copy>.farmtry-pill{padding:7px 17px;letter-spacing:1.2px;line-height:16px;}
+ .farmtry-hero-copy h1{margin:22px 0 24px;line-height:60px;}
+ .farmtry-hero-copy>p{max-width:672px;min-height:87.75px;}
+ .farmtry-hero-actions{margin-top:32px;margin-left:6.83px;}
+ .farmtry-hero-actions .farmtry-action{padding:14px 24px;}
+ .farmtry-feature-badges{margin-top:46px;margin-left:6.83px;font-size:12px;line-height:16px;}
+ .farmtry-feature-badges li{flex:1;}
+ .farmtry-metrics{margin-top:64px;}
+ .farmtry-gateways{min-height:706.25px;border-block:1px solid #15331e;}
+ .farmtry-gateway{padding:33px;min-height:488.4px;}
+ .farmtry-gateway h3{font-family:Inter,sans-serif;}
+ .farmtry-ecosystem{min-height:882.25px;}
+ .farmtry-pillar-grid{max-width:1080px;grid-template-columns:repeat(3,338.66px);}
+ .farmtry-pillar{padding:33px;border-radius:20px!important;min-height:602.25px;}
+ .farmtry-pillar:last-child{border-color:#efeded!important;}
+ .farmtry-pillar-icon{margin-bottom:30px;}
+ .farmtry-pillar h3{margin:8px 0 14.75px;}
+ .farmtry-pillar-description{min-height:69.5px;}
+ .farmtry-pillar ul{margin-top:24px;font-size:14px;line-height:20px;}
+ .farmtry-marketplace{padding:65px 0;min-height:753px;border-block:1px solid #15331e;}
+ .farmtry-marketplace .farmtry-section-row{margin-bottom:40px;}
+ .farmtry-marketplace .farmtry-section-row>.farmtry-text-link{padding:11px 21px;background:#0f2618;border:1px solid #1e4d2b;border-radius:14px;font-size:12px;}
+ .farmtry-product-grid{gap:24px;}
+ .farmtry-product-price{background:#08170e;border:1px solid #163320;}
+ .farmtry-product-content>.farmtry-action{background:linear-gradient(90deg,#10b981,#059669);padding-block:10px;border-radius:14px;line-height:20px;font-weight:600;}
+ .farmtry-settlement{padding:80px 0;min-height:870px;}
+ .farmtry-settlement-panel{padding:57px;min-height:710px;border:1px solid #1e4629;border-radius:28px;box-shadow:0 20px 50px #000b;background:linear-gradient(153.21deg,#1e4d2b,#0f2a1a 50%,#1e4d2b);}
+ .farmtry-settlement-panel>.farmtry-pill{padding:7px 15px;color:#63af32;font-family:Inter,sans-serif;font-weight:700;}
+ .farmtry-settlement-panel>p{color:#f2f8f3;max-width:576px;}
+ .farmtry-settlement-steps{max-width:none;gap:20px;margin-top:40px;}
+ .farmtry-settlement-step{padding:17px;border-radius:14px!important;}
+ .farmtry-settlement-step>span{width:28px;height:28px;}
+ .farmtry-settlement-step h3{font-weight:600;}
+ .farmtry-settlement-step p{color:#94a89a;}
+ .farmtry-final-cta{padding:48px 0 88px;min-height:386px;}
+ .farmtry-final-cta>div{padding:49px;border:1px solid #10b9814d;border-radius:20px;background:linear-gradient(90deg,#0d2616,#08180e);box-shadow:0 15px 40px #0009;}
+ .farmtry-final-cta h2{margin-bottom:8px;}
+ .farmtry-final-cta .farmtry-action{font-family:Poppins,sans-serif;font-weight:600;background:linear-gradient(90deg,#10b981,#059669);line-height:20px;}
+}
+.farmtry-hero-copy h1 span{text-decoration:none;background:linear-gradient(90deg,#6ee7b7,#34d399 50%,#5eead4);background-clip:text;-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 0 12.5px #34d39959);}
+.farmtry-metric>strong{font-family:Poppins,Inter,sans-serif;}
+.farmtry-metric p{color:#f2f8f3;}
+.farmtry-metric>div{font-family:'JetBrains Mono',monospace;}
+
+@media(min-width:1200px){.farmtry-hero{min-height:1035.31px;}.farmtry-metrics{padding:32px;}.farmtry-metric{padding:16px;}.farmtry-gateways{min-height:706.4px;padding-top:24px;padding-bottom:24px;}.farmtry-section-heading{display:flex;flex-direction:column;align-items:center;}.farmtry-section-heading>.farmtry-pill{padding:6px 15px;}.farmtry-section-heading h2{line-height:40px;}.farmtry-section-heading>p{line-height:26px;}.farmtry-gateway{padding:32px;}.farmtry-gateway h3{line-height:32px;}.farmtry-gateway-links .farmtry-action{line-height:20px;}.farmtry-gateway-links>a:last-child{line-height:16px;}}

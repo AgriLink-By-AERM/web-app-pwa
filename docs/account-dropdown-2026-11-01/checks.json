@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "width": 1440,
+      "screen": "marketplace",
+      "dropdownFits": true,
+      "detailsAndLinks": true,
+      "escape": true,
+      "outsideClick": true,
+      "ordersRoute": true
+    },
+    {
+      "width": 1440,
+      "screen": "product",
+      "dropdownFits": true,
+      "detailsAndLinks": true,
+      "escape": true,
+      "outsideClick": true,
+      "ordersRoute": true
+    },
+    {
+      "width": 390,
+      "screen": "marketplace",
+      "dropdownFits": true,
+      "detailsAndLinks": true,
+      "escape": true,
+      "outsideClick": true,
+      "ordersRoute": true
+    },
+    {
+      "width": 390,
+      "screen": "product",
+      "dropdownFits": true,
+      "detailsAndLinks": true,
+      "escape": true,
+      "outsideClick": true,
+      "ordersRoute": true
+    }
+  ],
+  "signOutRestoresSignInPopup": true
+}

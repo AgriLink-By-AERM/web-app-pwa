@@ -17,10 +17,10 @@ const records = (columns: string[], rows: string[][]): SampleRow[] => rows.map(r
 const userColumns=["Name","Email / Phone","Role","Status","Joined on"];
 const farmerColumns=["Name","ID","Phone","Location","Status","Joined on"];
 const verificationColumns=["ID","Type","Farmer","Aggregator","Date","Status"];
-const transactionColumns=["ID","Product","Buyer","Farmer","Amount","Status","Date"];
+const transactionColumns=["ID","Product","Corporate Buyer","Farmer","Amount","Status","Date"];
 const contentColumns=["Title","Type","Audience","Date","Status"];
 export const adminTables: Partial<Record<AdminPage, TableDefinition>> = {
-  "admin-users": { title:"Users", description:"Manage platform users and their access.", columns:userColumns, filter:"Role", tabs:["All","Aggregators","Corporate Buyer","Buyer"], rows:records(userColumns,[
+  "admin-users": { title:"Users", description:"Manage platform users and their access.", columns:userColumns, filter:"Role", tabs:["All","Aggregators","Corporate Buyer","Consumer"], rows:records(userColumns,[
     ["Tunde Adeyemi","tunde@gmail.com","Aggregators","Active","Aug 12, 2026"],
     ["GreenCycle Hub","buyer@greencycle.com","Corporate Buyer","Active","Aug 10, 2026"],
     ["Amina Yusuf","amina@gmail.com","Aggregators","Pending","Aug 9, 2026"],

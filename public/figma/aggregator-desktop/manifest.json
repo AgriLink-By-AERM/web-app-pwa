@@ -1,0 +1,16 @@
+{
+  "fileKey": "otoyKcraKSbbLOXZhBt0th",
+  "frame": "295:8750",
+  "assets": [
+    {
+      "file": "reliability-track.svg",
+      "node": "295:8765",
+      "source": "https://www.figma.com/api/mcp/asset/75da2a5b-3c3b-40c9-ae4a-70182db79fe0/f4e2f.svg"
+    },
+    {
+      "file": "reliability-progress.svg",
+      "node": "295:8766",
+      "source": "https://www.figma.com/api/mcp/asset/75da2a5b-3c3b-40c9-ae4a-70182db79fe0/67b4e.svg"
+    }
+  ]
+}

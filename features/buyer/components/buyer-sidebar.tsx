@@ -42,7 +42,7 @@ export function BuyerSidebar({ buyerType, profile }: BuyerSidebarProps) {
   return (
     <aside className="sticky top-0 flex h-screen w-64 shrink-0 flex-col bg-ink text-white">
       <div className="border-b border-white/10 px-5 py-6">
-        <AppLogo iconClassName="h-10 w-10 bg-[#1E4D2B]" subtitle="Buyer Portal" />
+        <AppLogo iconClassName="h-10 w-10 bg-[#1E4D2B]" subtitle="Corporate Buyer Portal" />
         <div className="mt-3 flex items-center gap-2">
           <BarChart3 className="h-5 w-5 text-factoryAccent" />
           <p className="text-sm font-bold">

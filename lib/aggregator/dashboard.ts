@@ -1,8 +1,10 @@
+import {PRESENTATION_MODE} from "@/lib/presentation/mode";
 import type { AggregatorDashboardData, NigerianZone } from "@/lib/types";
 import { fetchApi } from "@/lib/api-client";
 import { getAggregatorLogs } from "@/lib/aggregator/logs";
 
 export async function getAggregatorDashboardData(): Promise<AggregatorDashboardData> {
+  if(PRESENTATION_MODE)return fallbackAggregatorDashboard;
   const response = await fetchApi("/aggregator/dashboard");
   const data = unwrapRecord(response);
 

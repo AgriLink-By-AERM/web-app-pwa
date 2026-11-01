@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "role": "buyer",
+      "worksAfterSignOut": true,
+      "worksAfterTabClosure": true,
+      "worksWithRestoredBrowserStorage": true,
+      "incorrectPasswordRejected": true,
+      "passwordNotStoredPlaintext": true,
+      "legacyMigration": true
+    },
+    {
+      "role": "corporate",
+      "worksAfterSignOut": true,
+      "worksAfterTabClosure": true,
+      "worksWithRestoredBrowserStorage": true,
+      "incorrectPasswordRejected": true,
+      "passwordNotStoredPlaintext": true,
+      "legacyMigration": "covered by consumer check"
+    },
+    {
+      "role": "aggregator",
+      "worksAfterSignOut": true,
+      "worksAfterTabClosure": true,
+      "worksWithRestoredBrowserStorage": true,
+      "incorrectPasswordRejected": true,
+      "passwordNotStoredPlaintext": true,
+      "legacyMigration": "covered by consumer check"
+    }
+  ]
+}

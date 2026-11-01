@@ -1,0 +1,19 @@
+"use client";
+
+import {markPresence} from "@/lib/presentation/account-state";
+import {registerPresentationAccount} from "@/lib/presentation/accounts";
+import {setAggregatorKycStatus} from "@/lib/presentation/aggregator-kyc";
+import Link from "next/link";
+import {usePathname,useRouter} from "next/navigation";
+import {useState,type ReactNode,type FormEvent} from "react";
+import {PRESENTATION_MODE,enterDemo,leaveDemo,demoDestination,demoAccount} from "@/lib/presentation/mode";
+export function PresentationToolbar({children}:{children:ReactNode}){const pathname=usePathname(),router=useRouter(),[notice,setNotice]=useState("");
+function navigate(e:React.MouseEvent<HTMLDivElement>){if(!PRESENTATION_MODE||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;const a=(e.target as HTMLElement).closest("a");if(!a)return;const u=new URL(a.href,window.location.href);if(u.origin!==window.location.origin)return;const aliases:Record<string,string>={"/login":"login","/recovery":"recovery","/admin":"admin","/admin/login":"admin-login","/admin/recovery":"admin-recovery","/admin/reset":"admin-reset","/buyer/dashboard":"buyer","/buyer/history":"buyer-history","/buyer/matches":"buyer-match","/buyer/scan":"buyer-scan","/buyer/settings":"buyer-profile","/buyer/demand":"buyer-listings","/buyer/invoices":"buyer-history","/aggregator":"aggregator","/aggregator/home":"aggregator","/aggregator/onboarding":"aggregator-register","/aggregator/pending-verification":"aggregator-phone-verification","/aggregator/logs":"aggregator-verifications","/aggregator/log-entry":"aggregator-log-produce-design","/aggregator/log-entry/fresh":"aggregator-log-produce-design","/aggregator/log-entry/waste":"aggregator-log-waste-design","/aggregator/log-entry/fresh/success":"aggregator-submission-example","/aggregator/profile":"aggregator-profile","/aggregator/dispute":"support"};const path=u.pathname.replace(/\/$/,"");const target=aliases[path]||(path.startsWith("/admin/")?"admin-"+path.split("/").pop():null);if(target){e.preventDefault();router.push("/preview/"+target+u.search+u.hash);}}
+async function submit(e:FormEvent<HTMLDivElement>){if(!PRESENTATION_MODE)return;const form=e.target as HTMLFormElement;if(form.tagName!=="FORM"||form.getAttribute("role")==="search"||form.hasAttribute("data-shared-login"))return;
+const p=pathname||"";let to="";const role=form.getAttribute("data-account-role")||(p.includes("aggregator")?"aggregator":p.includes("admin")?"admin":p.includes("corporate")?"corporate":p.includes("compact")||p.includes("get-started")?"buyer":"corporate");
+if(/confirm-account/.test(p)){if(!demoAccount())enterDemo("buyer");to="/preview/checkout";}
+else if(/get-started|buyer-register|aggregator-register$/.test(p)){e.preventDefault();e.stopPropagation();try{await registerPresentationAccount(form,role);}catch(error){setNotice(error instanceof Error?error.message:"Unable to register this presentation account.");return;}if(role==="aggregator"){setAggregatorKycStatus("not-started");to="/preview/aggregator";}else to=role==="buyer"?"/preview/marketplace":"/preview/account-success";}
+else if(/recovery|recovery-sms/.test(p))to=p.includes("admin")?"/preview/admin-reset":"/preview/buyer-reset";
+else if(/buyer-reset|admin-reset/.test(p))to=p.includes("admin")?"/preview/admin-login":"/preview/buyer-login";
+if(to){e.preventDefault();e.stopPropagation();router.push(to);}}
+return <><div onClick={navigate} onSubmitCapture={submit}>{children}</div>{PRESENTATION_MODE&&<aside className="presentation-toolbar" aria-label="Presentation controls"><span>Presentation · sample data</span><Link href="/preview/screens">All screens</Link><button type="button" onClick={()=>{markPresence(false);leaveDemo();setAggregatorKycStatus("not-started");setNotice("Presentation reset");router.push("/preview/marketplace");}}>Reset</button>{notice&&<span role="status">{notice}</span>}</aside>}</>;}

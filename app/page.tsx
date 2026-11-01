@@ -1,8 +1,6 @@
-import { LandingPage } from "@/features/landing/components/landing-page";
 import "@/features/landing/landing.css";
-
-export const metadata = { title: { absolute: "Farmtry | The SMS-to-market platform" } };
-
-export default function HomePage() {
-  return <LandingPage />;
-}
+import "@/features/commerce/commerce.css";
+import "@/features/commerce/shopping-pages.css";
+import {MarketplacePage} from "@/features/commerce/marketplace-page";
+export const metadata={title:{absolute:"Farmtry | Marketplace"}};
+export default function HomePage(){return <MarketplacePage/>;}

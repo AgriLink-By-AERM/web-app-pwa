@@ -18,7 +18,7 @@ function Icon({ name, className = "" }: { name: string; className?: string }) {
   return <img src={asset(name)} alt="" className={`buyer-auth-icon ${className}`} />;
 }
 
-function BrandPanel({ screen, audience }: { screen: AuthScreen; audience: "buyer" | "aggregator" }) {
+export function BrandPanel({ screen, audience }: { screen: AuthScreen; audience: "buyer" | "aggregator" }) {
   const recovery = screen === "recovery";
   const login = screen === "login";
   const reset = screen === "reset";
@@ -34,7 +34,7 @@ function BrandPanel({ screen, audience }: { screen: AuthScreen; audience: "buyer
         {screen !== "register" && !(login && audience === "buyer") && <p className="buyer-auth-panel-note">Sign-in and recovery are available. Other workspace features are still being prepared.</p>}
       </div>
       {<div className="buyer-auth-mobile-story"><h2>{reset ? <>Set a new<br />secure password.</> : <>Fresh produce,<br /><em>real impact.</em></>}</h2><p className="buyer-auth-story-copy">{reset ? "Protect your agricultural trade transactions, orders, and company profile with an enterprise-grade passphrase." : "Source quality agricultural produce, streamline your supply chain and support local farmers."}</p><ul>{(reset ? features : standardFeatures).map(feature => <li key={feature}><Icon name="695d6.svg" />{feature === "Transparent Transactions" ? "Transparent Deals" : feature}</li>)}</ul>{reset && <p className="buyer-auth-panel-note">Password recovery uses the code sent to your registered contact.</p>}</div>}
-      {login && <>{audience === "aggregator" && <div className="buyer-auth-workspace"><img src={asset("3870e.png")} alt="Corporate procurement officer viewing the marketplace on a laptop" /></div>}<p className="buyer-auth-panel-foot"><Icon name="3c020.svg" />Safe · Reliable · Sustainable</p></>}
+      {login && <>{audience === "aggregator" && <div className="buyer-auth-workspace"><img src={asset("3870e.png")} alt="Corporate procurement officer viewing the marketplace on a laptop" /></div>}<p className="buyer-auth-panel-foot"><Icon name="3c020.svg" />Safe | Reliable | Sustainable</p></>}
       {recovery && <div className="buyer-auth-logistics"><img src={asset("be3ba.png")} alt="Agricultural logistics and warehouse operations" /><span>Enterprise Security Gateway</span></div>}
       {recovery && <p className="buyer-auth-panel-foot"><Icon name="43d4e.svg" /> Safe · Reliable · Sustainable</p>}
     </div>
@@ -53,7 +53,7 @@ function Field({ label, error, hint, id, type, eyeAsset = "c4d2d.svg", mobileEye
   </div>;
 }
 
-export function BuyerAuthPage({ screen, audience: initialAudience = "buyer", initialMethod = "email" }: { screen: AuthScreen; audience?: "buyer" | "aggregator"; initialMethod?: "email" | "sms" }) {
+export function BuyerAuthPage({ screen, audience: initialAudience = "buyer", initialMethod = "email", variant = "standard" }: { variant?: "standard" | "compact"; screen: AuthScreen; audience?: "buyer" | "aggregator"; initialMethod?: "email" | "sms" }) {
   const [audience, setAudience] = useState(initialAudience);
   useEffect(() => {
     // This hint affects navigation and copy only; authorization comes from the API.
@@ -112,7 +112,7 @@ export function BuyerAuthPage({ screen, audience: initialAudience = "buyer", ini
         const user = await signIn(values.email, values.password);
         setValues(current => ({ ...current, password: "" }));
         setSignedIn(true); setNotice("You are signed in. Your account session has been confirmed.");
-        const routes: Record<string,string> = {aggregator:"/preview/aggregator",buyer:"/preview/buyer",dealer:"/dealer/home",farmer:"/farmer",admin:"/preview/admin",super_admin:"/preview/admin",root:"/preview/admin"};
+        const routes: Record<string,string> = {aggregator:"/preview/aggregator",buyer:variant === "compact"?"/preview/marketplace":"/preview/buyer",consumer:"/preview/marketplace",dealer:"/dealer/home",farmer:"/farmer",admin:"/preview/admin",super_admin:"/preview/admin",root:"/preview/admin"};
         if (user.role && routes[user.role]) router.push(routes[user.role]);
       } else if (reset) {
         await resetPassword(method === "email" ? { email: values.email.trim() } : { phone: values.phone.replace(/[\s()-]/g, "") }, values.code, values.password);
@@ -126,22 +126,22 @@ export function BuyerAuthPage({ screen, audience: initialAudience = "buyer", ini
       setFailure(errorMessage(error));
     } finally { inFlight.current = false; setBusy(false); }
   }
-  return <div className={`farmtry-site buyer-auth buyer-auth-${screen}`}>
+  return <div className={`farmtry-site buyer-auth buyer-auth-${screen} buyer-auth-${audience} ${variant === "compact" ? "buyer-auth-compact" : ""}`}>
     {<header className="buyer-auth-mobile-header"><Link href="/"><Icon name="cccdf.svg" />Back to Home</Link><FarmtryBrand /></header>}
     <main className="buyer-auth-shell">
       <BrandPanel screen={screen} audience={audience} />
       <section className="buyer-auth-main" aria-labelledby="buyer-auth-title">
         <Link className="buyer-auth-back" href={register || login ? "/" : loginHref}><Icon name={login ? "5f93d.svg" : "da276.svg"} />Back to {register || login ? "Home" : "Login"}</Link>
         <div className="buyer-auth-form-area">
-          <h1 id="buyer-auth-title">{login ? audience === "aggregator" ? "Aggregator Login" : "Corporate Buyer Login" : register ? "Create Corporate Buyer Account" : reset ? "Reset Password" : "Forgot Password?"}</h1>
+          <h1 id="buyer-auth-title">{login ? audience === "aggregator" ? "Aggregator Login" : variant === "compact" ? "Consumer Login" : "Corporate Buyer Login" : register ? "Create Corporate Buyer Account" : reset ? "Reset Password" : "Forgot Password?"}</h1>
           <p className="buyer-auth-intro">{login ? "Enter your details to access your account." : register ? "Join Farmtry and gain access to fresh produce from verified suppliers." : reset ? "Enter your registered contact, six-digit recovery code and new password." : "Recover access using your registered email address or Nigerian mobile number."}</p>
-          <p className="buyer-auth-preview" id="auth-preview">{register ? "Register your business, then verify the code sent to your email." : reset ? "Your recovery code expires after 10 minutes. Resetting your password signs out previous sessions." : login ? "Sign in with an existing Farmtry account. Google sign-in and remember me are not yet available." : "We will send a recovery code if an account exists for the contact you provide."}</p>
+          <p className={login ? "sr-only" : "buyer-auth-preview"} id="auth-preview">{register ? "Register your business, then verify the code sent to your email." : reset ? "Your recovery code expires after 10 minutes. Resetting your password signs out previous sessions." : login ? "Sign in with an existing Farmtry account. Google sign-in and remember me are not yet available." : "We will send a recovery code if an account exists for the contact you provide."}</p>
           <form ref={form} onSubmit={submit} noValidate aria-describedby="auth-preview" aria-busy={busy} data-contract-status={buyerAuthContracts[login ? "login" : register ? "register" : reset ? "resetPassword" : "recover"].status}>
             <fieldset disabled={busy || signedIn || completed} className="buyer-auth-live-fields">
             {register && <Field id="auth-company" label="Company name" placeholder="e.g. Grand Cereals Ltd" autoComplete="organization" value={values.company} onChange={e => change("company", e.target.value)} error={errors.company} />}
             {register && <>{([['fullName','Full name'],['contactPerson','Contact person'],['address','Business address'],['zone','Operating zone'],['businessRegNumber','Business registration number']] as const).map(([key,label])=><Field key={key} id={`auth-${key}`} label={label} value={values[key]} onChange={e=>change(key,e.target.value)} error={errors[key]}/>)}<label className="buyer-auth-field" htmlFor="auth-organizationType">Organization type<select id="auth-organizationType" value={values.organizationType} onChange={e=>change("organizationType",e.target.value)}>{['factory','restaurant','processor','exporter','other'].map(v=><option key={v} value={v}>{v}</option>)}</select></label></>}
             {(screen === "recovery" || reset) && <fieldset className="buyer-auth-method"><legend>Recovery method</legend><div>{(["email", "sms"] as const).map(option => <label key={option}><input type="radio" name="recovery-method" value={option} checked={method === option} onChange={() => { setMethod(option); setErrors({}); setChecked(false); }} /><span><Icon name={option === "email" ? "3e027.svg" : "cc625.svg"} />{option === "email" ? "Email" : "SMS"}</span></label>)}</div></fieldset>}
-            {(register || login || ((screen === "recovery" || reset) && method === "email")) && <Field id="auth-email" label={register ? "Business email" : login ? "Email or phone" : "Email address"} type={login ? "text" : "email"} autoComplete={login ? "username" : "email"} placeholder={register ? "procurement@company.com" : "you@company.com"} value={values.email} onChange={e => change("email", e.target.value)} error={errors.email} />}
+            {(register || login || ((screen === "recovery" || reset) && method === "email")) && <Field id="auth-email" label={register ? "Business email" : login ? "Email Address" : "Email address"} type={login ? "text" : "email"} autoComplete={login ? "username" : "email"} placeholder={register ? "procurement@company.com" : variant === "compact" ? "you@email.com" : "you@company.com"} value={values.email} onChange={e => change("email", e.target.value)} error={errors.email} />}
             {(register || ((screen === "recovery" || reset) && method === "sms")) && <Field id="auth-phone" label="Phone number" hint="Nigerian (+234)" type="tel" autoComplete="tel" placeholder="+234 801 234 5678" value={values.phone} onChange={e => change("phone", e.target.value)} error={errors.phone} />}
             {reset && <Field id="auth-code" label="Six-digit recovery code" inputMode="numeric" autoComplete="one-time-code" maxLength={6} value={values.code} onChange={e => change("code", e.target.value)} error={errors.code} hint={<Link href={recoveryHref}>Request a new code</Link>} />}
             {screen !== "recovery" && <Field eyeAsset={reset ? "572dc.svg" : "c4d2d.svg"} mobileEyeAsset={register ? "a6f4f.svg" : reset ? "572dc.svg" : "c4d2d.svg"} id="auth-password" label={reset ? "New password" : "Password"} type="password" autoComplete={login ? "current-password" : "new-password"} placeholder={login ? "Enter your password" : "Create a strong password"} value={values.password} onChange={e => change("password", e.target.value)} error={errors.password} />}
@@ -149,22 +149,22 @@ export function BuyerAuthPage({ screen, audience: initialAudience = "buyer", ini
             {reset && <Field eyeAsset="572dc.svg" hint={values.confirmation && values.confirmation === values.password ? <span className="buyer-auth-match"><Icon name="48164.svg" />Passwords match</span> : undefined} id="auth-confirmation" label="Confirm new password" type="password" autoComplete="new-password" placeholder="Re-enter your new password" value={values.confirmation} onChange={e => change("confirmation", e.target.value)} error={errors.confirmation} />}
             {login && <div className="buyer-auth-options"><label><input type="checkbox" disabled aria-describedby="auth-preview" />Remember me</label><Link href={recoveryHref}>Forgot password?</Link></div>}
             
-            <div role="status" className="buyer-auth-status">{checked ? `Format checks passed. ${login ? "Your credentials have not been authenticated. You are not signed in." : reset ? "The code has not been verified and your password has not changed." : register ? "No account has been created." : "No recovery message has been sent."}` : ""}</div>
+            <div role="status" className={checked ? "buyer-auth-status" : "sr-only"}>{checked ? `Format checks passed. ${login ? "Your credentials have not been authenticated. You are not signed in." : reset ? "The code has not been verified and your password has not changed." : register ? "No account has been created." : "No recovery message has been sent."}` : ""}</div>
             <Button type="submit" disabled={busy || signedIn || completed} className="buyer-auth-submit" aria-describedby="auth-preview">{busy ? "Please wait…" : login ? "Log In" : register ? "Create Account" : reset ? "Update Password" : "Send Recovery Code"}</Button>
             </fieldset>
             {failure && <p role="alert" className="buyer-auth-error">{failure}</p>}
             {notice && <p role="status" className="buyer-auth-status">{notice}</p>}
             {completed && screen === "recovery" && <Link className="buyer-auth-check" href={resetHref}>Enter recovery code</Link>}
             {completed && <Link className="buyer-auth-check" href={loginHref}>Back to sign in</Link>}
-            {signedIn && <><p className="buyer-auth-intro">Buyer shopping and workspace services are still being prepared.</p><Button type="button" disabled={busy} onClick={async () => { setBusy(true); setFailure(""); try { await logout(); setSignedIn(false); setNotice("You have been signed out."); } catch(error) { setFailure(errorMessage(error)); } finally { setBusy(false); } }}>Sign out</Button></>}
+            {signedIn && <><p className="buyer-auth-intro">Shopping and workspace services are still being prepared.</p><Button type="button" disabled={busy} onClick={async () => { setBusy(true); setFailure(""); try { await logout(); setSignedIn(false); setNotice("You have been signed out."); } catch(error) { setFailure(errorMessage(error)); } finally { setBusy(false); } }}>Sign out</Button></>}
           </form>
           {register && completed && <OtpVerification loginHref="/preview/buyer-login" initialEmail={values.email} embedded />}
           {register || login ? <><div className="buyer-auth-divider"><span>{login ? "Or continue with" : "Or sign up with"}</span></div><Button className="buyer-auth-google" variant="secondary" disabled aria-describedby="auth-preview"><picture><source media="(max-width: 767px)" srcSet={asset(register ? "004af.svg" : "b5051.svg")} /><img src={asset("b5051.svg")} alt="" className="buyer-auth-icon" /></picture>Continue with Google</Button></> : screen === "recovery" ? <Card className="buyer-auth-support"><Icon name="82d09.svg" /><p>If you no longer have access to your email or phone, <Link href="/preview/support">contact platform admin support</Link>.</p></Card> : <p className="buyer-auth-help">Having trouble? <Link href="/preview/support">Contact the security team</Link></p>}
-          <p className="buyer-auth-account-link">{login ? "Don’t have an account?" : register ? "Already have an account?" : "Remember your password?"} <Link href={login ? audience === "aggregator" ? "/preview/aggregator-register" : "/preview/buyer-register" : loginHref}>{login ? audience === "aggregator" ? "Register as aggregator" : "Create Buyer Account" : "Log in"}</Link></p>
-          {login && <p>Join Farmtry: <Link href="/dealer/register">Dealer registration</Link> · <Link href="/farmer/register">Farmer registration</Link></p>}
-          <nav className="buyer-auth-preview-nav" aria-label="Account pages"><span>Account pages</span>{!register && <Link href={audience === "aggregator" ? "/preview/aggregator-register" : "/preview/buyer-register"}>Sign up</Link>}{screen !== "recovery" && <Link href={recoveryHref}>Recovery</Link>}{!reset && <Link href={resetHref}>Password reset</Link>}</nav>
+          <p className="buyer-auth-account-link">{login ? "Don’t have an account?" : register ? "Already have an account?" : "Remember your password?"} <Link href={login ? audience === "aggregator" ? "/preview/aggregator-register" : variant === "compact" ? "/preview/get-started" : "/preview/buyer-register" : loginHref}>{login ? audience === "aggregator" ? "Register as aggregator" : variant === "compact" ? "Create Consumer Account" : "Create Corporate Buyer Account" : "Log in"}</Link></p>
+          {login && <p className="sr-only">Join Farmtry: <Link href="/dealer/register">Dealer registration</Link> · <Link href="/farmer/register">Farmer registration</Link></p>}
+          <nav className={login ? "sr-only" : "buyer-auth-preview-nav"} aria-label="Account pages"><span>Account pages</span>{!register && <Link href={audience === "aggregator" ? "/preview/aggregator-register" : "/preview/buyer-register"}>Sign up</Link>}{screen !== "recovery" && <Link href={recoveryHref}>Recovery</Link>}{!reset && <Link href={resetHref}>Password reset</Link>}</nav>
         </div>
-        <p className="buyer-auth-footer">{register ? "Farmtry buyer registration" : "Farmtry account services"}</p>
+        <p className="buyer-auth-footer">{login ? <><Icon name="c44c1.svg" /> Protected by enterprise-grade 256–bit encryption. Safe & verified.</> : register ? "Farmtry buyer registration" : "Farmtry account services"}</p>
       </section>
     </main>
   </div>;

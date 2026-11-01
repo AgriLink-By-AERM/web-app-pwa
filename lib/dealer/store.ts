@@ -240,7 +240,7 @@ export async function validateVoucherCode(code: string): Promise<VoucherValidati
 
   const response = await fetchApi("/dealer/validate-otp", {
     method: "POST",
-    body: JSON.stringify({ otp: normalizedCode, code: normalizedCode })
+    body: JSON.stringify({ code: normalizedCode })
   });
   const data = unwrapRecord(response);
 
@@ -291,8 +291,7 @@ export async function confirmRedemption(voucher: Voucher, farmerPhone?: string):
     method: "POST",
     body: JSON.stringify({
       code: voucher.code,
-      voucherCode: voucher.code,
-      farmerPhone: farmerPhone || "unknown"
+            farmerPhone: farmerPhone || "unknown"
     })
   });
   const data = unwrapRecord(response);

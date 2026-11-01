@@ -6,12 +6,12 @@ export type AggregatorRegistration = {
   fullName: string;
   email: string;
   password: string;
-  phone: string;
-  zone: string;
-  governmentIdType: "nin" | "drivers-license" | "intl_passport";
+  phone?: string;
+  zone?: string;
+  governmentIdType?: "nin" | "drivers-license" | "intl_passport";
   governmentIdNumber?: string;
-  governmentIdPhotoUrl: string;
-  guarantorPhone: string;
+  governmentIdPhotoUrl?: string;
+  guarantorPhone?: string;
 };
 
 export type KycStatus = "pending" | "approved" | "rejected";
@@ -88,7 +88,7 @@ export type DisputeResult = {
 export async function registerAggregator(
   payload: AggregatorRegistrationPayload | AggregatorRegistration
 ): Promise<AggregatorRegistrationResult> {
-  if (!("email" in payload) || !("password" in payload)) throw new ApiError("validation", "Register using your email, password and an uploaded ID photo URL.");
+  if (!("email" in payload) || !("password" in payload)) throw new ApiError("validation", "Register using your email and password.");
   const backendPayload = payload;
 
   const response = await fetchApi<{
@@ -110,11 +110,11 @@ export async function registerAggregator(
     submittedAt: new Date().toISOString(),
     performanceScore: 0,
     fullName: backendPayload.fullName,
-    phoneNumber: backendPayload.phone,
+    phoneNumber: backendPayload.phone || "",
     governmentIdNumber: backendPayload.governmentIdNumber || "",
-    guarantorPhoneNumber: backendPayload.guarantorPhone,
+    guarantorPhoneNumber: (backendPayload as any).guarantorPhone || "",
     zone: (backendPayload.zone as any) || "Kano - Tarauni LGA",
-    idPhotoFileName: backendPayload.governmentIdPhotoUrl,
+    idPhotoFileName: (backendPayload as any).governmentIdPhotoUrl || "",
   };
 
   return {

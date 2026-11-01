@@ -9,5 +9,3 @@
 
 .presentation-toolbar{position:fixed;bottom:8px;right:8px;z-index:1000;display:flex;align-items:center;gap:14px;padding:9px 14px;background:#173e29;color:white;border:1px solid #a8c5ae;border-radius:10px;font:12px/1.4 Arial,sans-serif;box-shadow:0 2px 14px #0002}.presentation-toolbar a{text-decoration:underline}.presentation-toolbar button{color:white;border-left:1px solid #8baf91;padding-left:12px}@media(max-width:500px){.presentation-toolbar{font-size:10px;gap:10px}}
 .demo-action-dialog{border:1px solid #cbd7c9;border-radius:16px;padding:28px;max-width:440px;color:#1e4d2b}.demo-action-dialog::backdrop{background:#10291d77}.demo-action-dialog h2{font-size:24px;font-weight:700;margin-bottom:14px}.demo-action-dialog p{margin-bottom:24px}.demo-action-dialog a{display:block;margin-bottom:20px;text-decoration:underline}
-
-

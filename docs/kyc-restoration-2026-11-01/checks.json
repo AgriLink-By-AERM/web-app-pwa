@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "width": 1440,
+      "allFieldsVisible": true,
+      "backendErrorPreserved": true,
+      "formSurvivesReadError": true,
+      "draftSurvivesErrorAndStatusRefresh": true,
+      "approvedStatusDoesNotRemoveForm": true,
+      "backendValidationShown": true,
+      "layoutFits": true,
+      "pageErrors": []
+    },
+    {
+      "width": 390,
+      "allFieldsVisible": true,
+      "backendErrorPreserved": true,
+      "formSurvivesReadError": true,
+      "draftSurvivesErrorAndStatusRefresh": true,
+      "approvedStatusDoesNotRemoveForm": true,
+      "backendValidationShown": true,
+      "layoutFits": true,
+      "pageErrors": []
+    }
+  ]
+}

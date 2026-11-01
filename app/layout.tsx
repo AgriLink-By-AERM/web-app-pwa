@@ -1,3 +1,4 @@
+import {CanonicalRouting} from "@/features/account-access/canonical-routing";
 import "@/features/backend/backend.css";
 import {AccountLifecycle} from "@/features/account-access/account-state";
 import "@/features/account-access/account-state.css";
@@ -45,7 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
-        <LegacyDemoNotice />
+        <LegacyDemoNotice /><CanonicalRouting/>
         <AccountLifecycle><AccountAccessProvider><PresentationToolbar>{children}</PresentationToolbar></AccountAccessProvider></AccountLifecycle>
         <ServiceWorkerRegistration />
       </body>

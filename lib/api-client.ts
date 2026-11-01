@@ -27,6 +27,8 @@ export class ApiError extends Error {
   }
 }
 
+export function backendError(payload:any,fallback:string){const source=Array.isArray(payload?.error?.details)?payload.error.details:Array.isArray(payload?.details)?payload.details:[];const details=source.map((entry:any)=>typeof entry==='string'?{message:entry}:entry&&typeof entry==='object'?{...entry,message:entry.message||entry.msg}:null).filter((entry:any)=>entry&&typeof entry.message==='string'&&entry.message.trim());const summary=[payload?.message,payload?.error?.message,typeof payload?.error==='string'?payload.error:null].find(value=>typeof value==='string'&&value.trim());return {message:details.length?details.map((entry:any)=>entry.message).join(' '):summary||fallback,details:details.length?details:null,code:payload?.error?.code??payload?.code??null};}
+
 export function errorMessage(error: unknown): string {
   if (error instanceof ApiError) return error.message;
   if (error instanceof Error) return error.message;
@@ -114,14 +116,7 @@ export async function refreshAccessToken(): Promise<boolean> {
   }
 }
 
-function expireSession() {
-  if (expired) return;
-  clearSession(); expired = true;
-  if (typeof window !== "undefined") {
-    const audience = window.location.pathname.includes("admin") ? "admin" : window.location.pathname.includes("aggregator") ? "aggregator" : "buyer";
-    window.location.replace(audience === "admin" ? "/admin/login/?expired=true" : `/preview/${audience}-login/?expired=true`);
-  }
-}
+function expireSession(){if(expired)return;clearSession();expired=true;if(typeof window!=="undefined")window.location.replace("/login/?expired=true");}
 
 export async function fetchApi<T = any>(endpoint: string, options: FetchOptions = {}): Promise<T | null> {
   const isServer = typeof window === "undefined";
@@ -138,7 +133,7 @@ export async function fetchApi<T = any>(endpoint: string, options: FetchOptions 
 
   const headers: Record<string, string> = {
     Accept: "application/json",
-    ...(fetchOptions.body !== undefined ? { "Content-Type": "application/json" } : {}),
+    ...(fetchOptions.body !== undefined && !(typeof FormData!=="undefined" && fetchOptions.body instanceof FormData) ? { "Content-Type": "application/json" } : {}),
     ...(fetchOptions.headers as Record<string, string> || {}),
   };
 
@@ -182,33 +177,7 @@ export async function fetchApi<T = any>(endpoint: string, options: FetchOptions 
       try {
         errorJson = await response.json();
 
-        // Extract error code if present
-        if (errorJson?.error?.code) {
-          errCode = String(errorJson.error.code);
-        } else if (errorJson?.code) {
-          errCode = String(errorJson.code);
-        }
-
-        // Extract validation details or specific error messages
-        if (Array.isArray(errorJson?.error?.details) && errorJson.error.details.length > 0) {
-          errDetails = errorJson.error.details;
-          const messages = errorJson.error.details
-            .map((d: any) => d.message || d.msg)
-            .filter(Boolean);
-          if (messages.length > 0) errMsg = messages.join(" ");
-        } else if (Array.isArray(errorJson?.details) && errorJson.details.length > 0) {
-          errDetails = errorJson.details;
-          const messages = errorJson.details
-            .map((d: any) => d.message || d.msg)
-            .filter(Boolean);
-          if (messages.length > 0) errMsg = messages.join(" ");
-        } else if (typeof errorJson?.message === "string" && errorJson.message.trim().length > 0) {
-          errMsg = errorJson.message.trim();
-        } else if (typeof errorJson?.error?.message === "string" && errorJson.error.message.trim().length > 0) {
-          errMsg = errorJson.error.message.trim();
-        } else if (typeof errorJson?.error === "string" && errorJson.error.trim().length > 0) {
-          errMsg = errorJson.error.trim();
-        }
+        const decoded=backendError(errorJson,defaultMsg);errMsg=decoded.message;errDetails=decoded.details;errCode=decoded.code===null?null:String(decoded.code);
       } catch {
         // ignore json parse error on error response
       }
@@ -223,7 +192,7 @@ export async function fetchApi<T = any>(endpoint: string, options: FetchOptions 
 
     let envelope;
     try { envelope = await response.json(); } catch { throw new ApiError("contract", "The service returned an unreadable response."); }
-    if (!envelope || envelope.success !== true) throw new ApiError("contract", "The service did not confirm this action.");
+    if (!envelope || envelope.success !== true) {const decoded=backendError(envelope,"The service did not confirm this action.");throw new ApiError("contract",decoded.message,response.status,null,decoded.code,decoded.details,envelope);}
     return envelope as T;
   } catch (error) {
     if (error instanceof ApiError) { if (throwOnError) throw error; return null; }

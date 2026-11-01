@@ -59,10 +59,10 @@ export function BuyerAuthPage({ screen, audience: initialAudience = "buyer", ini
     // This hint affects navigation and copy only; authorization comes from the API.
     setAudience((screen === "recovery" || screen === "reset") && new URLSearchParams(window.location.search).get("audience") === "aggregator" ? "aggregator" : initialAudience);
   }, [screen, initialAudience]);
-  const loginHref = audience === "aggregator" ? "/preview/aggregator-login" : "/preview/buyer-login";
+  const loginHref = audience === "aggregator" ? "/login" : "/login";
   const audienceQuery = audience === "aggregator" ? "?audience=aggregator" : "";
-  const recoveryHref = `/preview/recovery${audienceQuery}`;
-  const resetHref = `/preview/buyer-reset${audienceQuery}`;
+  const recoveryHref = `/recovery${audienceQuery}`;
+  const resetHref = `/reset-password${audienceQuery}`;
   const router = useRouter();
   const [values, setValues] = useState<AuthValues>({ ...emptyValues });
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -112,7 +112,7 @@ export function BuyerAuthPage({ screen, audience: initialAudience = "buyer", ini
         const user = await signIn(values.email, values.password);
         setValues(current => ({ ...current, password: "" }));
         setSignedIn(true); setNotice("You are signed in. Your account session has been confirmed.");
-        const routes: Record<string,string> = {aggregator:"/preview/aggregator",buyer:variant === "compact"?"/preview/marketplace":"/preview/buyer",consumer:"/preview/marketplace",dealer:"/dealer/home",farmer:"/farmer",admin:"/preview/admin",super_admin:"/preview/admin",root:"/preview/admin"};
+        const routes: Record<string,string> = {aggregator:"/aggregator",buyer:variant === "compact"?"/":"/buyer/dashboard",consumer:"/",dealer:"/dealer/home",farmer:"/farmer",admin:"/admin",super_admin:"/admin",root:"/admin"};
         if (user.role && routes[user.role]) router.push(routes[user.role]);
       } else if (reset) {
         await resetPassword(method === "email" ? { email: values.email.trim() } : { phone: values.phone.replace(/[\s()-]/g, "") }, values.code, values.password);
@@ -158,11 +158,11 @@ export function BuyerAuthPage({ screen, audience: initialAudience = "buyer", ini
             {completed && <Link className="buyer-auth-check" href={loginHref}>Back to sign in</Link>}
             {signedIn && <><p className="buyer-auth-intro">Shopping and workspace services are still being prepared.</p><Button type="button" disabled={busy} onClick={async () => { setBusy(true); setFailure(""); try { await logout(); setSignedIn(false); setNotice("You have been signed out."); } catch(error) { setFailure(errorMessage(error)); } finally { setBusy(false); } }}>Sign out</Button></>}
           </form>
-          {register && completed && <OtpVerification loginHref="/preview/buyer-login" initialEmail={values.email} embedded />}
-          {register || login ? <><div className="buyer-auth-divider"><span>{login ? "Or continue with" : "Or sign up with"}</span></div><Button className="buyer-auth-google" variant="secondary" disabled aria-describedby="auth-preview"><picture><source media="(max-width: 767px)" srcSet={asset(register ? "004af.svg" : "b5051.svg")} /><img src={asset("b5051.svg")} alt="" className="buyer-auth-icon" /></picture>Continue with Google</Button></> : screen === "recovery" ? <Card className="buyer-auth-support"><Icon name="82d09.svg" /><p>If you no longer have access to your email or phone, <Link href="/preview/support">contact platform admin support</Link>.</p></Card> : <p className="buyer-auth-help">Having trouble? <Link href="/preview/support">Contact the security team</Link></p>}
-          <p className="buyer-auth-account-link">{login ? "Don’t have an account?" : register ? "Already have an account?" : "Remember your password?"} <Link href={login ? audience === "aggregator" ? "/preview/aggregator-register" : variant === "compact" ? "/preview/get-started" : "/preview/buyer-register" : loginHref}>{login ? audience === "aggregator" ? "Register as aggregator" : variant === "compact" ? "Create Consumer Account" : "Create Corporate Buyer Account" : "Log in"}</Link></p>
+          {register && completed && <OtpVerification loginHref="/login" initialEmail={values.email} embedded />}
+          {register || login ? <><div className="buyer-auth-divider"><span>{login ? "Or continue with" : "Or sign up with"}</span></div><Button className="buyer-auth-google" variant="secondary" disabled aria-describedby="auth-preview"><picture><source media="(max-width: 767px)" srcSet={asset(register ? "004af.svg" : "b5051.svg")} /><img src={asset("b5051.svg")} alt="" className="buyer-auth-icon" /></picture>Continue with Google</Button></> : screen === "recovery" ? <Card className="buyer-auth-support"><Icon name="82d09.svg" /><p>If you no longer have access to your email or phone, <Link href="/support">contact platform admin support</Link>.</p></Card> : <p className="buyer-auth-help">Having trouble? <Link href="/support">Contact the security team</Link></p>}
+          <p className="buyer-auth-account-link">{login ? "Don’t have an account?" : register ? "Already have an account?" : "Remember your password?"} <Link href={login ? audience === "aggregator" ? "/register/aggregator" : variant === "compact" ? "/register" : "/register/corporate" : loginHref}>{login ? audience === "aggregator" ? "Register as aggregator" : variant === "compact" ? "Create Consumer Account" : "Create Corporate Buyer Account" : "Log in"}</Link></p>
           {login && <p className="sr-only">Join Farmtry: <Link href="/dealer/register">Dealer registration</Link> · <Link href="/farmer/register">Farmer registration</Link></p>}
-          <nav className={login ? "sr-only" : "buyer-auth-preview-nav"} aria-label="Account pages"><span>Account pages</span>{!register && <Link href={audience === "aggregator" ? "/preview/aggregator-register" : "/preview/buyer-register"}>Sign up</Link>}{screen !== "recovery" && <Link href={recoveryHref}>Recovery</Link>}{!reset && <Link href={resetHref}>Password reset</Link>}</nav>
+          <nav className={login ? "sr-only" : "buyer-auth-preview-nav"} aria-label="Account pages"><span>Account pages</span>{!register && <Link href={audience === "aggregator" ? "/register/aggregator" : "/register/corporate"}>Sign up</Link>}{screen !== "recovery" && <Link href={recoveryHref}>Recovery</Link>}{!reset && <Link href={resetHref}>Password reset</Link>}</nav>
         </div>
         <p className="buyer-auth-footer">{login ? <><Icon name="c44c1.svg" /> Protected by enterprise-grade 256–bit encryption. Safe & verified.</> : register ? "Farmtry buyer registration" : "Farmtry account services"}</p>
       </section>

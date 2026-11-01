@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "results": [
+    "consumer registration submits and preserves server rejection/success",
+    "corporate registration submits and preserves server rejection/success",
+    "aggregator registration submits and preserves server rejection/success",
+    "consumer login → /",
+    "buyer login → /buyer/dashboard",
+    "corporate_buyer login → /buyer/dashboard",
+    "CorporateBuyer login → /buyer/dashboard",
+    "aggregator login → /aggregator",
+    "superadmin login → /admin",
+    "SUPER_ADMIN login → /admin",
+    "Super Admin login → /admin",
+    "backend-new-role login → /account",
+    "CB and Admin settings submit and only confirm backend success"
+  ],
+  "fullKycPreserved": true,
+  "legacyLinksCompatible": true,
+  "allServerErrorsShown": true,
+  "pageErrors": []
+}

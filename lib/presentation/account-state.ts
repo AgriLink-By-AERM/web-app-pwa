@@ -1,8 +1,9 @@
+import {normalizeAccountRole} from '@/lib/auth/account-role';
 import {currentSession} from '@/lib/api-client';
 import {logoutUser} from '@/lib/auth/auth';
 import {PRESENTATION_MODE,demoAccount,leaveDemo} from './mode';
-export type SignedAccount={role:string;email?:string;name?:string;phone?:string};
-export function signedAccount():SignedAccount|null{if(typeof window==='undefined')return null;if(PRESENTATION_MODE)return demoAccount();if(!currentSession())return null;try{return JSON.parse(sessionStorage.getItem('farmtry.account.identity')||'null');}catch{return null;}}
+export type SignedAccount={role:string;email?:string;name?:string;phone?:string;serverRole?:string};
+export function signedAccount():SignedAccount|null{if(typeof window==='undefined')return null;if(PRESENTATION_MODE)return demoAccount();if(!currentSession())return null;try{const account=JSON.parse(sessionStorage.getItem('farmtry.account.identity')||'null');return account?{...account,role:normalizeAccountRole(account.serverRole||account.role)}:null;}catch{return null;}}
 export function accountStorageKey(key:string){const account=signedAccount();return key+':'+encodeURIComponent((account?.role||'guest')+':'+(account?.email?.toLowerCase()||'preview'));}
 export function accountGet<T>(key:string,fallback:T):T{if(typeof window==='undefined'||!PRESENTATION_MODE)return fallback;try{const scoped=accountStorageKey(key);let saved=localStorage.getItem(scoped);if(saved===null){saved=sessionStorage.getItem(scoped);if(saved!==null){localStorage.setItem(scoped,saved);sessionStorage.removeItem(scoped);}}return JSON.parse(saved||'null')??fallback;}catch{return fallback;}}
 export function accountSet(key:string,value:unknown){if(!PRESENTATION_MODE||!signedAccount())return;localStorage.setItem(accountStorageKey(key),JSON.stringify(value));window.dispatchEvent(new Event('farmtry-account-data'));}

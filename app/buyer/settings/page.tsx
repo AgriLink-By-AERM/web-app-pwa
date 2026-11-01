@@ -1,4 +1,3 @@
-import {BuyerProfile} from "@/features/buyer-workspace/buyer-profile";
-import "@/features/buyer-workspace/buyer-workspace.css";
-import "@/features/buyer-workspace/buyer-profile.css";
-export default function Page(){return <BuyerProfile/>;}
+import PreviewPage,{generateMetadata as previewMetadata} from "@/app/preview/[page]/page";
+export function generateMetadata(){return previewMetadata({params:Promise.resolve({page:"buyer-profile"})});}
+export default function Page(){return <PreviewPage params={Promise.resolve({page:"buyer-profile"})}/>;}

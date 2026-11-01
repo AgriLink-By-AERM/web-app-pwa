@@ -1,17 +1,3 @@
-import { BuyerDesktopShell } from "@/features/buyer/components/buyer-desktop-shell";
-import { BuyerMatchesTable } from "@/features/buyer/components/buyer-matches-table";
-import { getAgroMatches } from "@/lib/buyer/store";
-
-export default async function BuyerMatchesPage() {
-  const matches = await getAgroMatches();
-
-  return (
-    <BuyerDesktopShell
-      active="matches"
-      subtitle="Scored supply batches matched against demand orders and logistics constraints."
-      title="Bulk Matches"
-    >
-      <BuyerMatchesTable matches={matches} />
-    </BuyerDesktopShell>
-  );
-}
+import PreviewPage,{generateMetadata as previewMetadata} from "@/app/preview/[page]/page";
+export function generateMetadata(){return previewMetadata({params:Promise.resolve({page:"buyer-match"})});}
+export default function Page(){return <PreviewPage params={Promise.resolve({page:"buyer-match"})}/>;}

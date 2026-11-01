@@ -1,3 +1,5 @@
+> Superseded where relevant by ../live-website-corrections-2026-11-01/README.md: registration, KYC and settings forms remain active and display backend responses. Buyer means Consumer; CB is a separate role.
+
 # Backend-controlled frontend handover — 1 November 2026
 
 The existing marketplace, account dropdown, Corporate Buyer sidebar/header and Aggregator desktop/mobile shell remain the UI. Presentation mode is now opt-in (NEXT_PUBLIC_PRESENTATION_MODE=true); normal builds use backend services. No browser registration, local activity, availability, KYC approval, fabricated payment or sample product fallback is accepted as a live record. Old local presentation accounts are not real accounts and are not uploaded.
@@ -33,3 +35,7 @@ No missing endpoint is guessed. Unsupported features show a service state inside
 - Existing 63 service contract/failure-path checks, 18 auth validation checks and cookie-proxy check.
 - scripts/test-backend-handover.cjs uses isolated API fixtures, not real account creation/order placement, to verify catalogue outage without examples, ignored demo identity, actual cart errors, stable order retry, server roles, current workspace shells and server KYC.
 - Live public catalogue connectivity is checked separately and is not certified by fixture tests.
+
+## KYC correction
+
+The KYC form is restored in full in live mode, not replaced with a service-unavailable card. Its fields stay visible while status errors and rejection reasons are read from the backend. Submission uses an explicitly configured backend-owned path; see ../kyc-restoration-2026-11-01/README.md and .env.example.

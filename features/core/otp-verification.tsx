@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { resendOtp, verifyOtp } from "@/lib/auth/auth";
 import { ApiError } from "@/lib/api-client";
 import { ActionError, CoreField, CoreShell, useCoreAction } from "./core-ui";
-export function OtpVerification({loginHref="/preview/aggregator-login",initialEmail="",embedded=false}:{loginHref?:string;initialEmail?:string;embedded?:boolean}) {
+export function OtpVerification({loginHref="/login",initialEmail="",embedded=false}:{loginHref?:string;initialEmail?:string;embedded?:boolean}) {
   const action = useCoreAction(); const [email, setEmail] = useState(initialEmail); const [code, setCode] = useState(""); const [done, setDone] = useState(false); const [sent, setSent] = useState(false); const [remaining, setRemaining] = useState(0); const until = useRef(0);
   useEffect(() => { if (!remaining) return; const interval = setInterval(() => setRemaining(Math.max(0, Math.ceil((until.current - Date.now()) / 1000))), 1000); return () => clearInterval(interval); }, [remaining > 0]);
   function cooldown(seconds: number) { until.current = Date.now() + seconds * 1000; setRemaining(seconds); }

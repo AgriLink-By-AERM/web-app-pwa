@@ -20,6 +20,7 @@ export interface AuthUser {
 export async function loginUser(emailOrPhone: string, password: string): Promise<AuthUser> {
   const result = await fetchApi<{
     success: boolean;
+    message?: string;
     data: { user: AuthUser; sessionId: string };
   }>('/auth/login', {
     method: 'POST',
@@ -28,7 +29,7 @@ export async function loginUser(emailOrPhone: string, password: string): Promise
     throwOnError: true,
   });
 
-  if (!result?.data?.user?.role || !result.data.sessionId) throw new ApiError("contract", "The service did not return a user and session reference.");
+  if (!result?.data?.user || typeof result.data.user!=="object" || typeof result.data.sessionId!=="string" || !result.data.sessionId.trim()) throw new ApiError("contract", result?.message||"The service did not return a user and session reference.");
   if (result.data.sessionId) {
     saveSession(result.data.sessionId);
   }

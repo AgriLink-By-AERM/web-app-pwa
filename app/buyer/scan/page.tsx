@@ -1,17 +1,3 @@
-import { BuyerDesktopShell } from "@/features/buyer/components/buyer-desktop-shell";
-import { QrDockScanner } from "@/features/buyer/components/qr-dock-scanner";
-import { getDeliveryManifests } from "@/lib/buyer/billing";
-
-export default async function BuyerScanPage() {
-  const manifests = await getDeliveryManifests();
-
-  return (
-    <BuyerDesktopShell
-      active="matches"
-      subtitle="Warehouse receiving dock tools for NIPOST manifest validation and goods-in intake."
-      title="Goods-In QR Scan"
-    >
-      <QrDockScanner manifests={manifests} />
-    </BuyerDesktopShell>
-  );
-}
+import PreviewPage,{generateMetadata as previewMetadata} from "@/app/preview/[page]/page";
+export function generateMetadata(){return previewMetadata({params:Promise.resolve({page:"buyer-scan"})});}
+export default function Page(){return <PreviewPage params={Promise.resolve({page:"buyer-scan"})}/>;}

@@ -93,10 +93,10 @@ const body = index => JSON.parse(calls[index ?? calls.length - 1].body);
     calls=[];handler=()=>failure(500);await assert.rejects(protectedWrite('/write',{body:{value:1}}));assert.equal(calls.length,1);
   });
 
-  await test('refresh rejection redirects once to the aggregator sign-in',async()=>{
+  await test('refresh rejection redirects once to the shared sign-in',async()=>{
     redirects=[];client.saveSession('expired');handler=()=>failure(401);
     await Promise.allSettled([protectedRead('/one'),protectedRead('/two')]);
-    assert.deepEqual(redirects,['/preview/aggregator-login/?expired=true']);assert.equal(client.currentSession(),null);
+    assert.deepEqual(redirects,['/login/?expired=true']);assert.equal(client.currentSession(),null);
   });
   await test('logout refreshes expired access and submits the current logout reference',async()=>{
     client.saveSession('old');let renewed=false;handler=url=>{if(url.endsWith('/auth/refresh-token')){renewed=true;return ok({sessionId:'renewed'});}return renewed?ok():failure(401);};

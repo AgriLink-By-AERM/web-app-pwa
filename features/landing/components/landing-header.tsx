@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FarmtryBrand } from "./farmtry-brand";
 
-function PublicLinks() { return <><Link href="/">Home</Link><Link href="/preview/marketplace">Marketplace</Link><a href="/#buyers">For Corporate Buyers</a><a href="/#aggregators">For Aggregators</a></>; }
+function PublicLinks() { return <><Link href="/">Home</Link><Link href="/">Marketplace</Link><a href="/#buyers">For Corporate Buyers</a><a href="/#aggregators">For Aggregators</a></>; }
 
 export function LandingHeader() {
   const [open, setOpen] = useState(false);

@@ -1,4 +1,6 @@
 "use client";
+import {BackendCorporate} from "@/features/backend/workspaces";
+import {PRESENTATION_MODE} from "@/lib/presentation/mode";
 import {DemoButton} from "@/features/account-access/demo-button";
 
 import Link from "next/link";
@@ -10,7 +12,7 @@ import { Card } from "@/components/ui/card";
 import { BuyerShell, Icon } from "./buyer-shell";
 export { BuyerShell, Icon } from "./buyer-shell";
 
-export function BuyerDashboard() {
+function BuyerDashboardPresentation() {
   return <BuyerShell screen="dashboard"><div className="buyer-work-title"><div><h1>Welcome <AccountName/> <span aria-hidden="true">👋</span></h1><p>Here is what is happening with your orders and deliveries today.</p></div><span className="buyer-work-date">Aug 25, 2026 · sample</span></div><div className="buyer-match-banner"><span className="buyer-match-icon"><Icon screen="dashboard" file="cb0aa"/></span><div><h2>2 New Matches Awaiting Your Confirmation <small>Action Required</small></h2><p>Maize Husks (1,200 kg from Adewale Farms, Oyo) &amp; Ripe Tomatoes (800 kg from Balogun Green Farms) have been matched to your sourcing criteria.</p></div><div className="buyer-match-actions"><DemoButton>Review &amp; Accept Matches (2)</DemoButton><DemoButton variant="secondary">View All Matches</DemoButton></div></div><div className="buyer-stat-grid">{[
     {icon:"30646",label:"Spent This Month",value:"₦2,450,000",detail:"+12% vs last month"},
     {icon:"70ef8",label:"Active Orders",value:"6",detail:"6 orders being delivered",action:"View Orders",href:"/preview/buyer-history"},
@@ -31,8 +33,12 @@ const orders=[
   {name:"Yellow Maize",buyer:"BigMart Ltd",date:"Aug 10, 2026",weight:"1,000 kg",amount:"₦620,000",status:"Completed",icon:"54522",color:"gold"},
 ];
 const filters=["All Orders","Completed","In Progress","Cancelled"];
-export function BuyerPurchaseHistory(){
+function BuyerPurchaseHistoryPresentation(){
   const [filter,setFilter]=useState("All Orders");
   const filtered=orders.filter(order=>filter==="All Orders"||order.status===filter);
   return <BuyerShell screen="history"><div className="buyer-work-title"><div><h1>Purchase History</h1><p>Track, audit, and download invoices for all completed and active farm procurements.</p></div><div className="buyer-history-exports"><DemoButton variant="secondary"><Icon screen="history" file="8f203"/>Export CSV</DemoButton><DemoButton><Icon screen="history" file="bc270"/>Download All Invoices</DemoButton></div></div><div className="buyer-history-stats"><Card><span>₦</span><div><h2>Total Purchases Spent</h2><strong>₦2,450,000</strong><small>↑ +12% from last cycle</small></div></Card><Card><span><Icon screen="history" file="f82b0"/></span><div><h2>Total Purchase Orders</h2><strong>24 Orders</strong><small>Across 6 verified farms</small></div></Card><Card><span><Icon screen="history" file="2b20b"/></span><div><h2>Delivery Fulfillment</h2><strong>98.2%</strong><small>Quality check passed on arrival</small></div></Card></div><Card className="buyer-history-list"><div className="buyer-history-filterbar"><div role="group" aria-label="Filter sample orders">{filters.map(value=><button key={value} aria-pressed={filter===value} onClick={()=>setFilter(value)}>{value}</button>)}</div><p role="status">Showing {filtered.length} sample {filtered.length===1?"transaction":"transactions"}</p></div><div className="buyer-order-list">{filtered.map(order=><article className={`buyer-order ${order.status==="In Progress"?"in-progress":""}`} key={order.name}><span className={`buyer-order-icon ${order.color}`}><Icon screen="history" file={order.icon}/></span><div className="buyer-order-description"><h2>{order.name}<small> • {order.buyer}</small></h2><p><Icon screen="history" file="798ba"/>{order.date} • {order.weight}</p></div><div className="buyer-order-price"><span className={order.status==="Completed"?"delivered":"pending"}>● {order.status==="Completed"?"Delivered":order.status}</span><strong>{order.amount}</strong></div><DemoButton variant="secondary" title="Order documents and tracking await the buyer API">{order.status==="Completed"?"View GRN":"Track Transit"}<Icon screen="history" file={order.status==="Completed"?"180e1":"5c75a"}/></DemoButton></article>)}{!filtered.length&&<div className="buyer-order-empty"><h2>No cancelled orders in this sample</h2><p>Select another filter to explore the example transactions.</p><Button variant="secondary" onClick={()=>setFilter("All Orders")}>Show all orders</Button></div>}</div><div className="buyer-history-pagination"><p>{filtered.length} of 4 available sample transactions · 24 shown in design summary</p><nav aria-label="Sample transaction pages"><DemoButton>Previous</DemoButton><DemoButton aria-current="page">1</DemoButton><DemoButton>2</DemoButton><DemoButton>3</DemoButton><DemoButton>Next</DemoButton></nav></div></Card><p className="buyer-work-service-note">Exports, invoices, goods-received notes and transit tracking are unavailable until the buyer API is connected. Only the four saved design examples are displayed.</p></BuyerShell>;
 }
+
+export function BuyerDashboard(){return PRESENTATION_MODE?<BuyerDashboardPresentation/>:<BackendCorporate screen="dashboard"/>;}
+
+export function BuyerPurchaseHistory(){return PRESENTATION_MODE?<BuyerPurchaseHistoryPresentation/>:<BackendCorporate screen="history"/>;}

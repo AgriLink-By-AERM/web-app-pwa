@@ -1,3 +1,6 @@
+import {BackendCheckout} from "@/features/backend/shopping";
+import {ServiceUnavailable} from "@/features/backend/service-ui";
+import {CommerceShell} from "@/features/commerce/commerce-shell";
 import {SharedLogin} from "@/features/buyer-auth/shared-login";
 import {ConsumerAccount,ConsumerOrders} from "@/features/commerce/consumer-account";
 import {AggregatorKyc,AggregatorProfile} from "@/features/aggregator-design/aggregator-kyc";
@@ -62,14 +65,16 @@ export default async function PreviewPage({ params }: { params: Promise<{ page: 
   const { page } = await params;
   if (!Object.prototype.hasOwnProperty.call(pageRequirements, page)) notFound();
   if(["login","buyer-login","buyer-login-compact","aggregator-login","aggregator-login-design","admin-login"].includes(page))return <SharedLogin/>;
+  if(!PRESENTATION_MODE&&["confirm-account","confirm-account-basic","confirm-account-summary"].includes(page))return <BackendCheckout/>;
+  if(!PRESENTATION_MODE&&page==="account-success")return <CommerceShell live><ServiceUnavailable name="Account registration"><p>No registration is confirmed on this page. Sign in to access your account.</p></ServiceUnavailable></CommerceShell>;
   if(page==="consumer-account")return <ConsumerAccount/>;
   if(page==="consumer-orders")return <ConsumerOrders/>;
   if(page==="aggregator-kyc"||page==="aggregator-register-design")return <AggregatorKyc/>;
   if(page==="aggregator-profile")return <AggregatorProfile/>;
   if(page==="aggregator-register")return <GetStarted initialRole="Aggregator"/>;
   if (Object.prototype.hasOwnProperty.call(aggregatorDesignPages, page)) return <AggregatorDesignPageView key={page} page={page as AggregatorDesignPage}/>;
-  if(PRESENTATION_MODE){
-    if(page==="admin-audit"||page==="admin-listings")return <PresentationRecords audit={page==="admin-audit"}/>;
+  if(true){
+    if(page==="admin-audit"||page==="admin-listings")return PRESENTATION_MODE?<PresentationRecords audit={page==="admin-audit"}/>:<AdminWorkspace screen="admin" servicePage={page}/>;
     if(page==="buyer-register")return <PresentationRegistration/>;
     if(Object.prototype.hasOwnProperty.call(adminPages,page))return <AdminWorkspace key={page} screen={page as AdminPage}/>;
     if(page==="buyer")return <BuyerDashboard/>;

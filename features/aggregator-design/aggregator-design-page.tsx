@@ -1,9 +1,13 @@
+import {BuyerAuthPage} from "@/features/buyer-auth/buyer-auth-page";
+import {OtpVerification} from "@/features/core/otp-verification";
+import {PRESENTATION_MODE} from "@/lib/presentation/mode";
+import {BackendAggregator} from "@/features/backend/workspaces";
 import type {AggregatorDesignPage} from './aggregator-design-data';
 import {AggregatorHomeDesign,AggregatorOverview,AggregatorVerifications,AggregatorFarmers,AggregatorFarmerDetail,AggregatorVerifiedHistory} from './aggregator-directory';
 import {AddFarmerIntro,FarmerRegistration,FarmerRegistrationExample,VerificationFlow,VerificationExample} from './aggregator-forms';
 import {AggregatorEarnings,AggregatorMatches,AggregatorMatchInformation,AggregatorDeliveryTicket} from './aggregator-fulfillment';
 import {AggregatorIntro,AggregatorSplash,AggregatorRegistrationDesign,AggregatorAccountDesign} from './aggregator-account';
-export function AggregatorDesignPageView({page}:{page:AggregatorDesignPage}){const view=page.replace('aggregator-','');
+export function AggregatorDesignPageView({page}:{page:AggregatorDesignPage}){const view=page.replace('aggregator-','');if(!PRESENTATION_MODE){if(view==='start')return <AggregatorSplash/>;if(view==='intro'||view==='intro-payouts'||view==='intro-tickets')return <AggregatorIntro initial={view==='intro-payouts'?1:view==='intro-tickets'?2:0}/>;if(view==='recovery-design'||view==='recovery-sms-design')return <BuyerAuthPage screen="recovery" initialMethod={view==='recovery-sms-design'?'sms':'email'}/>;if(view==='reset-design'||view==='reset-code-design'||view==='reset-sent-design')return <BuyerAuthPage screen="reset"/>;if(view==='phone-verification')return <OtpVerification/>;return <BackendAggregator page={view}/>;}
  switch(view){
  case 'start':return <AggregatorSplash/>;
  case 'intro':return <AggregatorIntro/>;

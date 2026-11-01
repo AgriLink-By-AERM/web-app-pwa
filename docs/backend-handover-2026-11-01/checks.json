@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "catalogueFromService": true,
+  "noDemoOnOutage": true,
+  "demoAccountIgnored": true,
+  "serverCartErrors": true,
+  "idempotentOrder": true,
+  "nativeWorkspaceShells": true,
+  "serverKycOnly": true,
+  "unavailableServicesHonest": true,
+  "pageErrors": []
+}

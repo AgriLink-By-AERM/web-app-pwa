@@ -1,8 +1,10 @@
 "use client";
 import Link from "next/link";
+import {PRESENTATION_MODE} from "@/lib/presentation/mode";
 import { usePathname } from "next/navigation";
 export function LegacyDemoNotice() {
   const path = usePathname();
+  if(!PRESENTATION_MODE)return null;
   if(path.startsWith("/admin/"))return null;
   if (["/admin","/admin/login","/admin/recovery","/admin/reset","/buyer/dashboard","/buyer/history","/buyer/settings","/dealer/home","/dealer/profile","/dealer/redeem","/dealer/redeem/confirm","/dealer/redeem/success","/dealer/history","/dealer/register"].includes(path.replace(/\/$/,""))) return null;
   if (!/^\/(aggregator|buyer|dealer|admin)(\/|$)/.test(path)) return null;

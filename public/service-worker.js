@@ -1,12 +1,12 @@
 /* eslint-disable no-restricted-globals */
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/7.1.0/workbox-sw.js");
 
-const CACHE_VERSION = "v2";
+const CACHE_VERSION = "v3-backend";
 const STATIC_CACHE = `agrilink-static-${CACHE_VERSION}`;
 const PAGE_CACHE = `agrilink-pages-${CACHE_VERSION}`;
 // Private responses and recovery URLs must never enter offline caches.
 self.addEventListener("activate", event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith("agrilink-api-") || key === "agrilink-pages-v1").map(key => caches.delete(key)))));
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith("agrilink-api-") || ((key.startsWith("agrilink-pages-") || key.startsWith("agrilink-static-")) && !key.endsWith(CACHE_VERSION))).map(key => caches.delete(key)))));
 });
 
 self.addEventListener("message", (event) => {

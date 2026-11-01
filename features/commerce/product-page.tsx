@@ -1,4 +1,6 @@
 "use client";
+import {BackendProduct} from "@/features/backend/shopping";
+import {PRESENTATION_MODE} from "@/lib/presentation/mode";
 import {DemoButton} from "@/features/account-access/demo-button";
 
 import Link from "next/link";
@@ -21,7 +23,7 @@ function CheckItem({ children }: { children: React.ReactNode }) {
   return <li><CommerceIcon file="c861a" mobile="4ef54" />{children}</li>;
 }
 
-export function ProductPage() {
+function ProductPagePresentation() {
   const [quantity, setQuantity] = useState(1);
   const [offer, setOffer] = useState(0);
   const [expanded, setExpanded] = useState(false);
@@ -51,3 +53,5 @@ export function ProductPage() {
     </Card>
   </main></CommerceShell>;
 }
+
+export function ProductPage(){return PRESENTATION_MODE?<ProductPagePresentation/>:<BackendProduct/>;}

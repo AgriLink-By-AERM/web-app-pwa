@@ -1,4 +1,6 @@
 "use client";
+import {BackendCorporate} from "@/features/backend/workspaces";
+import {PRESENTATION_MODE} from "@/lib/presentation/mode";
 import {DemoButton} from "@/features/account-access/demo-button";
 
 import Link from "next/link";
@@ -16,7 +18,7 @@ const notifications = [
   { id: "price", title: "Price update", category: "System", icon: "60366", tone: "orange", age: "2d ago", unread: false },
 ];
 
-export function BuyerNotifications() {
+function BuyerNotificationsPresentation() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("All");
   const [read, setRead] = useState(false);
   const [menu, setMenu] = useState(false);
@@ -38,3 +40,5 @@ export function BuyerNotifications() {
     <div className="buyer-notification-footer"><p>Showing saved sample notifications from the design</p><DemoButton>View Older Notifications</DemoButton></div><p className="buyer-work-service-note">Match actions, receipt confirmation, messages and notification history await their backend contracts.</p>
   </BuyerShell>;
 }
+
+export function BuyerNotifications(){return PRESENTATION_MODE?<BuyerNotificationsPresentation/>:<BackendCorporate screen="notifications"/>;}

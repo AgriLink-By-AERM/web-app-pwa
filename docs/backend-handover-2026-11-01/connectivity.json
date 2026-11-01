@@ -1,0 +1,22 @@
+{
+  "checked": "2026-11-01",
+  "initialAttempt": {
+    "proxy": 502,
+    "direct": "30-second timeout"
+  },
+  "finalDirectPublicCatalogue": 200,
+  "finalAppProxy": {
+    "done": true,
+    "status": 200,
+    "keys": [
+      "listings",
+      "total",
+      "page",
+      "limit"
+    ],
+    "total": 0
+  },
+  "status": "Live public catalogue reachable through the app; backend has zero listings",
+  "writesPerformed": 0,
+  "privateFlowsVerifiedWith": "isolated fixtures; no real login/account/order mutations"
+}

@@ -5,7 +5,7 @@
     "corporate registration submits and preserves server rejection/success",
     "aggregator registration submits and preserves server rejection/success",
     "consumer login → /",
-    "buyer login → /buyer/dashboard",
+    "buyer login → /",
     "corporate_buyer login → /buyer/dashboard",
     "CorporateBuyer login → /buyer/dashboard",
     "aggregator login → /aggregator",

@@ -9,6 +9,7 @@ import {useEffect,useRef,useState,createContext,useContext,type ReactNode,type M
 import {useRouter,usePathname} from "next/navigation";
 import {logoutUser} from "@/lib/auth/auth";
 import {currentSession,clearSession} from "@/lib/api-client";
+import {syncGuestCommerceToServer} from "@/lib/commerce/guest-store";
 
 const activeAccount=signedAccount;
 export type AccountKind="buyer"|"corporate"|"aggregator";
@@ -19,8 +20,9 @@ export function accountDestination(kind:string|undefined,target:string){const ur
 type Request={mode?:AccessMode;returnTo?:string;force?:boolean;onReady?:()=>void};
 const Access=createContext<{request:(options?:Request)=>void}>({request:()=>{}});
 export function useAccountAccess(){return useContext(Access);}
-export function AccountAccessProvider({children}:{children:ReactNode}){
- const router=useRouter(),dialog=useRef<HTMLDialogElement>(null),[pending,setPending]=useState<Request|null>(null),[mode,setMode]=useState<AccessMode>("login");
+ export function AccountAccessProvider({children}:{children:ReactNode}){
+  const router=useRouter(),dialog=useRef<HTMLDialogElement>(null),[pending,setPending]=useState<Request|null>(null),[mode,setMode]=useState<AccessMode>("login");
+  useEffect(()=>{const sync=()=>{void syncGuestCommerceToServer();};sync();window.addEventListener("farmtry-account-changed",sync);return()=>window.removeEventListener("farmtry-account-changed",sync);},[]);
  function request(options:Request={}){if(!options.force && (PRESENTATION_MODE?demoAccount():currentSession())){if(options.onReady)options.onReady();else router.push(accountDestination(activeAccount()?.role,options.returnTo||"/"));return;}setMode(options.mode||"login");setPending({...options,returnTo:safeReturnTo(options.returnTo||window.location.pathname+window.location.search)});}
  useEffect(()=>{if(pending&&!dialog.current?.open)dialog.current?.showModal();else if(!pending&&dialog.current?.open)dialog.current?.close();},[pending]);
  function choose(kind:AccountKind){const href=accountForm(kind,mode,kind==="aggregator"&&pending?.returnTo==="/buyer/settings"?"/aggregator":pending?.returnTo);setPending(null);router.push(href);}

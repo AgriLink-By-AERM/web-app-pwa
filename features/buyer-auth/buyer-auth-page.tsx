@@ -6,6 +6,9 @@ import { OtpVerification } from "@/features/core/otp-verification";
 import { useEffect, useRef, useState, type FormEvent, type InputHTMLAttributes, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { forgotPassword, login as signIn, logout, resetPassword } from "@/lib/auth/auth";
+import { normalizeAccountRole } from "@/lib/auth/account-role";
+import { accountDestination, safeReturnTo } from "@/features/account-access/account-access";
+import { syncGuestCommerceToServer } from "@/lib/commerce/guest-store";
 import { errorMessage, ApiError } from "@/lib/api-client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -110,10 +113,22 @@ export function BuyerAuthPage({ screen, audience: initialAudience = "buyer", ini
         setNotice("Account created. Verify your email before signing in.");
       } else if (login) {
         const user = await signIn(values.email, values.password);
+        const name = [user.firstName, user.lastName].filter(Boolean).join(" ").trim() || undefined;
+        sessionStorage.setItem("farmtry.account.identity", JSON.stringify({
+          role: normalizeAccountRole(user.role),
+          serverRole: user.role,
+          email: user.email || values.email.trim(),
+          phone: user.phone,
+          name,
+        }));
+        window.dispatchEvent(new Event("farmtry-account-changed"));
+        await syncGuestCommerceToServer();
         setValues(current => ({ ...current, password: "" }));
         setSignedIn(true); setNotice("You are signed in. Your account session has been confirmed.");
         const routes: Record<string,string> = {aggregator:"/aggregator",buyer:variant === "compact"?"/":"/buyer/dashboard",consumer:"/",dealer:"/dealer/home",farmer:"/farmer",admin:"/admin",super_admin:"/admin",root:"/admin"};
-        if (user.role && routes[user.role]) router.push(routes[user.role]);
+        const rawReturnTo = new URLSearchParams(window.location.search).get("returnTo");
+        const target = rawReturnTo ? accountDestination(user.role, safeReturnTo(rawReturnTo)) : (user.role && routes[user.role]);
+        if (target) router.push(target);
       } else if (reset) {
         await resetPassword(method === "email" ? { email: values.email.trim() } : { phone: values.phone.replace(/[\s()-]/g, "") }, values.code, values.password);
         setValues({ ...emptyValues }); setCompleted(true);

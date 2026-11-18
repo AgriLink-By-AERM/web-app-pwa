@@ -116,7 +116,8 @@ export type NigerianZone =
 export type AggregatorVerificationStatus = "draft" | "pending_verification" | "approved" | "rejected";
 
 export type AggregatorRegistrationPayload = {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   phoneNumber: string;
   governmentIdNumber: string;
   guarantorPhoneNumber: string;
@@ -150,7 +151,7 @@ export type AggregatorLogSummary = {
 };
 
 export type AggregatorDashboardData = {
-  profile: Pick<AggregatorProfile, "fullName" | "phoneNumber" | "zone" | "performanceScore"> & {
+  profile: Pick<AggregatorProfile, "firstName" | "lastName" | "phoneNumber" | "zone" | "performanceScore"> & {
     cashFloatBalance: number;
     premiumTier: "Starter" | "Trusted" | "Premium";
   };

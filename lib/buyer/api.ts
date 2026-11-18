@@ -1,7 +1,8 @@
 import { fetchApi, ApiError } from "@/lib/api-client";
 import { record, string } from "@/lib/api-validation";
 export type BuyerRegistration = {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   phone: string;

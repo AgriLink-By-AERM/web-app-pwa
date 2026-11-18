@@ -17,7 +17,7 @@ import { registerAggregator } from "@/lib/aggregator/api";
 import type { AggregatorRegistrationResult } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-type TextFieldName = "fullName" | "phoneNumber" | "governmentIdNumber" | "guarantorPhoneNumber";
+type TextFieldName = "firstName" | "lastName" | "phoneNumber" | "governmentIdNumber" | "guarantorPhoneNumber";
 
 export function AggregatorRegistrationForm() {
   const router = useRouter();
@@ -29,7 +29,8 @@ export function AggregatorRegistrationForm() {
 
   const isComplete = useMemo(() => {
     return (
-      form.fullName.trim().length > 0 &&
+      form.firstName.trim().length > 0 &&
+      form.lastName.trim().length > 0 &&
       form.phoneNumber.trim().length > 0 &&
       form.governmentIdNumber.trim().length > 0 &&
       form.guarantorPhoneNumber.trim().length > 0 &&
@@ -95,7 +96,9 @@ export function AggregatorRegistrationForm() {
             <div className="mt-6 rounded-lg border border-[#E5DDD4] bg-[#FAF7F2] p-4">
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-sm font-bold">{result.profile.fullName}</p>
+                  <p className="text-sm font-bold">
+                    {[result.profile.firstName, result.profile.lastName].filter(Boolean).join(" ")}
+                  </p>
                   <p className="mt-1 text-xs text-[#7F6A5B]">{result.profile.zone}</p>
                 </div>
                 <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800">
@@ -157,14 +160,24 @@ export function AggregatorRegistrationForm() {
               <div className="rounded-lg border border-[#E5DDD4] bg-white p-4 shadow-panel">
                 <SectionLabel>Personal details</SectionLabel>
                 <TextInput
-                  autoComplete="name"
-                  error={errors.fullName}
+                  autoComplete="given-name"
+                  error={errors.firstName}
                   icon={User}
-                  label="Full name"
-                  name="fullName"
-                  onChange={(value) => updateTextField("fullName", value)}
-                  placeholder="e.g. Amina Yusuf"
-                  value={form.fullName}
+                  label="First name"
+                  name="firstName"
+                  onChange={(value) => updateTextField("firstName", value)}
+                  placeholder="e.g. Amina"
+                  value={form.firstName}
+                />
+                <TextInput
+                  autoComplete="family-name"
+                  error={errors.lastName}
+                  icon={User}
+                  label="Last name"
+                  name="lastName"
+                  onChange={(value) => updateTextField("lastName", value)}
+                  placeholder="e.g. Yusuf"
+                  value={form.lastName}
                 />
                 <TextInput
                   autoComplete="tel"

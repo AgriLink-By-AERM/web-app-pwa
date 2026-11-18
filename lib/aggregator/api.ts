@@ -3,7 +3,8 @@ import { fetchApi, ApiError } from "@/lib/api-client";
 import type { AggregatorProfile, AggregatorRegistrationPayload, AggregatorRegistrationResult } from "@/lib/types";
 
 export type AggregatorRegistration = {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   phone?: string;
@@ -40,7 +41,8 @@ export type LogRecord = LogInput & {
 export type Dashboard = {
   profile: {
     id: string;
-    fullName: string;
+    firstName: string;
+    lastName: string;
     email: string;
     phone: string;
     zone: string;
@@ -109,7 +111,8 @@ export async function registerAggregator(
     verificationStatus: "pending_verification",
     submittedAt: new Date().toISOString(),
     performanceScore: 0,
-    fullName: backendPayload.fullName,
+    firstName: backendPayload.firstName,
+    lastName: backendPayload.lastName,
     phoneNumber: backendPayload.phone || "",
     governmentIdNumber: backendPayload.governmentIdNumber || "",
     guarantorPhoneNumber: (backendPayload as any).guarantorPhone || "",
@@ -196,7 +199,7 @@ export function decodeLog(value: unknown): LogRecord {
 }
 export function decodeDashboard(value: unknown) {
   const d = record(value), p = record(d.profile), s = record(d.stats);
-  return { profile: { id: string(p.id), fullName: string(p.fullName), email: string(p.email), phone: string(p.phone), zone: string(p.zone), kycStatus: oneOf(p.kycStatus, ["pending", "approved", "rejected"] as const) }, stats: { totalLogs: number(s.totalLogs), pendingLogs: number(s.pendingLogs), verifiedLogs: number(s.verifiedLogs), totalWeightKg: number(s.totalWeightKg), openDisputes: number(s.openDisputes) }, recentLogs: array(d.recentLogs, decodeLog) };
+  return { profile: { id: string(p.id), firstName: typeof p.firstName === "string" ? p.firstName : "", lastName: typeof p.lastName === "string" ? p.lastName : "", email: string(p.email), phone: typeof p.phone === "string" ? p.phone : "", zone: string(p.zone), kycStatus: oneOf(p.kycStatus, ["pending", "approved", "rejected"] as const) }, stats: { totalLogs: number(s.totalLogs), pendingLogs: number(s.pendingLogs), verifiedLogs: number(s.verifiedLogs), totalWeightKg: number(s.totalWeightKg), openDisputes: number(s.openDisputes) }, recentLogs: array(d.recentLogs, decodeLog) };
 }
 export function decodeStatus(value: unknown) { const d = record(value); return { kycStatus: oneOf(d.kycStatus, ["pending", "approved", "rejected"] as const), rejectionReason: d.rejectionReason == null ? undefined : string(d.rejectionReason), reviewSteps: array(d.reviewSteps, item => { const step = record(item); if (typeof step.done !== "boolean") throw new ApiError("contract", "The service returned an invalid review step."); return { label: string(step.label), done: step.done }; }) }; }
 export function decodeLogs(value: unknown) { const d = record(value); return { logs: array(d.logs, decodeLog), total: number(d.total), page: number(d.page), limit: number(d.limit) }; }

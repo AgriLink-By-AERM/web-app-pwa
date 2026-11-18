@@ -3,7 +3,7 @@ import { fetchApi } from "@/lib/api-client";
 
 export type AggregatorVerificationSummary = Pick<
   AggregatorProfile,
-  "fullName" | "phoneNumber" | "zone" | "verificationStatus" | "submittedAt"
+  "firstName" | "lastName" | "phoneNumber" | "zone" | "verificationStatus" | "submittedAt"
 > & {
   referenceNumber: string;
   reviewSteps: VerificationStep[];
@@ -22,8 +22,12 @@ export async function getAggregatorVerificationSummary(): Promise<AggregatorVeri
   const data = (response as any)?.data ?? response;
 
   if (data && typeof data === "object") {
+    const nameParts = typeof data.name === "string" ? data.name.trim().split(/\s+/) : [];
+    const fallbackLast =
+      nameParts.length > 1 ? nameParts.slice(1).join(" ") : undefined;
     return {
-      fullName: data.fullName ?? data.name ?? fallbackVerificationSummary.fullName,
+      firstName: data.firstName ?? nameParts[0] ?? fallbackVerificationSummary.firstName,
+      lastName: data.lastName ?? fallbackLast ?? fallbackVerificationSummary.lastName,
       phoneNumber: data.phoneNumber ?? data.phone ?? fallbackVerificationSummary.phoneNumber,
       zone: data.zone ?? fallbackVerificationSummary.zone,
       verificationStatus: data.verificationStatus ?? data.status ?? fallbackVerificationSummary.verificationStatus,
@@ -38,7 +42,8 @@ export async function getAggregatorVerificationSummary(): Promise<AggregatorVeri
 }
 
 const fallbackVerificationSummary: AggregatorVerificationSummary = {
-    fullName: "Amina Yusuf",
+    firstName: "Amina",
+    lastName: "Yusuf",
     phoneNumber: "08031234567",
     zone: "Kano - Tarauni LGA",
     verificationStatus: "pending_verification",
@@ -49,7 +54,7 @@ const fallbackVerificationSummary: AggregatorVerificationSummary = {
       {
         id: "identity",
         title: "Identity details received",
-        description: "Full name, phone number, and government ID number were captured.",
+        description: "First name, last name, phone number, and government ID number were captured.",
         status: "complete"
       },
       {

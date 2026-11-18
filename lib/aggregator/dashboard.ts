@@ -10,10 +10,21 @@ export async function getAggregatorDashboardData(): Promise<AggregatorDashboardD
 
   if (data) {
     const logs = Array.isArray(data.recentLogs) ? data.recentLogs : await getAggregatorLogs("all");
+    const nameParts =
+      typeof data.profile?.name === "string" ? data.profile.name.trim().split(/\s+/) : [];
+    const fallbackLast =
+      nameParts.length > 1 ? nameParts.slice(1).join(" ") : undefined;
 
     return {
       profile: {
-        fullName: asString(data.profile?.fullName ?? data.profile?.name ?? data.fullName, fallbackAggregatorDashboard.profile.fullName),
+        firstName: asString(
+          data.profile?.firstName ?? data.firstName ?? nameParts[0],
+          fallbackAggregatorDashboard.profile.firstName
+        ),
+        lastName: asString(
+          data.profile?.lastName ?? data.lastName ?? fallbackLast,
+          fallbackAggregatorDashboard.profile.lastName
+        ),
         phoneNumber: asString(data.profile?.phoneNumber ?? data.profile?.phone ?? data.phoneNumber, fallbackAggregatorDashboard.profile.phoneNumber),
         zone: normalizeZone(data.profile?.zone ?? data.zone),
         performanceScore: asNumber(data.profile?.performanceScore ?? data.performanceScore, fallbackAggregatorDashboard.profile.performanceScore),
@@ -45,7 +56,8 @@ export async function getAggregatorDashboardData(): Promise<AggregatorDashboardD
 
 const fallbackAggregatorDashboard: AggregatorDashboardData = {
     profile: {
-      fullName: "Amina Yusuf",
+      firstName: "Amina",
+      lastName: "Yusuf",
       phoneNumber: "08031234567",
       zone: "Kano - Tarauni LGA",
       performanceScore: 86,

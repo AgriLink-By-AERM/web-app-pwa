@@ -24,7 +24,9 @@ export default async function AggregatorPendingVerificationPage() {
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <h2 className="text-lg font-extrabold">{summary.fullName}</h2>
+                <h2 className="text-lg font-extrabold">
+                  {[summary.firstName, summary.lastName].filter(Boolean).join(" ")}
+                </h2>
                 <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800">
                   Pending
                 </span>

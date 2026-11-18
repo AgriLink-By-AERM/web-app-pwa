@@ -9,7 +9,8 @@ import {
 export interface AuthUser {
   id?: string;
   _id?: string;
-  fullName?: string;
+  firstName?: string;
+  lastName?: string;
   email?: string;
   phone?: string;
   role?: string;

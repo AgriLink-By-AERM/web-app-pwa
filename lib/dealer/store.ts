@@ -405,7 +405,15 @@ function toDealerProfile(data: Record<string, any>): DealerProfile {
     id: asString(data.id ?? data._id ?? data.dealerId, dealerProfile.id),
     shopName: asString(data.shopName ?? data.businessName ?? data.name, dealerProfile.shopName),
     dealerCode: asString(data.dealerCode ?? data.code, dealerProfile.dealerCode),
-    ownerName: asString(data.ownerName ?? data.contactName ?? data.fullName, dealerProfile.ownerName),
+    ownerName: asString(
+      data.ownerName ??
+        data.contactName ??
+        ([data.firstName, data.lastName]
+          .filter((v): v is string => typeof v === "string" && v.trim().length > 0)
+          .join(" ") ||
+          undefined),
+      dealerProfile.ownerName
+    ),
     phoneNumber: asString(data.phoneNumber ?? data.phone, dealerProfile.phoneNumber),
     location: asString(data.location ?? data.address ?? data.zone, dealerProfile.location),
     verificationStatus: data.verificationStatus === "pending" ? "pending" : "verified",

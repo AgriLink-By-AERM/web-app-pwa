@@ -17,7 +17,9 @@ export default async function AggregatorHomePage() {
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-white/45">Aggregator Home</p>
           <div className="mt-4 flex items-start justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-extrabold tracking-tight">{data.profile.fullName}</h1>
+              <h1 className="text-2xl font-extrabold tracking-tight">
+                {[data.profile.firstName, data.profile.lastName].filter(Boolean).join(" ")}
+              </h1>
               <p className="mt-1 flex items-center gap-1.5 text-sm text-white/60">
                 <MapPin className="h-4 w-4" />
                 {data.profile.zone}

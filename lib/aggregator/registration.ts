@@ -10,7 +10,8 @@ export const aggregatorZones: NigerianZone[] = [
 ];
 
 export type AggregatorRegistrationFormState = {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   phoneNumber: string;
   governmentIdNumber: string;
   guarantorPhoneNumber: string;
@@ -21,7 +22,8 @@ export type AggregatorRegistrationFormState = {
 export type AggregatorRegistrationErrors = Partial<Record<keyof AggregatorRegistrationFormState, string>>;
 
 export const initialAggregatorRegistrationForm: AggregatorRegistrationFormState = {
-  fullName: "",
+  firstName: "",
+  lastName: "",
   phoneNumber: "",
   governmentIdNumber: "",
   guarantorPhoneNumber: "",
@@ -36,8 +38,12 @@ export function validateAggregatorRegistration(
 ): AggregatorRegistrationErrors {
   const errors: AggregatorRegistrationErrors = {};
 
-  if (form.fullName.trim().length < 3) {
-    errors.fullName = "Enter the aggregator's full legal name.";
+  if (form.firstName.trim().length < 2) {
+    errors.firstName = "Enter the aggregator's first name.";
+  }
+
+  if (form.lastName.trim().length < 2) {
+    errors.lastName = "Enter the aggregator's last name.";
   }
 
   if (!nigerianPhonePattern.test(normalizePhoneInput(form.phoneNumber))) {
@@ -79,7 +85,8 @@ export function toAggregatorRegistrationPayload(
   }
 
   return {
-    fullName: form.fullName.trim(),
+    firstName: form.firstName.trim(),
+    lastName: form.lastName.trim(),
     phoneNumber: normalizePhoneInput(form.phoneNumber),
     governmentIdNumber: form.governmentIdNumber.trim().toUpperCase(),
     guarantorPhoneNumber: normalizePhoneInput(form.guarantorPhoneNumber),
